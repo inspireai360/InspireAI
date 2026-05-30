@@ -270,7 +270,7 @@ export default function AutomatizacionProcesos() {
             {[
               { href:"/consultoria-ia-empresas", label:"Consultoría IA para empresas" },
               { href:"/ciberseguridad-ia-empresas", label:"Ciberseguridad IA" },
-              { href:"/formacion-ia-equipos", label:"Formación IA para equipos" },
+              { href:"/formacion-ia-equipos", label:"CRM personalizado" },
             ].map((l) => (
               <Link key={l.href} href={l.href} className="rounded-xl px-4 py-3 text-sm font-medium text-center transition-colors"
                 style={{ background: "#0D0E1F", border: "1px solid rgba(255,255,255,0.07)", color: "rgba(255,255,255,0.55)" }}>
