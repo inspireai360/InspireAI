@@ -1,22 +1,24 @@
 import { createClient } from "@supabase/supabase-js";
 
-function getRequiredEnv(name: string, fallback?: string): string {
-  const value = process.env[name] || fallback;
-  if (!value) {
-    throw new Error(`Environment variable ${name} is required but was not provided.`);
+let _client: ReturnType<typeof createClient> | null = null;
+
+// Cliente lazy — se crea en el primer uso, no al importar el módulo
+export function getSupabaseAdmin() {
+  if (_client) return _client;
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key = process.env.SUPABASE_SERVICE_KEY;
+  if (!url || !key) {
+    throw new Error("NEXT_PUBLIC_SUPABASE_URL y SUPABASE_SERVICE_KEY son requeridas.");
   }
-  return value;
+  _client = createClient(url, key, { auth: { persistSession: false, autoRefreshToken: false } });
+  return _client;
 }
 
-const SUPABASE_URL = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL;
-const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_KEY;
-
-// Cliente con service key — solo para uso server-side (API routes).
-// Bypasses RLS para poder insertar desde la web sin auth de usuario.
-export const supabaseAdmin = createClient(
-  getRequiredEnv("SUPABASE_URL", process.env.NEXT_PUBLIC_SUPABASE_URL),
-  getRequiredEnv("SUPABASE_SERVICE_KEY"),
-  { auth: { persistSession: false, autoRefreshToken: false } }
-);
+// Alias para compatibilidad con el código existente
+export const supabaseAdmin = new Proxy({} as ReturnType<typeof createClient>, {
+  get(_target, prop) {
+    return (getSupabaseAdmin() as any)[prop];
+  },
+});
 
 export const ADMIN_USER_ID = "bb933d46-5dbb-488c-8090-3e7e42ddd562";
