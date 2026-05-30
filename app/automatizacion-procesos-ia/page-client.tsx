@@ -23,8 +23,8 @@ export default function AutomatizacionProcesos() {
             </motion.div>
             <motion.h1 variants={fadeUp} className="font-heading font-bold text-white mb-6"
               style={{ fontSize: "clamp(2rem,5vw,3.5rem)", lineHeight: 1.1, letterSpacing: "-0.02em" }}>
-              Tu equipo pierde horas en tareas<br />
-              <span style={{ color: "#E8A24F" }}>que ya pueden hacerse solas</span>
+              Lo que hoy hace tu equipo a mano,<br />
+              <span style={{ color: "#E8A24F" }}>mañana puede hacerse solo.</span>
             </motion.h1>
             <motion.p variants={fadeUp} className="text-lg mb-8 max-w-2xl" style={{ color: "rgba(255,255,255,0.6)", lineHeight: 1.7 }}>
               Pedidos por WhatsApp que nadie pasa al sistema. Facturas que se generan a mano.
