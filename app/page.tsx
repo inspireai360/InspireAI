@@ -688,18 +688,116 @@ export default function LandingPage() {
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.1 }} variants={stagger}
             className="grid gap-4 grid-cols-1 md:grid-cols-2">
 
-            {/* CRM pipeline screenshot */}
+            {/* Notion deliverable mockup */}
             <motion.div variants={fadeInUp} className="rounded-2xl overflow-hidden"
-              style={{ background: "#0D0E1F", border: "1px solid rgba(255,255,255,0.07)" }}>
-              <div className="flex items-center gap-2 px-4 py-3 border-b" style={{ background: "#111122", borderColor: "rgba(255,255,255,0.06)" }}>
+              style={{ background: "#191919", border: "1px solid rgba(255,255,255,0.1)" }}>
+              {/* Notion top bar */}
+              <div className="flex items-center gap-2 px-4 py-2.5 border-b" style={{ background: "#191919", borderColor: "rgba(255,255,255,0.06)" }}>
                 <div className="flex gap-1.5">
                   <div className="w-2.5 h-2.5 rounded-full" style={{ background: "#E86F6F" }} />
                   <div className="w-2.5 h-2.5 rounded-full" style={{ background: "#E8A24F" }} />
                   <div className="w-2.5 h-2.5 rounded-full" style={{ background: "#3FB984" }} />
                 </div>
-                <span className="text-xs ml-2" style={{ color: "rgba(255,255,255,0.3)" }}>Informe de diagnóstico · 4 áreas auditadas</span>
+                <div className="flex-1 flex items-center justify-center gap-2 text-xs" style={{ color: "rgba(255,255,255,0.25)" }}>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 12h6M9 16h6M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2z"/></svg>
+                  notion.so / Inspire Cyber 360 — [Tu empresa]
+                </div>
+                <div className="flex items-center gap-1.5">
+                  {["LM","TI","ME"].map((i) => (
+                    <div key={i} className="w-5 h-5 rounded-full grid place-items-center text-[9px] font-bold" style={{ background: "rgba(91,98,244,0.4)", color: "#fff", border: "1.5px solid #191919" }}>{i}</div>
+                  ))}
+                </div>
               </div>
-              <img src="/crm-diagnosticos.png" alt="Diagnóstico InspireAI" className="w-full" style={{ display: "block", objectFit: "cover", objectPosition: "top" }} />
+
+              {/* Notion layout — sidebar + content */}
+              <div className="flex" style={{ minHeight: "360px" }}>
+                {/* Sidebar */}
+                <div className="hidden md:flex flex-col w-48 flex-shrink-0 py-3 border-r" style={{ background: "#171717", borderColor: "rgba(255,255,255,0.05)" }}>
+                  <div className="px-3 mb-2">
+                    <div className="flex items-center gap-2 px-2 py-1 rounded text-xs font-semibold" style={{ color: "rgba(255,255,255,0.7)" }}>
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+                      Inspire Cyber 360
+                    </div>
+                  </div>
+                  {[
+                    { icon: "📢", label: "01 · Auditorías", active: false },
+                    { icon: "⚡", label: "02 · Mapa IA", active: false },
+                    { icon: "🔒", label: "03 · Seguridad", active: true },
+                    { icon: "🗺️", label: "04 · Roadmap", active: false },
+                    { icon: "📋", label: "Resumen ejecutivo", active: false },
+                  ].map((item) => (
+                    <div key={item.label} className="flex items-center gap-2 mx-2 px-2 py-1.5 rounded text-xs"
+                      style={{ background: item.active ? "rgba(91,98,244,0.15)" : "transparent", color: item.active ? "rgba(255,255,255,0.85)" : "rgba(255,255,255,0.4)" }}>
+                      <span>{item.icon}</span>
+                      <span>{item.label}</span>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Main content */}
+                <div className="flex-1 p-5 overflow-hidden">
+                  {/* Breadcrumb */}
+                  <div className="flex items-center gap-1.5 text-xs mb-4" style={{ color: "rgba(255,255,255,0.3)" }}>
+                    <span>Inspire Cyber 360</span>
+                    <span>/</span>
+                    <span style={{ color: "rgba(255,255,255,0.6)" }}>03 · Estudio de Seguridad</span>
+                  </div>
+
+                  {/* Page title */}
+                  <div className="flex items-center gap-3 mb-5">
+                    <span className="text-2xl">🔒</span>
+                    <h3 className="text-lg font-bold text-white">Estudio de Vulnerabilidades</h3>
+                  </div>
+
+                  {/* Summary callout */}
+                  <div className="rounded-lg px-4 py-3 mb-4 flex items-start gap-3" style={{ background: "rgba(232,111,111,0.1)", border: "1px solid rgba(232,111,111,0.25)" }}>
+                    <span className="text-sm flex-shrink-0 mt-0.5">⚠️</span>
+                    <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.65)" }}>
+                      <strong style={{ color: "rgba(255,255,255,0.85)" }}>Riesgo global: Medio-Alto.</strong> Se han detectado 3 vulnerabilidades críticas y 7 de nivel medio en el análisis de integraciones actuales.
+                    </p>
+                  </div>
+
+                  {/* Risk table */}
+                  <div className="rounded-lg overflow-hidden mb-4" style={{ border: "1px solid rgba(255,255,255,0.07)" }}>
+                    <div className="grid grid-cols-3 px-3 py-2 text-xs font-semibold" style={{ background: "rgba(255,255,255,0.04)", color: "rgba(255,255,255,0.4)", letterSpacing: "0.05em" }}>
+                      <span>VULNERABILIDAD</span>
+                      <span className="text-center">NIVEL</span>
+                      <span className="text-right">ESTADO</span>
+                    </div>
+                    {[
+                      ["Datos sin cifrar en tránsito", "#E86F6F", "Alta", "Mitigar inmediato"],
+                      ["APIs sin autenticación", "#E8A24F", "Media", "Revisar en 30d"],
+                      ["Backups sin verificar", "#E8A24F", "Media", "Programar auditoría"],
+                      ["RGPD — consentimientos", "#3FB984", "Baja", "Documentado ✓"],
+                    ].map(([vuln, color, level, status]) => (
+                      <div key={vuln as string} className="grid grid-cols-3 px-3 py-2.5 items-center border-t" style={{ borderColor: "rgba(255,255,255,0.05)" }}>
+                        <span className="text-xs" style={{ color: "rgba(255,255,255,0.65)" }}>{vuln}</span>
+                        <span className="text-center">
+                          <span className="text-xs px-2 py-0.5 rounded-full font-medium" style={{ background: `${color}18`, color: color as string, border: `1px solid ${color}30` }}>{level}</span>
+                        </span>
+                        <span className="text-right text-xs" style={{ color: "rgba(255,255,255,0.4)" }}>{status}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Next steps */}
+                  <div className="text-xs font-semibold mb-2" style={{ color: "rgba(255,255,255,0.4)", letterSpacing: "0.08em", textTransform: "uppercase" }}>Plan de acción</div>
+                  <div className="flex flex-col gap-1.5">
+                    {[
+                      ["Implementar HTTPS + TLS en todas las integraciones", true],
+                      ["Añadir API keys con rotación automática", true],
+                      ["Configurar backup verificado semanal", false],
+                    ].map(([task, done]) => (
+                      <div key={task as string} className="flex items-center gap-2 text-xs" style={{ color: done ? "rgba(255,255,255,0.35)" : "rgba(255,255,255,0.6)" }}>
+                        <div className="w-4 h-4 rounded flex-shrink-0 grid place-items-center" style={{ background: done ? "rgba(63,185,132,0.2)" : "rgba(255,255,255,0.05)", border: `1px solid ${done ? "rgba(63,185,132,0.4)" : "rgba(255,255,255,0.12)"}` }}>
+                          {done && <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="#3FB984" strokeWidth="3"><path d="m5 12 5 5 9-11"/></svg>}
+                        </div>
+                        <span style={{ textDecoration: done ? "line-through" : "none" }}>{task}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
             </motion.div>
 
             {/* 4 deliverables grid */}
