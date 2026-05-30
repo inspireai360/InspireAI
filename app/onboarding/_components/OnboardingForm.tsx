@@ -417,7 +417,7 @@ export default function OnboardingForm({
     return (
       <div
         className="min-h-screen flex flex-col items-center justify-center px-6"
-        style={{ background: "#09090B" }}
+        style={{ background: "#08091A" }}
       >
         <div
           className="w-full max-w-md p-10 text-center"
@@ -478,14 +478,23 @@ export default function OnboardingForm({
   // ── Form ────────────────────────────────────────────────────────────────────
 
   return (
-    <div className="min-h-screen" style={{ background: "#09090B" }}>
+    <div className="min-h-screen" style={{ background: "#08091A" }}>
+      {/* Dot grid background */}
+      <div className="fixed inset-0 pointer-events-none" style={{
+        backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px)",
+        backgroundSize: "28px 28px",
+      }} />
+      <div className="fixed inset-0 pointer-events-none" style={{
+        background: "radial-gradient(ellipse 80% 40% at 50% -10%, rgba(91,98,244,0.15) 0%, transparent 70%)",
+      }} />
+
       {/* Header */}
       <header
         className="sticky top-0 z-50 py-4 border-b"
         style={{
-          background: "rgba(9,9,11,0.9)",
-          backdropFilter: "blur(16px)",
-          borderColor: "rgba(255,255,255,0.05)",
+          background: "rgba(8,9,26,0.85)",
+          backdropFilter: "blur(20px)",
+          borderColor: "rgba(255,255,255,0.06)",
         }}
       >
         <div className="mx-auto px-6 max-w-3xl flex items-center justify-between">
@@ -501,12 +510,13 @@ export default function OnboardingForm({
             <ArrowLeft className="w-4 h-4" />
             Volver
           </Link>
-          <span
-            className="font-orbitron font-bold tracking-[0.05em] text-white"
-            style={{ fontSize: "1rem" }}
-          >
-            INSPIRE<span style={{ color: "#818CF8" }}>AI</span>
-          </span>
+          <div className="flex items-center gap-2.5">
+            <img src="/logo.png" alt="InspireAI" width={28} height={28}
+              style={{ width: 28, height: 28, borderRadius: "50%", objectFit: "cover" }} />
+            <span className="font-orbitron font-bold tracking-[0.05em] text-white" style={{ fontSize: "0.95rem" }}>
+              INSPIRE<span style={{ color: "#818CF8" }}>AI</span>
+            </span>
+          </div>
           <span
             className="text-xs px-3 py-1 rounded-full"
             style={{
@@ -849,7 +859,7 @@ export default function OnboardingForm({
                             : "rgba(255,255,255,0.25)",
                         }}
                       >
-                        <option value="" disabled style={{ background: "#09090B" }}>
+                        <option value="" disabled style={{ background: "#08091A" }}>
                           Selecciona una opción
                         </option>
                         {q.options?.map((opt) => {
