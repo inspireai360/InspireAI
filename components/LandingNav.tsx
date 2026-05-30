@@ -1,0 +1,83 @@
+"use client";
+import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
+import { useState } from "react";
+
+const SERVICES = [
+  { href: "/consultoria-ia-empresas",   label: "Consultoría IA" },
+  { href: "/automatizacion-procesos-ia", label: "Automatización" },
+  { href: "/ciberseguridad-ia-empresas", label: "Ciberseguridad IA" },
+  { href: "/formacion-ia-equipos",       label: "CRM a medida" },
+];
+
+interface LandingNavProps {
+  ctaLabel?: string;
+  ctaHref?: string;
+  ctaExternal?: boolean;
+  onCtaClick?: () => void;
+}
+
+export default function LandingNav({ ctaLabel = "Solicitar información", ctaHref, ctaExternal, onCtaClick }: LandingNavProps) {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <nav className="py-4 border-b border-white/5 bg-[#08091A]/90 backdrop-blur-md sticky top-0 z-50">
+      <div className="mx-auto px-6 max-w-6xl flex items-center justify-between gap-6">
+
+        {/* Volver */}
+        <Link href="/" className="inline-flex items-center gap-2 text-white/50 hover:text-white transition-colors text-sm flex-shrink-0">
+          <ArrowLeft className="w-4 h-4" /> Inicio
+        </Link>
+
+        {/* Centro: logo + dropdown */}
+        <div className="flex items-center gap-6">
+          <Link href="/" className="flex items-center gap-2.5 flex-shrink-0">
+            <img src="/logo.png" alt="InspireAI" width={28} height={28}
+              style={{ width:28, height:28, borderRadius:"50%", objectFit:"cover" }} />
+            <span className="font-orbitron font-bold text-[1rem] tracking-[0.05em] text-white hidden sm:block">
+              INSPIRE<span style={{ color:"#818CF8" }}>AI</span>
+            </span>
+          </Link>
+
+          {/* Servicios dropdown */}
+          <div className="relative hidden md:block">
+            <button
+              onClick={() => setOpen(o => !o)}
+              onBlur={() => setTimeout(() => setOpen(false), 150)}
+              className="flex items-center gap-1.5 text-sm transition-colors px-3 py-2 rounded-lg"
+              style={{ color: open ? "#fff" : "rgba(255,255,255,0.6)", background: open ? "rgba(255,255,255,0.06)" : "transparent" }}>
+              Servicios
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"
+                style={{ transform: open ? "rotate(180deg)" : "none", transition: "transform .2s" }}>
+                <path d="m6 9 6 6 6-6"/>
+              </svg>
+            </button>
+            {open && (
+              <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 rounded-xl overflow-hidden shadow-xl min-w-[210px] z-50"
+                style={{ background: "#0F1228", border: "1px solid rgba(255,255,255,0.1)" }}>
+                {SERVICES.map((s) => (
+                  <Link key={s.href} href={s.href}
+                    className="flex items-center px-4 py-3 text-sm border-b last:border-0 transition-colors"
+                    style={{ color: "rgba(255,255,255,0.7)", borderColor: "rgba(255,255,255,0.06)" }}
+                    onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "rgba(91,98,244,0.12)"; (e.currentTarget as HTMLElement).style.color = "#fff"; }}
+                    onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "transparent"; (e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,0.7)"; }}>
+                    {s.label}
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* CTA */}
+        {ctaExternal && ctaHref ? (
+          <a href={ctaHref} target="_blank" rel="noopener noreferrer" className="btn-primary-sm hidden md:flex flex-shrink-0">{ctaLabel}</a>
+        ) : ctaHref ? (
+          <Link href={ctaHref} className="btn-primary-sm hidden md:flex flex-shrink-0">{ctaLabel}</Link>
+        ) : onCtaClick ? (
+          <button onClick={onCtaClick} className="btn-primary-sm hidden md:flex flex-shrink-0">{ctaLabel}</button>
+        ) : null}
+      </div>
+    </nav>
+  );
+}
