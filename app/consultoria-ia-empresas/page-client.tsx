@@ -25,8 +25,8 @@ export default function ConsultoriaIA() {
             </motion.div>
             <motion.h1 variants={fadeUp} className="font-heading font-bold text-white mb-6"
               style={{ fontSize: "clamp(2rem,5vw,3.5rem)", lineHeight: 1.1, letterSpacing: "-0.02em" }}>
-              Consultoría IA para empresas en España:<br />
-              <span style={{ color: "#818CF8" }}>diagnóstico completo, entregable real</span>
+              Sabemos exactamente qué está frenando tu empresa.<br />
+              <span style={{ color: "#818CF8" }}>Ahora te lo decimos.</span>
             </motion.h1>
             <motion.p variants={fadeUp} className="text-lg mb-8 max-w-2xl" style={{ color: "rgba(255,255,255,0.6)", lineHeight: 1.7 }}>
               Auditamos tus 4 áreas clave — ventas, marketing, operaciones y fulfillment — e identificamos
