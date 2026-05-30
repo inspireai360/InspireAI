@@ -270,33 +270,8 @@ export default function ConsultoriaIA() {
         </div>
       </section>
 
-      {/* PROPUESTA */}
-      <section className="py-16 md:py-20 border-t" style={{borderColor:"rgba(255,255,255,0.06)"}}>
-        <div className="mx-auto px-6 max-w-3xl text-center">
-          <motion.div initial="hidden" whileInView="visible" viewport={{once:true}} variants={stagger}>
-            <motion.div variants={fadeUp} className="inline-flex items-center justify-center gap-3 mb-6">
-              <div className="h-px w-12" style={{background:"rgba(255,255,255,0.12)"}} />
-              <span className="text-xs font-semibold uppercase tracking-widest" style={{color:"rgba(255,255,255,0.35)",letterSpacing:"0.12em"}}>Precio</span>
-              <div className="h-px w-12" style={{background:"rgba(255,255,255,0.12)"}} />
-            </motion.div>
-            <motion.h2 variants={fadeUp} className="font-heading font-bold text-white mb-4"
-              style={{fontSize:"clamp(1.5rem,3.5vw,2.25rem)",letterSpacing:"-0.02em"}}>
-              Solicita una propuesta
-            </motion.h2>
-            <motion.p variants={fadeUp} className="mb-8" style={{color:"rgba(255,255,255,0.45)",lineHeight:1.7,maxWidth:"440px",margin:"0 auto 2rem"}}>
-              El alcance y el precio se definen en la primera llamada, según vuestro caso concreto.
-            </motion.p>
-            <motion.div variants={fadeUp}>
-              <Link href="/#contacto" className="btn-primary inline-flex items-center gap-2">
-                Reservar llamada gratuita <ArrowRight className="w-4 h-4" />
-              </Link>
-            </motion.div>
-          </motion.div>
-        </div>
-      </section>
 
-
-      {/* ── FAQ ───────────────────────────────────────────────────────────────── */}
+            {/* ── FAQ ───────────────────────────────────────────────────────────────── */}
       <section className="py-16 border-t" style={{ borderColor:"rgba(255,255,255,0.06)" }}>
         <div className="mx-auto px-6 max-w-3xl">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once:true }} variants={fadeUp} className="mb-10">
