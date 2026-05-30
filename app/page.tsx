@@ -604,49 +604,72 @@ export default function LandingPage() {
               </div>
             </motion.div>
 
-            {/* 3 problem cards */}
+            {/* 3 problem cards — micro-escenarios reales */}
             <div className="col-span-12 md:col-span-7 grid grid-cols-1 gap-4">
-              {[
-                {
-                  Icon: Clock,
-                  color: "#E8A24F",
-                  num: "01",
-                  title: "Tiempo perdido que se paga dos veces",
-                  desc: "Tu equipo hace a mano lo que podría hacerse solo: gestionar pedidos por WhatsApp, copiar datos entre sistemas, preparar informes desde cero. Cada hora perdida aquí es una hora que no se dedica a crecer.",
-                  tag: "3.2h/empleado/día en media"
-                },
-                {
-                  Icon: ShieldAlert,
-                  color: "#E86F6F",
-                  num: "02",
-                  title: "El error humano es inevitable — su impacto, no",
-                  desc: "Cuantos más pasos manuales, más margen de error. Una factura mal calculada, un pedido perdido en un WhatsApp, un contrato sin firmar. Pequeños fallos que acaban costando clientes y reputación.",
-                  tag: "1 de cada 3 errores es evitable"
-                },
-                {
-                  Icon: AlertTriangle,
-                  color: "#818CF8",
-                  num: "03",
-                  title: "La IA mal implementada abre puertas que no ves",
-                  desc: "No es solo riesgo técnico — es riesgo de negocio. Una integración sin revisar, datos de clientes en sistemas sin cifrar, automatizaciones sin validar. Lo que no conoces te hace vulnerable.",
-                  tag: "60% de las brechas son prevenibles"
-                }
-              ].map(({ Icon, color, num, title, desc, tag }, i) => (
-                <motion.div key={i} variants={fadeInUp} className="rounded-2xl p-6 flex gap-4"
-                  style={{ background: "#0D0E1F", border: "1px solid rgba(255,255,255,0.07)" }}>
-                  <div className="w-10 h-10 rounded-xl grid place-items-center flex-shrink-0 mt-0.5" style={{ background: `${color}15`, border: `1px solid ${color}30` }}>
-                    <Icon style={{ width: "18px", height: "18px", color }} />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-baseline gap-2 mb-1.5">
-                      <span className="text-xs font-bold" style={{ color: "rgba(255,255,255,0.2)", letterSpacing: "0.08em" }}>{num}</span>
-                      <h3 className="font-semibold text-white text-sm leading-snug">{title}</h3>
+
+              {/* Card 1 — Tiempo */}
+              <motion.div variants={fadeInUp} className="rounded-2xl p-6"
+                style={{ background: "#0D0E1F", border: "1px solid rgba(232,162,79,0.2)" }}>
+                <div className="flex items-start justify-between gap-4 mb-3">
+                  <div className="flex items-center gap-2">
+                    <div className="w-8 h-8 rounded-lg grid place-items-center flex-shrink-0" style={{ background: "rgba(232,162,79,0.12)", border: "1px solid rgba(232,162,79,0.3)" }}>
+                      <Clock style={{ width: "15px", height: "15px", color: "#E8A24F" }} />
                     </div>
-                    <p className="text-sm mb-3" style={{ color: "rgba(255,255,255,0.45)", lineHeight: 1.65 }}>{desc}</p>
-                    <span className="text-xs px-2.5 py-1 rounded-md" style={{ background: `${color}12`, color, border: `1px solid ${color}22` }}>{tag}</span>
+                    <span className="text-xs font-semibold uppercase tracking-widest" style={{ color: "rgba(232,162,79,0.8)", letterSpacing: "0.1em" }}>Tiempo</span>
                   </div>
-                </motion.div>
-              ))}
+                  <span className="text-2xl font-bold flex-shrink-0" style={{ color: "#E8A24F", letterSpacing: "-0.03em" }}>−3.2h</span>
+                </div>
+                <p className="text-sm leading-relaxed mb-3" style={{ color: "rgba(255,255,255,0.65)" }}>
+                  Son las 9 de la mañana del lunes. Tu equipo lleva 40 minutos revisando WhatsApps del fin de semana, pasando pedidos a Excel y respondiendo consultas que ya respondió el viernes. <span style={{ color: "rgba(255,255,255,0.85)", fontWeight: 500 }}>La semana no ha empezado y ya van tarde.</span>
+                </p>
+                <div className="flex items-center gap-2 text-xs" style={{ color: "rgba(255,255,255,0.3)" }}>
+                  <div className="w-1 h-1 rounded-full" style={{ background: "#E8A24F" }} />
+                  Cada empleado pierde de media 3.2h al día en tareas que ya podrían hacerse solas.
+                </div>
+              </motion.div>
+
+              {/* Card 2 — Error humano */}
+              <motion.div variants={fadeInUp} className="rounded-2xl p-6"
+                style={{ background: "#0D0E1F", border: "1px solid rgba(232,111,111,0.2)" }}>
+                <div className="flex items-start justify-between gap-4 mb-3">
+                  <div className="flex items-center gap-2">
+                    <div className="w-8 h-8 rounded-lg grid place-items-center flex-shrink-0" style={{ background: "rgba(232,111,111,0.12)", border: "1px solid rgba(232,111,111,0.3)" }}>
+                      <ShieldAlert style={{ width: "15px", height: "15px", color: "#E86F6F" }} />
+                    </div>
+                    <span className="text-xs font-semibold uppercase tracking-widest" style={{ color: "rgba(232,111,111,0.8)", letterSpacing: "0.1em" }}>Error humano</span>
+                  </div>
+                  <span className="text-2xl font-bold flex-shrink-0" style={{ color: "#E86F6F", letterSpacing: "-0.03em" }}>1 de 3</span>
+                </div>
+                <p className="text-sm leading-relaxed mb-3" style={{ color: "rgba(255,255,255,0.65)" }}>
+                  El cliente llama furioso. Dice que su pedido llegó mal. Tu equipo revisa WhatsApp, luego el Excel, luego el email. <span style={{ color: "rgba(255,255,255,0.85)", fontWeight: 500 }}>Nadie sabe quién copió mal el dato.</span> El cliente ya no llama para pedir — llama para quejarse.
+                </p>
+                <div className="flex items-center gap-2 text-xs" style={{ color: "rgba(255,255,255,0.3)" }}>
+                  <div className="w-1 h-1 rounded-full" style={{ background: "#E86F6F" }} />
+                  1 de cada 3 errores en procesos manuales es completamente evitable con automatización.
+                </div>
+              </motion.div>
+
+              {/* Card 3 — Riesgo digital */}
+              <motion.div variants={fadeInUp} className="rounded-2xl p-6"
+                style={{ background: "#0D0E1F", border: "1px solid rgba(129,140,248,0.2)" }}>
+                <div className="flex items-start justify-between gap-4 mb-3">
+                  <div className="flex items-center gap-2">
+                    <div className="w-8 h-8 rounded-lg grid place-items-center flex-shrink-0" style={{ background: "rgba(129,140,248,0.12)", border: "1px solid rgba(129,140,248,0.3)" }}>
+                      <AlertTriangle style={{ width: "15px", height: "15px", color: "#818CF8" }} />
+                    </div>
+                    <span className="text-xs font-semibold uppercase tracking-widest" style={{ color: "rgba(129,140,248,0.8)", letterSpacing: "0.1em" }}>Riesgo digital</span>
+                  </div>
+                  <span className="text-2xl font-bold flex-shrink-0" style={{ color: "#818CF8", letterSpacing: "-0.03em" }}>60%</span>
+                </div>
+                <p className="text-sm leading-relaxed mb-3" style={{ color: "rgba(255,255,255,0.65)" }}>
+                  Empezáis a usar IA. Conectáis herramientas sin revisar los permisos. Los datos de vuestros clientes pasan por APIs que nadie ha auditado. <span style={{ color: "rgba(255,255,255,0.85)", fontWeight: 500 }}>No sabéis qué acceso tiene cada integración — hasta que alguien lo descubre por vosotros.</span>
+                </p>
+                <div className="flex items-center gap-2 text-xs" style={{ color: "rgba(255,255,255,0.3)" }}>
+                  <div className="w-1 h-1 rounded-full" style={{ background: "#818CF8" }} />
+                  El 60% de las brechas de seguridad en pymes vienen de integraciones mal configuradas.
+                </div>
+              </motion.div>
+
             </div>
           </motion.div>
         </div>
