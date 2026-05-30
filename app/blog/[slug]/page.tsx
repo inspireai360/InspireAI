@@ -30,7 +30,7 @@ export default function BlogPostPage({ params }: Props) {
   const post = POSTS.find((p) => p.slug === params.slug);
   if (!post) notFound();
 
-  const schema = {
+  const articleSchema = {
     "@context": "https://schema.org", "@type": "Article",
     headline: post.title, description: post.metaDescription,
     datePublished: post.date, dateModified: post.date,
@@ -43,7 +43,7 @@ export default function BlogPostPage({ params }: Props) {
 
   return (
     <div className="min-h-screen bg-dark text-white">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
       <nav className="py-4 border-b border-white/5 bg-[#08091A]/90 backdrop-blur-md sticky top-0 z-50">
         <div className="mx-auto px-6 max-w-4xl flex items-center justify-between">
           <Link href="/blog" className="inline-flex items-center gap-2 text-white/50 hover:text-white transition-colors text-sm">
@@ -64,13 +64,20 @@ export default function BlogPostPage({ params }: Props) {
           <header className="mb-12">
             <div className="flex items-center gap-3 mb-5">
               <span className="text-xs px-2.5 py-1 rounded-full" style={{ background:"rgba(91,98,244,0.12)", color:"#818CF8" }}>{post.category}</span>
-              <span className="text-xs" style={{ color:"rgba(255,255,255,0.3)" }}>{post.date} &middot; {post.readTime} min</span>
+              <span className="text-xs" style={{ color:"rgba(255,255,255,0.3)" }}>
+                {new Date(post.date).toLocaleDateString("es-ES", { day:"numeric", month:"long", year:"numeric" })} &middot; {post.readTime} min
+              </span>
             </div>
             <h1 className="font-heading font-bold text-white mb-5"
               style={{ fontSize:"clamp(1.75rem,4vw,2.75rem)", letterSpacing:"-0.025em", lineHeight:1.15 }}>
               {post.title}
             </h1>
             <p className="text-lg" style={{ color:"rgba(255,255,255,0.55)", lineHeight:1.7 }}>{post.excerpt}</p>
+            <div className="mt-5 pt-5 border-t flex flex-wrap gap-2" style={{ borderColor:"rgba(255,255,255,0.07)" }}>
+              {post.keywords.slice(0,4).map(k => (
+                <span key={k} className="text-xs px-2.5 py-1 rounded-full" style={{ background:"rgba(255,255,255,0.05)", color:"rgba(255,255,255,0.35)", border:"1px solid rgba(255,255,255,0.08)" }}>{k}</span>
+              ))}
+            </div>
           </header>
           <div className="prose-inspirai" dangerouslySetInnerHTML={{ __html: post.content || "" }} />
           {post.relatedService && (
@@ -84,15 +91,16 @@ export default function BlogPostPage({ params }: Props) {
                   Reservar llamada gratuita <ArrowRight className="w-4 h-4" />
                 </Link>
                 {post.relatedServiceUrl && (
-                  <Link href={post.relatedServiceUrl} className="btn-secondary">Ver {post.relatedService}</Link>
+                  <Link href={post.relatedServiceUrl} className="btn-secondary">Ver servicio de {post.relatedService}</Link>
                 )}
               </div>
             </div>
           )}
-          <div className="mt-12 pt-8 border-t" style={{ borderColor:"rgba(255,255,255,0.07)" }}>
+          <div className="mt-12 pt-8 border-t flex items-center justify-between" style={{ borderColor:"rgba(255,255,255,0.07)" }}>
             <Link href="/blog" className="inline-flex items-center gap-2 text-sm hover:text-white transition-colors" style={{ color:"rgba(255,255,255,0.4)" }}>
               <ArrowLeft className="w-4 h-4" /> Todos los artículos
             </Link>
+            <Link href="/#contacto" className="text-sm" style={{ color:"rgba(91,98,244,0.8)" }}>Reservar llamada →</Link>
           </div>
         </div>
       </article>
