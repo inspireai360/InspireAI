@@ -253,7 +253,7 @@ export default function ConsultoriaIA() {
             {[
               { href:"/automatizacion-procesos-ia", label:"Automatización de procesos" },
               { href:"/ciberseguridad-ia-empresas", label:"Ciberseguridad IA" },
-              { href:"/formacion-ia-equipos", label:"Formación IA para equipos" },
+              { href:"/formacion-ia-equipos", label:"CRM personalizado" },
             ].map((l) => (
               <Link key={l.href} href={l.href}
                 className="rounded-xl px-4 py-3 text-sm font-medium text-center transition-colors"
