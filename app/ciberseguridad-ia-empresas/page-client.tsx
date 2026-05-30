@@ -14,8 +14,12 @@ export default function CiberseguridadIA() {
           <Link href="/" className="inline-flex items-center gap-2 text-white/50 hover:text-white transition-colors text-sm">
             <ArrowLeft className="w-4 h-4" /> Inicio
           </Link>
-          <Link href="/" className="font-orbitron font-bold text-[1.1rem] tracking-[0.05em] text-white">
-            INSPIRE<span className="text-[#818CF8]">AI</span>
+          <Link href="/" className="flex items-center gap-2.5">
+            <img src="/logo.png" alt="InspireAI" width={30} height={30}
+              style={{ width:30, height:30, borderRadius:"50%", objectFit:"cover", flexShrink:0 }} />
+            <span className="font-orbitron font-bold text-[1.1rem] tracking-[0.05em] text-white">
+              INSPIRE<span style={{ color:"#818CF8" }}>AI</span>
+            </span>
           </Link>
           <button onClick={() => document.getElementById("cta-ciber")?.scrollIntoView({ behavior:"smooth" })}
             className="btn-primary-sm hidden md:flex">Solicitar análisis</button>
