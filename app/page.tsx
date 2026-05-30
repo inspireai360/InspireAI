@@ -1150,16 +1150,17 @@ export default function LandingPage() {
           <div className="text-center mb-12 md:mb-16">
             <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-medium mb-5"
               style={{ background: "rgba(91,98,244,0.12)", color: "#818CF8", border: "1px solid rgba(91,98,244,0.25)" }}>
-              ✦ Entregable incluido en la implementación
+              ✦ Servicio independiente · CRM a medida
             </span>
             <h2 className="font-heading font-bold text-white mb-4"
               style={{ fontSize: "clamp(2rem, 5vw, 3rem)", lineHeight: 1.15, letterSpacing: "-0.02em" }}>
-              Tu CRM a medida,<br />
-              <span style={{ color: "#818CF8" }}>listo desde el día 1</span>
+              Tu propio CRM,<br />
+              <span style={{ color: "#818CF8" }}>sin pagar por Salesforce</span>
             </h2>
             <p className="max-w-2xl mx-auto text-lg" style={{ color: "rgba(255,255,255,0.55)", lineHeight: 1.7 }}>
-              Cada implementación incluye un CRM personalizado con tu marca, conectado a tu web y listo para usar.
-              Pipeline visual, diagnósticos auditados, notificaciones en tiempo real — sin costes extra de software.
+              Salesforce, HubSpot, Pipedrive — herramientas potentes pero caras, complejas y pensadas para todos.
+              Nosotros construimos el CRM exacto que necesita tu empresa: con tu marca, conectado a tu web,
+              adaptado a tu proceso de ventas. Sin licencias por usuario. Sin funciones que no usas.
             </p>
           </div>
 
@@ -1225,7 +1226,7 @@ export default function LandingPage() {
               const el = document.getElementById("contacto");
               el?.scrollIntoView({ behavior: "smooth" });
             }} className="btn-secondary inline-flex items-center gap-2">
-              Quiero mi CRM personalizado
+              Quiero mi CRM propio
               <ArrowRight className="w-4 h-4" />
             </button>
           </div>
