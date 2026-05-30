@@ -1,7 +1,8 @@
 "use client";
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, Check } from "lucide-react";
+import { ArrowRight, Check } from "lucide-react";
 import { motion } from "framer-motion";
+import LandingNav from "@/components/LandingNav";
 
 export default function CiberseguridadIA() {
   const fadeUp = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.16,1,0.3,1] } } };
@@ -9,22 +10,7 @@ export default function CiberseguridadIA() {
 
   return (
     <div className="min-h-screen bg-dark text-white selection:bg-primary/30 selection:text-white">
-      <nav className="py-4 border-b border-white/5 bg-[#08091A]/90 backdrop-blur-md sticky top-0 z-50">
-        <div className="mx-auto px-6 max-w-6xl flex items-center justify-between">
-          <Link href="/" className="inline-flex items-center gap-2 text-white/50 hover:text-white transition-colors text-sm">
-            <ArrowLeft className="w-4 h-4" /> Inicio
-          </Link>
-          <Link href="/" className="flex items-center gap-2.5">
-            <img src="/logo.png" alt="InspireAI" width={30} height={30}
-              style={{ width:30, height:30, borderRadius:"50%", objectFit:"cover", flexShrink:0 }} />
-            <span className="font-orbitron font-bold text-[1.1rem] tracking-[0.05em] text-white">
-              INSPIRE<span style={{ color:"#818CF8" }}>AI</span>
-            </span>
-          </Link>
-          <button onClick={() => document.getElementById("cta-ciber")?.scrollIntoView({ behavior:"smooth" })}
-            className="btn-primary-sm hidden md:flex">Solicitar análisis</button>
-        </div>
-      </nav>
+      <LandingNav ctaLabel="Solicitar análisis" onCtaClick={() => document.getElementById("cta-ciber")?.scrollIntoView({ behavior:"smooth" })} />
 
       <section className="relative pt-20 pb-16 md:pt-28 md:pb-24 overflow-hidden" style={{ background: "#08091A" }}>
         <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px)", backgroundSize: "28px 28px" }} />
