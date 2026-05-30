@@ -389,246 +389,119 @@ export default function LandingPage() {
         </div>
       </section>
 
+
       <div className="section-divider" />
 
-      {/* ─── Visual demos ───────────────────────────────────────────────── */}
+      {/* ─── Deliverables bento ──────────────────────────────────────────── */}
       <section className="py-16 md:py-24">
         <div className="mx-auto px-6 max-w-6xl">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
-            variants={fadeInUp}
-            className="text-center mb-12"
-          >
-            <h2
-              className="font-heading font-bold text-white mb-4"
-              style={{ fontSize: "clamp(1.5rem, 5vw, 3rem)", letterSpacing: "-0.02em" }}
-            >
-              Así es lo que detectamos
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={fadeInUp} className="text-center mb-12 md:mb-16">
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-medium tracking-widest uppercase mb-5"
+              style={{ background: "rgba(91,98,244,0.1)", color: "#818CF8", border: "1px solid rgba(91,98,244,0.25)", letterSpacing: "0.1em" }}>
+              Tres entregables reales
+            </span>
+            <h2 className="font-heading font-bold text-white mb-4" style={{ fontSize: "clamp(1.75rem, 5vw, 3rem)", letterSpacing: "-0.02em", lineHeight: 1.15 }}>
+              Lo que detectamos.<br />
+              <span style={{ color: "#818CF8" }}>Lo que recibes.</span>
             </h2>
-            <p style={{ color: "rgba(255,255,255,0.55)", fontSize: "1rem", maxWidth: "480px", margin: "0 auto", lineHeight: 1.65 }}>
-              Tres entregables reales de cada auditoría Inspire Cyber 360.
+            <p style={{ color: "rgba(255,255,255,0.5)", maxWidth: "480px", margin: "0 auto", lineHeight: 1.7 }}>
+              Cada auditoría Inspire Cyber 360 entrega tres documentos operativos listos para usar desde el día siguiente.
             </p>
           </motion.div>
 
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.1 }}
-            variants={stagger}
-            className="grid grid-cols-1 md:grid-cols-3 gap-6"
-          >
-            {/* ── Card 1: IA Opportunities table ── */}
-            <motion.div
-              variants={fadeInUp}
-              style={{ background: "#0F1228", border: "1px solid rgba(255,255,255,0.07)", borderRadius: "16px", overflow: "hidden" }}
-            >
-              <div style={{ padding: "20px 20px 0", background: "rgba(91,98,244,0.04)" }}>
-                <div style={{ background: "#08091A", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "8px 8px 0 0", overflow: "hidden" }}>
-                  <div style={{ display: "flex", padding: "8px 12px", borderBottom: "1px solid rgba(255,255,255,0.06)", gap: "8px" }}>
-                    {["Proceso", "Impacto", "Urgencia"].map((h, i) => (
-                      <span key={h} style={{ color: "rgba(255,255,255,0.25)", fontSize: "0.6rem", letterSpacing: "0.06em", flex: i === 0 ? 2 : 1 }}>{h.toUpperCase()}</span>
-                    ))}
+          {/* Bento grid */}
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.1 }} variants={stagger}
+            className="grid gap-4" style={{ gridTemplateColumns: "repeat(12, 1fr)" }}>
+
+            {/* Gran tarjeta izquierda — CRM / Process map */}
+            <motion.div variants={fadeInUp} className="rounded-2xl overflow-hidden col-span-12 md:col-span-7"
+              style={{ background: "#0D0E1F", border: "1px solid rgba(255,255,255,0.07)", minHeight: "360px" }}>
+              {/* Browser bar */}
+              <div className="flex items-center gap-2 px-4 py-3 border-b" style={{ background: "#111122", borderColor: "rgba(255,255,255,0.06)" }}>
+                <div className="flex gap-1.5">
+                  <div className="w-3 h-3 rounded-full" style={{ background: "#E86F6F" }} />
+                  <div className="w-3 h-3 rounded-full" style={{ background: "#E8A24F" }} />
+                  <div className="w-3 h-3 rounded-full" style={{ background: "#3FB984" }} />
+                </div>
+                <div className="flex-1 flex justify-center">
+                  <div className="flex items-center gap-1.5 px-3 py-1 rounded text-xs" style={{ background: "rgba(255,255,255,0.04)", color: "rgba(255,255,255,0.3)" }}>
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                    crm.inspireai.es · Diagnóstico de procesos
                   </div>
-                  {[
-                    { proceso: "Gestión de emails", impacto: "Alto", ic: "#22C55E", urgencia: "Alta", uc: "#EF4444" },
-                    { proceso: "CRM y captación", impacto: "Alto", ic: "#22C55E", urgencia: "Media", uc: "#F59E0B" },
-                    { proceso: "Facturación", impacto: "Medio", ic: "#F59E0B", urgencia: "Media", uc: "#F59E0B" },
-                    { proceso: "Onboarding", impacto: "Medio", ic: "#F59E0B", urgencia: "Baja", uc: "#22C55E" },
-                  ].map((row, i, arr) => (
-                    <div key={i} style={{ display: "flex", padding: "8px 12px", borderBottom: i < arr.length - 1 ? "1px solid rgba(255,255,255,0.04)" : "none", alignItems: "center", gap: "8px" }}>
-                      <span style={{ color: "rgba(255,255,255,0.65)", fontSize: "0.7rem", flex: 2 }}>{row.proceso}</span>
-                      <span style={{ color: row.ic, fontSize: "0.68rem", fontWeight: 600, flex: 1 }}>{row.impacto}</span>
-                      <span style={{ color: row.uc, fontSize: "0.68rem", fontWeight: 600, flex: 1 }}>{row.urgencia}</span>
-                    </div>
-                  ))}
                 </div>
               </div>
-              <div style={{ padding: "20px" }}>
-                <h3 className="font-heading font-bold text-white mb-2" style={{ fontSize: "1rem" }}>Detección IA & Automatización</h3>
-                <p style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.83rem", lineHeight: 1.6 }}>
-                  Mapa de procesos automatizables con impacto económico, dificultad técnica y nivel de urgencia. Sabes exactamente por dónde empezar.
-                </p>
-              </div>
+              <img src="/crm-diagnosticos.png" alt="Diagnóstico de procesos InspireAI" className="w-full" style={{ display: "block", objectFit: "cover", objectPosition: "top" }} />
             </motion.div>
 
-            {/* ── Card 2: Cybersecurity risk ── */}
-            <motion.div
-              variants={fadeInUp}
-              style={{ background: "#0F1228", border: "1px solid rgba(255,255,255,0.07)", borderRadius: "16px", overflow: "hidden" }}
-            >
-              <div style={{ padding: "20px 20px 0", background: "rgba(91,98,244,0.04)" }}>
-                <div style={{ background: "#08091A", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "8px 8px 0 0", padding: "16px" }}>
-                  <div style={{ marginBottom: "14px" }}>
-                    <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "6px" }}>
-                      <span style={{ color: "rgba(255,255,255,0.3)", fontSize: "0.6rem", letterSpacing: "0.08em", textTransform: "uppercase" }}>Riesgo global</span>
-                      <span style={{ color: "#F59E0B", fontSize: "0.65rem", fontWeight: 700 }}>Medio-Alto</span>
-                    </div>
-                    <div style={{ height: "5px", background: "rgba(255,255,255,0.06)", borderRadius: "3px", overflow: "hidden" }}>
-                      <div style={{ width: "68%", height: "100%", background: "linear-gradient(90deg, #22C55E 0%, #F59E0B 50%, #EF4444 100%)", borderRadius: "3px" }} />
-                    </div>
+            {/* Columna derecha */}
+            <div className="col-span-12 md:col-span-5 flex flex-col gap-4">
+              {/* Stat card */}
+              <motion.div variants={fadeInUp} className="rounded-2xl p-6 flex-1"
+                style={{ background: "linear-gradient(135deg, rgba(91,98,244,0.18) 0%, rgba(91,98,244,0.04) 100%)", border: "1px solid rgba(91,98,244,0.25)" }}>
+                <div className="text-5xl font-bold text-white mb-2" style={{ letterSpacing: "-0.04em", fontVariantNumeric: "tabular-nums" }}>+40%</div>
+                <div className="font-semibold text-white mb-1">Productividad media</div>
+                <p className="text-sm" style={{ color: "rgba(255,255,255,0.5)", lineHeight: 1.6 }}>
+                  Incremento medio que logran nuestros clientes en los 6 meses siguientes a la implementación.
+                </p>
+              </motion.div>
+              {/* Roadmap card */}
+              <motion.div variants={fadeInUp} className="rounded-2xl p-6"
+                style={{ background: "#0D0E1F", border: "1px solid rgba(255,255,255,0.07)" }}>
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-8 h-8 rounded-lg grid place-items-center" style={{ background: "rgba(91,98,244,0.15)", border: "1px solid rgba(91,98,244,0.3)" }}>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#818CF8" strokeWidth="2" strokeLinecap="round"><path d="M3 3h18v4H3zM3 10h11v4H3zM3 17h7v4H3z"/></svg>
                   </div>
-                  {[
-                    { label: "Riesgo alto", count: 3, color: "#EF4444" },
-                    { label: "Riesgo medio", count: 7, color: "#F59E0B" },
-                    { label: "Riesgo bajo", count: 4, color: "#22C55E" },
-                  ].map((risk, i) => (
-                    <div key={i} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: i < 2 ? "6px" : 0, padding: "7px 10px", background: "rgba(255,255,255,0.03)", borderRadius: "6px" }}>
-                      <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                        <div style={{ width: "7px", height: "7px", borderRadius: "50%", background: risk.color, flexShrink: 0 }} />
-                        <span style={{ color: "rgba(255,255,255,0.55)", fontSize: "0.7rem" }}>{risk.label}</span>
-                      </div>
-                      <span style={{ color: risk.color, fontWeight: 700, fontSize: "0.78rem" }}>{risk.count}</span>
+                  <div>
+                    <div className="text-sm font-semibold text-white">Roadmap técnico</div>
+                    <div className="text-xs" style={{ color: "rgba(255,255,255,0.4)" }}>Listo para ejecutar el día 1</div>
+                  </div>
+                </div>
+                <div className="flex flex-col gap-2">
+                  {[["S1–S3","Auditoría completa","bg-accent"],["S4–S5","Detección IA","bg-accent"],["S6–S8","Implementación","opacity-40"],["S9–S10","Cierre","opacity-40"]].map(([sem, label, cls]) => (
+                    <div key={sem} className="flex items-center gap-2.5">
+                      <div className={`w-2 h-2 rounded-full flex-shrink-0 ${cls === "bg-accent" ? "" : "opacity-30"}`} style={{ background: cls === "bg-accent" ? "#5B62F4" : "rgba(255,255,255,0.3)" }} />
+                      <span className="text-xs flex-1" style={{ color: cls === "opacity-40" ? "rgba(255,255,255,0.3)" : "rgba(255,255,255,0.7)" }}>{label}</span>
+                      <span className="text-xs font-mono" style={{ color: cls === "bg-accent" ? "#818CF8" : "rgba(255,255,255,0.2)" }}>{sem}</span>
                     </div>
                   ))}
                 </div>
-              </div>
-              <div style={{ padding: "20px" }}>
-                <h3 className="font-heading font-bold text-white mb-2" style={{ fontSize: "1rem" }}>Estudio de Vulnerabilidades</h3>
-                <p style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.83rem", lineHeight: 1.6 }}>
-                  Análisis de ciberseguridad con escenarios de riesgo reales, probabilidad y plan de mitigación inmediata validado por hackers éticos.
-                </p>
-              </div>
-            </motion.div>
+              </motion.div>
+            </div>
 
-            {/* ── Card 3: Roadmap timeline ── */}
-            <motion.div
-              variants={fadeInUp}
-              style={{ background: "#0F1228", border: "1px solid rgba(255,255,255,0.07)", borderRadius: "16px", overflow: "hidden" }}
-            >
-              <div style={{ padding: "20px 20px 0", background: "rgba(91,98,244,0.04)" }}>
-                <div style={{ background: "#08091A", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "8px 8px 0 0", padding: "18px 16px" }}>
-                  {[
-                    { fase: "Diagnóstico inicial", semana: "S1–S3", done: true },
-                    { fase: "Detección de IA", semana: "S4–S5", done: true },
-                    { fase: "Implementación", semana: "S6–S8", done: false },
-                    { fase: "Validación y cierre", semana: "S9–S10", done: false },
-                  ].map((step, i) => (
-                    <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: "12px", marginBottom: i < 3 ? "4px" : 0 }}>
-                      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", flexShrink: 0, paddingTop: "2px" }}>
-                        <div style={{ width: "10px", height: "10px", borderRadius: "50%", background: step.done ? "#5B62F4" : "rgba(255,255,255,0.1)", border: step.done ? "none" : "1px solid rgba(255,255,255,0.2)", flexShrink: 0 }} />
-                        {i < 3 && <div style={{ width: "1px", height: "22px", background: "rgba(255,255,255,0.07)" }} />}
-                      </div>
-                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flex: 1, paddingBottom: i < 3 ? "4px" : 0 }}>
-                        <span style={{ color: step.done ? "rgba(255,255,255,0.8)" : "rgba(255,255,255,0.3)", fontSize: "0.72rem", fontWeight: step.done ? 600 : 400 }}>{step.fase}</span>
-                        <span style={{ color: step.done ? "rgba(91,98,244,0.8)" : "rgba(255,255,255,0.2)", fontSize: "0.65rem", fontWeight: 500 }}>{step.semana}</span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              <div style={{ padding: "20px" }}>
-                <h3 className="font-heading font-bold text-white mb-2" style={{ fontSize: "1rem" }}>Roadmap Técnico</h3>
-                <p style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.83rem", lineHeight: 1.6 }}>
-                  Plan de implementación priorizado con fases, herramientas recomendadas y estimación de tiempo y recursos. Listo para ejecutar desde el día 1.
-                </p>
-              </div>
-            </motion.div>
-          </motion.div>
-        </div>
-      </section>
-
-      <div className="section-divider" />
-
-      {/* ─── Problems ───────────────────────────────────────────────────── */}
-      <section id="problemas" className="py-16 md:py-24 scroll-mt-20">
-        <div className="mx-auto px-6 max-w-6xl">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
-            variants={fadeInUp}
-            className="text-center mb-10 md:mb-16"
-          >
-            <h2
-              className="font-heading font-bold text-white mb-4"
-              style={{
-                fontSize: "clamp(1.5rem, 5vw, 3rem)",
-                letterSpacing: "-0.02em",
-              }}
-            >
-              ¿Reconoces alguno de estos problemas?
-            </h2>
-            <p style={{ color: "rgba(255,255,255,0.55)", fontSize: "1rem" }}>
-              Las ineficiencias invisibles que frenan tu rentabilidad diaria.
-            </p>
-          </motion.div>
-
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
-            variants={stagger}
-            className="grid grid-cols-1 md:grid-cols-3 gap-6"
-          >
+            {/* Fila inferior — 3 tarjetas */}
             {[
               {
-                icon: <Clock className="w-6 h-6" style={{ color: "#5B62F4" }} />,
-                number: "01",
-                title: "Tiempo perdido",
-                body: "Tus equipos dedican horas a tareas repetitivas que ya podrían automatizarse, frenando la productividad y el crecimiento.",
+                icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>,
+                color: "#E86F6F",
+                title: "Estudio de vulnerabilidades",
+                desc: "Escenarios de riesgo reales con probabilidad y plan de mitigación validado por hackers éticos.",
+                stat: "0 brechas sin cubrir"
               },
               {
-                icon: (
-                  <ShieldAlert
-                    className="w-6 h-6"
-                    style={{ color: "#5B62F4" }}
-                  />
-                ),
-                number: "02",
-                title: "Error humano",
-                body: "Los procesos manuales generan fallos evitables. El error humano es inevitable; su impacto en tu empresa, no.",
+                icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>,
+                color: "#818CF8",
+                title: "Informe en Notion",
+                desc: "Un documento operativo vivo — no un PDF estático. Tu equipo puede usarlo desde el primer día.",
+                stat: "Acceso inmediato"
               },
               {
-                icon: (
-                  <AlertTriangle
-                    className="w-6 h-6"
-                    style={{ color: "#5B62F4" }}
-                  />
-                ),
-                number: "03",
-                title: "Riesgo digital",
-                body: "Una integración de IA mal optimizada puede abrir brechas en tus sistemas. Los ciberdelincuentes no perdonan.",
-              },
+                icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>,
+                color: "#3FB984",
+                title: "Reunión 1:1 con el CTO",
+                desc: "Sesión de entrega con Timur para revisar el informe, responder dudas y arrancar la implementación.",
+                stat: "60 min incluidos"
+              }
             ].map((card, i) => (
-              <motion.div
-                key={i}
-                variants={fadeInUp}
-                className="card-hover relative"
-                style={{
-                  background: "#0F1228",
-                  border: "1px solid rgba(255,255,255,0.06)",
-                  borderRadius: "16px",
-                  padding: "32px",
-                }}
-              >
-                <div
-                  className="absolute top-6 right-6 font-bold"
-                  style={{
-                    fontSize: "0.7rem",
-                    color: "rgba(255,255,255,0.12)",
-                    letterSpacing: "0.05em",
-                  }}
-                >
-                  {card.number}
+              <motion.div key={i} variants={fadeInUp} className="col-span-12 md:col-span-4 rounded-2xl p-6"
+                style={{ background: "#0D0E1F", border: "1px solid rgba(255,255,255,0.07)" }}>
+                <div className="w-10 h-10 rounded-xl grid place-items-center mb-4" style={{ background: `${card.color}18`, border: `1px solid ${card.color}30`, color: card.color }}>
+                  {card.icon}
                 </div>
-                <div className="mb-5">{card.icon}</div>
-                <h3
-                  className="font-heading font-bold text-white mb-3"
-                  style={{ fontSize: "1.125rem" }}
-                >
-                  {card.title}
-                </h3>
-                <p
-                  style={{
-                    color: "rgba(255,255,255,0.55)",
-                    fontSize: "0.9rem",
-                    lineHeight: 1.6,
-                  }}
-                >
-                  {card.body}
-                </p>
+                <div className="font-semibold text-white mb-2">{card.title}</div>
+                <p className="text-sm mb-4" style={{ color: "rgba(255,255,255,0.45)", lineHeight: 1.65 }}>{card.desc}</p>
+                <span className="inline-block px-2.5 py-1 rounded-md text-xs font-medium" style={{ background: `${card.color}15`, color: card.color, border: `1px solid ${card.color}25` }}>
+                  {card.stat}
+                </span>
               </motion.div>
             ))}
           </motion.div>
@@ -637,512 +510,327 @@ export default function LandingPage() {
 
       <div className="section-divider" />
 
-      {/* ─── Solution timeline ──────────────────────────────────────────── */}
-      <section id="solucion" className="py-16 md:py-24 scroll-mt-20">
+      {/* ─── Problems ────────────────────────────────────────────────────── */}
+      <section id="problemas" className="py-16 md:py-24 scroll-mt-20">
         <div className="mx-auto px-6 max-w-6xl">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
-            variants={fadeInUp}
-            className="text-center mb-12 md:mb-20"
-          >
-            <h2
-              className="font-heading font-bold text-white mb-4"
-              style={{
-                fontSize: "clamp(1.5rem, 5vw, 3rem)",
-                letterSpacing: "-0.02em",
-              }}
-            >
-              Auditoría completa. Hoja de ruta accionable.
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={fadeInUp} className="mb-12 md:mb-16">
+            <h2 className="font-heading font-bold text-white mb-4" style={{ fontSize: "clamp(1.75rem, 5vw, 3rem)", letterSpacing: "-0.02em", lineHeight: 1.15, maxWidth: "700px" }}>
+              ¿Reconoces alguno de estos problemas?
             </h2>
-            <p
-              className="mx-auto"
-              style={{
-                color: "rgba(255,255,255,0.55)",
-                fontSize: "1rem",
-                maxWidth: "560px",
-                lineHeight: 1.65,
-              }}
-            >
-              Analizamos tu empresa, detectamos dónde la IA puede generar
-              impacto real y te entregamos un plan concreto para implementarlo de
-              forma segura.
+            <p style={{ color: "rgba(255,255,255,0.5)", maxWidth: "520px", lineHeight: 1.7 }}>
+              Las ineficiencias invisibles que frenan tu rentabilidad cada día.
             </p>
           </motion.div>
 
-          <div className="relative">
-            {/* Connector line — horizontal on lg, vertical on mobile */}
-            <div
-              className="absolute hidden lg:block"
-              style={{
-                top: "20px",
-                left: "80px",
-                right: "80px",
-                height: "1px",
-                background: "rgba(255,255,255,0.08)",
-              }}
-            />
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.1 }} variants={stagger}
+            className="grid gap-4 grid-cols-1 md:grid-cols-12">
 
-            <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 lg:gap-6 relative z-10">
+            {/* Feature stat */}
+            <motion.div variants={fadeInUp} className="col-span-12 md:col-span-5 rounded-2xl p-8 flex flex-col justify-between"
+              style={{ background: "linear-gradient(135deg, #0D0E24 0%, #111133 100%)", border: "1px solid rgba(91,98,244,0.2)", minHeight: "260px" }}>
+              <div>
+                <div className="text-6xl font-bold mb-3" style={{ color: "#818CF8", letterSpacing: "-0.04em", fontVariantNumeric: "tabular-nums" }}>73%</div>
+                <p className="text-lg font-medium text-white mb-2">de los directivos</p>
+                <p style={{ color: "rgba(255,255,255,0.5)", lineHeight: 1.65, fontSize: "0.95rem" }}>
+                  admite que su equipo dedica más de 3 horas al día a tareas repetitivas que podrían automatizarse hoy mismo.
+                </p>
+              </div>
+              <div className="flex items-center gap-2 mt-6">
+                <div className="w-1.5 h-1.5 rounded-full" style={{ background: "#818CF8" }} />
+                <span className="text-xs" style={{ color: "rgba(255,255,255,0.3)" }}>Fuente: McKinsey Global Institute, 2024</span>
+              </div>
+            </motion.div>
+
+            {/* 3 problem cards */}
+            <div className="col-span-12 md:col-span-7 grid grid-cols-1 gap-4">
               {[
                 {
-                  step: "01",
-                  title: "Auditoría",
-                  desc: "Analizamos los 4 ejes clave: operaciones, marketing, ventas y delivery.",
+                  Icon: Clock,
+                  color: "#E8A24F",
+                  num: "01",
+                  title: "Tiempo perdido que se paga dos veces",
+                  desc: "Tu equipo hace a mano lo que podría hacerse solo: gestionar pedidos por WhatsApp, copiar datos entre sistemas, preparar informes desde cero. Cada hora perdida aquí es una hora que no se dedica a crecer.",
+                  tag: "3.2h/empleado/día en media"
                 },
                 {
-                  step: "02",
-                  title: "Análisis",
-                  desc: "Detectamos ineficiencias y oportunidades de implementación de IA.",
+                  Icon: ShieldAlert,
+                  color: "#E86F6F",
+                  num: "02",
+                  title: "El error humano es inevitable — su impacto, no",
+                  desc: "Cuantos más pasos manuales, más margen de error. Una factura mal calculada, un pedido perdido en un WhatsApp, un contrato sin firmar. Pequeños fallos que acaban costando clientes y reputación.",
+                  tag: "1 de cada 3 errores es evitable"
                 },
                 {
-                  step: "03",
-                  title: "Ciberseguridad",
-                  desc: "Estudiamos vulnerabilidades y definimos cómo blindar cada propuesta.",
-                },
-                {
-                  step: "04",
-                  title: "Arquitectura IA",
-                  desc: "Diseñamos un roadmap visual para escalar sin cuellos de botella.",
-                },
-                {
-                  step: "05",
-                  title: "Entrega",
-                  desc: "Reunión 1:1 con nuestro CTO + informe operativo en Notion desde el día 1.",
-                },
-              ].map((item, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.2 }}
-                  transition={{ duration: 0.5, delay: i * 0.1 }}
-                  className="flex flex-col items-start lg:items-center text-left lg:text-center"
-                >
-                  <div
-                    className="w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm mb-6 flex-shrink-0"
-                    style={{
-                      background: "rgba(91,98,244,0.12)",
-                      border: "1px solid rgba(91,98,244,0.3)",
-                      color: "#818CF8",
-                    }}
-                  >
-                    {item.step}
+                  Icon: AlertTriangle,
+                  color: "#818CF8",
+                  num: "03",
+                  title: "La IA mal implementada abre puertas que no ves",
+                  desc: "No es solo riesgo técnico — es riesgo de negocio. Una integración sin revisar, datos de clientes en sistemas sin cifrar, automatizaciones sin validar. Lo que no conoces te hace vulnerable.",
+                  tag: "60% de las brechas son prevenibles"
+                }
+              ].map(({ Icon, color, num, title, desc, tag }, i) => (
+                <motion.div key={i} variants={fadeInUp} className="rounded-2xl p-6 flex gap-4"
+                  style={{ background: "#0D0E1F", border: "1px solid rgba(255,255,255,0.07)" }}>
+                  <div className="w-10 h-10 rounded-xl grid place-items-center flex-shrink-0 mt-0.5" style={{ background: `${color}15`, border: `1px solid ${color}30` }}>
+                    <Icon style={{ width: "18px", height: "18px", color }} />
                   </div>
-                  <h4
-                    className="font-heading font-bold text-white mb-2"
-                    style={{ fontSize: "1rem" }}
-                  >
-                    {item.title}
-                  </h4>
-                  <p
-                    style={{
-                      color: "rgba(255,255,255,0.55)",
-                      fontSize: "0.875rem",
-                      lineHeight: 1.6,
-                    }}
-                  >
-                    {item.desc}
-                  </p>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-baseline gap-2 mb-1.5">
+                      <span className="text-xs font-bold" style={{ color: "rgba(255,255,255,0.2)", letterSpacing: "0.08em" }}>{num}</span>
+                      <h3 className="font-semibold text-white text-sm leading-snug">{title}</h3>
+                    </div>
+                    <p className="text-sm mb-3" style={{ color: "rgba(255,255,255,0.45)", lineHeight: 1.65 }}>{desc}</p>
+                    <span className="text-xs px-2.5 py-1 rounded-md" style={{ background: `${color}12`, color, border: `1px solid ${color}22` }}>{tag}</span>
+                  </div>
                 </motion.div>
               ))}
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
       <div className="section-divider" />
 
-      {/* ─── Inspire Cyber 360 mockup ───────────────────────────────────── */}
-      <section className="py-16 md:py-24">
+      {/* ─── Solution timeline ────────────────────────────────────────────── */}
+      <section id="solucion" className="py-16 md:py-24 scroll-mt-20">
         <div className="mx-auto px-6 max-w-6xl">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
-            variants={fadeInUp}
-            className="text-center mb-12"
-          >
-            <h2
-              className="font-heading font-bold text-white mb-4"
-              style={{ fontSize: "clamp(1.5rem, 5vw, 3rem)", letterSpacing: "-0.02em" }}
-            >
-              El entregable: Inspire Cyber 360
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={fadeInUp} className="text-center mb-14 md:mb-20">
+            <h2 className="font-heading font-bold text-white mb-4" style={{ fontSize: "clamp(1.75rem, 5vw, 3rem)", letterSpacing: "-0.02em" }}>
+              Auditoría completa.<br />
+              <span style={{ color: "#818CF8" }}>Hoja de ruta accionable.</span>
             </h2>
-            <p
-              className="mx-auto"
-              style={{ color: "rgba(255,255,255,0.55)", fontSize: "1rem", maxWidth: "540px", lineHeight: 1.65 }}
-            >
-              Un informe operativo completo en Notion que tu equipo puede usar desde el día 1.
-              No un PDF estático — un sistema vivo con todos los hallazgos, oportunidades y el roadmap técnico.
+            <p style={{ color: "rgba(255,255,255,0.5)", maxWidth: "500px", margin: "0 auto", lineHeight: 1.7 }}>
+              Analizamos tu empresa, detectamos dónde la IA puede generar impacto real y te entregamos un plan concreto para implementarlo de forma segura.
             </p>
           </motion.div>
 
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.15 }}
-            variants={fadeInUp}
-            className="mx-auto"
-            style={{ maxWidth: "820px" }}
-          >
-            {/* Notion-style card */}
-            <div
-              style={{
-                background: "#0F1228",
-                border: "1px solid rgba(255,255,255,0.08)",
-                borderRadius: "16px",
-                overflow: "hidden",
-              }}
-            >
-              {/* Card header */}
-              <div
-                style={{
-                  borderBottom: "1px solid rgba(255,255,255,0.06)",
-                  padding: "20px 28px",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "12px",
-                  background: "rgba(91,98,244,0.06)",
-                }}
-              >
-                <img
-                  src="/logo.png"
-                  alt="InspireAI logo"
-                  width={28}
-                  height={28}
-                  style={{ borderRadius: "50%", flexShrink: 0 }}
-                />
-                <span style={{ color: "rgba(255,255,255,0.9)", fontWeight: 600, fontSize: "0.95rem" }}>
-                  Inspire Cyber 360
-                </span>
-                <span style={{ color: "rgba(255,255,255,0.3)", fontSize: "0.85rem" }}>·</span>
-                <span style={{ color: "rgba(255,255,255,0.4)", fontSize: "0.85rem" }}>
-                  [Tu empresa]
-                </span>
-                <div style={{ marginLeft: "auto", display: "flex", gap: "8px" }}>
-                  {["Auditoría", "En progreso"].map((tag) => (
-                    <span
-                      key={tag}
-                      style={{
-                        background: "rgba(91,98,244,0.15)",
-                        color: "#a5b4fc",
-                        fontSize: "0.7rem",
-                        padding: "3px 10px",
-                        borderRadius: "999px",
-                        border: "1px solid rgba(91,98,244,0.3)",
-                      }}
-                    >
-                      {tag}
-                    </span>
-                  ))}
+          {/* Steps — vertical en móvil, horizontal en desktop */}
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.1 }} variants={stagger}
+            className="grid grid-cols-1 md:grid-cols-5 gap-6 md:gap-4 relative">
+            {/* Línea conectora desktop */}
+            <div className="hidden md:block absolute top-[52px] left-[10%] right-[10%] h-px" style={{ background: "linear-gradient(90deg, transparent, rgba(91,98,244,0.4), rgba(91,98,244,0.4), rgba(91,98,244,0.4), transparent)" }} />
+
+            {[
+              { n: "01", title: "Auditoría", desc: "4 ejes clave: operaciones, marketing, ventas y delivery.", icon: "🔍", get: "Mapa de procesos actual" },
+              { n: "02", title: "Análisis", desc: "Detección de ineficiencias y oportunidades de IA con impacto real.", icon: "⚡", get: "Top 10 quick wins" },
+              { n: "03", title: "Ciberseguridad", desc: "Vulnerabilidades en las automatizaciones propuestas.", icon: "🔒", get: "Plan de mitigación" },
+              { n: "04", title: "Arquitectura IA", desc: "Roadmap visual para escalar sin cuellos de botella.", icon: "🗺️", get: "Roadmap priorizado" },
+              { n: "05", title: "Entrega", desc: "Reunión 1:1 con el CTO + informe Notion operativo.", icon: "🎯", get: "Listo desde el día 1" },
+            ].map((step, i) => (
+              <motion.div key={i} variants={fadeInUp} className="flex flex-col items-center text-center relative">
+                {/* Conector móvil */}
+                {i < 4 && (
+                  <div className="md:hidden absolute top-[52px] left-1/2 translate-x-[20px] h-6 w-px" style={{ background: "rgba(91,98,244,0.3)" }} />
+                )}
+                {/* Número + icono */}
+                <div className="w-[52px] h-[52px] rounded-2xl grid place-items-center mb-4 relative z-10" style={{ background: "#111133", border: "1.5px solid rgba(91,98,244,0.4)", boxShadow: "0 0 20px rgba(91,98,244,0.15)" }}>
+                  <span style={{ fontSize: "1.3rem" }}>{step.icon}</span>
                 </div>
-              </div>
-
-              {/* 4 sections */}
-              <div className="grid grid-cols-1 md:grid-cols-2" style={{ gap: 0 }}>
-                {[
-                  {
-                    num: "01",
-                    icon: "📢",
-                    title: "Auditorías de Área",
-                    desc: "Análisis en profundidad de Marketing, Ventas, Fulfilment y Administración. Identificamos qué funciona, qué falla y dónde se pierde dinero cada semana.",
-                    tags: ["Marketing", "Ventas", "Operaciones"],
-                  },
-                  {
-                    num: "02",
-                    icon: "⚡",
-                    title: "Detección IA & Automatización",
-                    desc: "Mapa completo de oportunidades con impacto económico estimado, dificultad técnica y nivel de urgencia. Priorizado para que sepas por dónde empezar.",
-                    tags: ["Impacto", "Dificultad", "Urgencia"],
-                  },
-                  {
-                    num: "03",
-                    icon: "🔒",
-                    title: "Estudio de Vulnerabilidades",
-                    desc: "Análisis de ciberseguridad con escenarios de riesgo reales, probabilidad de ocurrencia y plan de mitigación inmediata validado por hackers éticos.",
-                    tags: ["Riesgo", "Mitigación", "Probabilidad"],
-                  },
-                  {
-                    num: "04",
-                    icon: "🗺️",
-                    title: "Roadmap Técnico",
-                    desc: "Plan de implementación priorizado con fases, herramientas recomendadas y estimación de recursos. Listo para ejecutar desde el día siguiente a la entrega.",
-                    tags: ["Fases", "Herramientas", "Timeline"],
-                  },
-                ].map((section, i) => (
-                  <div
-                    key={i}
-                    style={{
-                      padding: "24px 28px",
-                      borderRight: i % 2 === 0 ? "1px solid rgba(255,255,255,0.05)" : "none",
-                      borderBottom: i < 2 ? "1px solid rgba(255,255,255,0.05)" : "none",
-                    }}
-                  >
-                    <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "10px" }}>
-                      <span style={{ fontSize: "1.1rem" }}>{section.icon}</span>
-                      <span
-                        style={{ color: "rgba(255,255,255,0.2)", fontSize: "0.7rem", fontWeight: 700, letterSpacing: "0.06em" }}
-                      >
-                        {section.num}
-                      </span>
-                      <span style={{ color: "white", fontWeight: 700, fontSize: "0.95rem" }}>
-                        {section.title}
-                      </span>
-                    </div>
-                    <p style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.83rem", lineHeight: 1.6, marginBottom: "12px" }}>
-                      {section.desc}
-                    </p>
-                    <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
-                      {section.tags.map((tag) => (
-                        <span
-                          key={tag}
-                          style={{
-                            background: "rgba(255,255,255,0.04)",
-                            border: "1px solid rgba(255,255,255,0.08)",
-                            color: "rgba(255,255,255,0.4)",
-                            fontSize: "0.68rem",
-                            padding: "2px 8px",
-                            borderRadius: "4px",
-                          }}
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {/* Card footer */}
-              <div
-                style={{
-                  borderTop: "1px solid rgba(255,255,255,0.06)",
-                  padding: "14px 28px",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "20px",
-                }}
-              >
-                <span style={{ color: "rgba(255,255,255,0.3)", fontSize: "0.78rem" }}>
-                  Entregado en Notion · Reunión 1:1 con CTO incluida · Disponible desde el día 1
+                <div className="text-xs font-bold mb-1.5" style={{ color: "#818CF8", letterSpacing: "0.1em" }}>{step.n}</div>
+                <div className="font-semibold text-white mb-2 text-sm">{step.title}</div>
+                <p className="text-xs mb-3" style={{ color: "rgba(255,255,255,0.4)", lineHeight: 1.65 }}>{step.desc}</p>
+                <span className="inline-block px-2.5 py-1 rounded-md text-xs" style={{ background: "rgba(91,98,244,0.1)", color: "#818CF8", border: "1px solid rgba(91,98,244,0.2)" }}>
+                  ✓ {step.get}
                 </span>
-                <button
-                  onClick={() => scrollTo("contacto")}
-                  className="btn-primary-sm"
-                  style={{ marginLeft: "auto", whiteSpace: "nowrap" }}
-                >
-                  Quiero el mío
-                </button>
-              </div>
-            </div>
+              </motion.div>
+            ))}
+          </motion.div>
+
+          {/* CTA */}
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.5 }} variants={fadeInUp}
+            className="text-center mt-14">
+            <button onClick={() => scrollTo("contacto")} className="btn-primary">
+              Reservar auditoría gratuita <ArrowRight className="w-4 h-4" />
+            </button>
+            <p className="mt-3 text-xs" style={{ color: "rgba(255,255,255,0.3)" }}>
+              Sin compromiso · Respuesta en menos de 24h
+            </p>
           </motion.div>
         </div>
       </section>
 
       <div className="section-divider" />
 
-      {/* ─── Differentiation cards ──────────────────────────────────────── */}
-      <section
-        className="py-16 md:py-24"
-        style={{
-          background:
-            "radial-gradient(ellipse 80% 50% at 50% 50%, rgba(91,98,244,0.04) 0%, transparent 70%)",
-        }}
-      >
+      {/* ─── Inspire Cyber 360 ───────────────────────────────────────────── */}
+      <section className="py-16 md:py-24" style={{ background: "radial-gradient(ellipse 80% 50% at 50% 60%, rgba(91,98,244,0.05) 0%, transparent 70%)" }}>
         <div className="mx-auto px-6 max-w-6xl">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
-            variants={fadeInUp}
-            className="text-center mb-10 md:mb-16"
-          >
-            <h2
-              className="font-heading font-bold text-white"
-              style={{
-                fontSize: "clamp(1.5rem, 5vw, 3rem)",
-                letterSpacing: "-0.02em",
-              }}
-            >
-              No somos una consultoría más
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={fadeInUp} className="text-center mb-14">
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-medium tracking-widest uppercase mb-5"
+              style={{ background: "rgba(91,98,244,0.1)", color: "#818CF8", border: "1px solid rgba(91,98,244,0.25)", letterSpacing: "0.1em" }}>
+              El entregable
+            </span>
+            <h2 className="font-heading font-bold text-white mb-4" style={{ fontSize: "clamp(1.75rem, 5vw, 3rem)", letterSpacing: "-0.02em" }}>
+              Inspire Cyber 360
             </h2>
+            <p style={{ color: "rgba(255,255,255,0.5)", maxWidth: "500px", margin: "0 auto", lineHeight: 1.7 }}>
+              Un sistema operativo completo en Notion que tu equipo usa desde el día siguiente a la entrega. No un PDF — un activo vivo de tu empresa.
+            </p>
           </motion.div>
 
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
-            variants={fadeInUp}
-          >
-            <div
-              className="grid grid-cols-1 md:grid-cols-2 gap-6 mx-auto"
-              style={{ maxWidth: "900px" }}
-            >
-              {/* ── Left card — InspireAI ── */}
-              <div
-                style={{
-                  background: "rgba(91,98,244,0.08)",
-                  border: "1px solid rgba(91,98,244,0.35)",
-                  borderRadius: "16px",
-                  padding: "32px",
-                }}
-              >
-                {/* Badge */}
-                <span
-                  style={{
-                    background: "rgba(91,98,244,0.15)",
-                    color: "#A5B4FC",
-                    fontSize: "0.7rem",
-                    padding: "4px 10px",
-                    borderRadius: "999px",
-                    display: "inline-block",
-                    marginBottom: "12px",
-                  }}
-                >
-                  ✦ Recomendado
-                </span>
-                {/* Title */}
-                <div
-                  className="font-heading"
-                  style={{
-                    color: "#818CF8",
-                    fontWeight: 800,
-                    fontSize: "1.25rem",
-                  }}
-                >
-                  InspireAI
-                </div>
-                {/* Divider */}
-                <div
-                  style={{
-                    borderTop: "1px solid rgba(91,98,244,0.2)",
-                    margin: "20px 0",
-                  }}
-                />
-                {/* Rows */}
-                {[
-                  { label: "Enfoque", value: "Técnico + estratégico" },
-                  { label: "Entrega", value: "Informe usable en Notion" },
-                  { label: "Ciberseguridad", value: "Validado por hackers éticos" },
-                  { label: "Personalización", value: "100% adaptado a tu stack" },
-                ].map((row, i, arr) => (
-                  <div
-                    key={i}
-                    style={{
-                      padding: "14px 0",
-                      borderBottom:
-                        i < arr.length - 1
-                          ? "1px solid rgba(255,255,255,0.05)"
-                          : "none",
-                    }}
-                  >
-                    <div
-                      style={{
-                        color: "rgba(255,255,255,0.4)",
-                        fontSize: "0.75rem",
-                        textTransform: "uppercase",
-                        letterSpacing: "0.08em",
-                        marginBottom: "4px",
-                      }}
-                    >
-                      {row.label}
-                    </div>
-                    <div
-                      style={{
-                        color: "white",
-                        fontWeight: 600,
-                        fontSize: "0.95rem",
-                      }}
-                    >
-                      <span style={{ color: "#22C55E" }}>✓ </span>
-                      {row.value}
-                    </div>
-                  </div>
-                ))}
-              </div>
+          {/* Stats row */}
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={stagger}
+            className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+            {[
+              { num: "4", label: "áreas auditadas" },
+              { num: "+20", label: "procesos analizados" },
+              { num: "100%", label: "personalizado" },
+              { num: "24h", label: "respuesta media" },
+            ].map((s, i) => (
+              <motion.div key={i} variants={fadeInUp} className="rounded-xl p-5 text-center"
+                style={{ background: "#0D0E1F", border: "1px solid rgba(255,255,255,0.07)" }}>
+                <div className="text-3xl font-bold text-white mb-1" style={{ letterSpacing: "-0.03em" }}>{s.num}</div>
+                <div className="text-xs" style={{ color: "rgba(255,255,255,0.4)" }}>{s.label}</div>
+              </motion.div>
+            ))}
+          </motion.div>
 
-              {/* ── Right card — Tradicionales ── */}
-              <div
-                style={{
-                  background: "rgba(255,255,255,0.02)",
-                  border: "1px solid rgba(255,255,255,0.06)",
-                  borderRadius: "16px",
-                  padding: "32px",
-                }}
-              >
-                {/* Title */}
-                <div
-                  className="font-heading"
-                  style={{
-                    color: "rgba(255,255,255,0.4)",
-                    fontWeight: 700,
-                    fontSize: "1.25rem",
-                  }}
-                >
-                  Consultoras tradicionales
+          {/* CRM screenshot + 4 deliverables */}
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.1 }} variants={stagger}
+            className="grid gap-4 grid-cols-1 md:grid-cols-2">
+
+            {/* CRM pipeline screenshot */}
+            <motion.div variants={fadeInUp} className="rounded-2xl overflow-hidden"
+              style={{ background: "#0D0E1F", border: "1px solid rgba(255,255,255,0.07)" }}>
+              <div className="flex items-center gap-2 px-4 py-3 border-b" style={{ background: "#111122", borderColor: "rgba(255,255,255,0.06)" }}>
+                <div className="flex gap-1.5">
+                  <div className="w-2.5 h-2.5 rounded-full" style={{ background: "#E86F6F" }} />
+                  <div className="w-2.5 h-2.5 rounded-full" style={{ background: "#E8A24F" }} />
+                  <div className="w-2.5 h-2.5 rounded-full" style={{ background: "#3FB984" }} />
                 </div>
-                {/* Divider */}
-                <div
-                  style={{
-                    borderTop: "1px solid rgba(255,255,255,0.06)",
-                    margin: "20px 0",
-                  }}
-                />
-                {/* Rows */}
-                {[
-                  { label: "Enfoque", value: "Generalista y teórico" },
-                  { label: "Entrega", value: "PDF estático" },
-                  { label: "Ciberseguridad", value: "Checklist genérico" },
-                  { label: "Personalización", value: "Plantillas genéricas" },
-                ].map((row, i, arr) => (
-                  <div
-                    key={i}
-                    style={{
-                      padding: "14px 0",
-                      borderBottom:
-                        i < arr.length - 1
-                          ? "1px solid rgba(255,255,255,0.05)"
-                          : "none",
-                    }}
-                  >
-                    <div
-                      style={{
-                        color: "rgba(255,255,255,0.4)",
-                        fontSize: "0.75rem",
-                        textTransform: "uppercase",
-                        letterSpacing: "0.08em",
-                        marginBottom: "4px",
-                      }}
-                    >
-                      {row.label}
-                    </div>
-                    <div
-                      style={{
-                        color: "rgba(255,255,255,0.3)",
-                        fontWeight: 400,
-                        fontSize: "0.95rem",
-                      }}
-                    >
-                      <span style={{ color: "rgba(255,255,255,0.2)" }}>— </span>
-                      {row.value}
-                    </div>
-                  </div>
-                ))}
+                <span className="text-xs ml-2" style={{ color: "rgba(255,255,255,0.3)" }}>Pipeline de implementación</span>
               </div>
+              <img src="/crm-pipeline.png" alt="Pipeline InspireAI" className="w-full" style={{ display: "block" }} />
+            </motion.div>
+
+            {/* 4 deliverables grid */}
+            <div className="grid grid-cols-2 gap-4">
+              {[
+                { icon: "📢", title: "Auditorías de Área", desc: "Marketing, Ventas, Operaciones y Delivery con hallazgos concretos.", color: "#E8A24F" },
+                { icon: "⚡", title: "Mapa de Automatización", desc: "Cada oportunidad con impacto €, dificultad y urgencia.", color: "#818CF8" },
+                { icon: "🔒", title: "Estudio de Seguridad", desc: "Riesgos identificados, probabilidad y plan de mitigación.", color: "#E86F6F" },
+                { icon: "🗺️", title: "Roadmap Técnico", desc: "Fases, herramientas y estimación de recursos. Ejecutable.", color: "#3FB984" },
+              ].map((d, i) => (
+                <motion.div key={i} variants={fadeInUp} className="rounded-xl p-5"
+                  style={{ background: "#0D0E1F", border: "1px solid rgba(255,255,255,0.07)" }}>
+                  <div className="text-2xl mb-3">{d.icon}</div>
+                  <div className="font-semibold text-white text-sm mb-1.5">{d.title}</div>
+                  <p className="text-xs" style={{ color: "rgba(255,255,255,0.4)", lineHeight: 1.6 }}>{d.desc}</p>
+                </motion.div>
+              ))}
             </div>
+          </motion.div>
+
+          {/* Garantía */}
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.5 }} variants={fadeInUp}
+            className="mt-8 rounded-2xl p-6 md:p-8 flex flex-col md:flex-row items-center gap-6"
+            style={{ background: "linear-gradient(135deg, rgba(91,98,244,0.12) 0%, rgba(91,98,244,0.04) 100%)", border: "1px solid rgba(91,98,244,0.25)" }}>
+            <div className="w-14 h-14 rounded-2xl grid place-items-center flex-shrink-0" style={{ background: "rgba(91,98,244,0.2)", border: "1px solid rgba(91,98,244,0.4)" }}>
+              <Check className="w-7 h-7" style={{ color: "#818CF8" }} />
+            </div>
+            <div className="text-center md:text-left">
+              <div className="font-semibold text-white mb-1">Garantía de impacto real</div>
+              <p style={{ color: "rgba(255,255,255,0.55)", fontSize: "0.9rem", lineHeight: 1.6 }}>
+                Si no identificamos al menos 2 procesos con impacto real de IA, devolvemos el importe íntegro. Sin letras pequeñas.
+              </p>
+            </div>
+            <button onClick={() => scrollTo("contacto")} className="btn-primary md:ml-auto flex-shrink-0">
+              Empezar ahora <ArrowRight className="w-4 h-4" />
+            </button>
           </motion.div>
         </div>
       </section>
 
       <div className="section-divider" />
 
+      {/* ─── Differentiation cards ───────────────────────────────────────── */}
+      <section className="py-16 md:py-24">
+        <div className="mx-auto px-6 max-w-6xl">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={fadeInUp} className="text-center mb-12">
+            <h2 className="font-heading font-bold text-white mb-4" style={{ fontSize: "clamp(1.75rem, 5vw, 2.75rem)", letterSpacing: "-0.02em" }}>
+              No somos una consultora tradicional
+            </h2>
+            <p style={{ color: "rgba(255,255,255,0.5)", maxWidth: "480px", margin: "0 auto", lineHeight: 1.7 }}>
+              La diferencia no está en lo que prometemos — está en lo que entregamos.
+            </p>
+          </motion.div>
 
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.1 }} variants={stagger}
+            className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* InspireAI */}
+            <motion.div variants={fadeInUp} className="rounded-2xl overflow-hidden"
+              style={{ background: "linear-gradient(135deg, rgba(91,98,244,0.12) 0%, rgba(91,98,244,0.03) 100%)", border: "1.5px solid rgba(91,98,244,0.35)" }}>
+              <div className="flex items-center gap-3 p-6 pb-5 border-b" style={{ borderColor: "rgba(91,98,244,0.2)" }}>
+                <img src="/logo.png" alt="InspireAI" width={28} height={28} style={{ borderRadius: "50%" }} />
+                <div>
+                  <div className="font-bold text-white">InspireAI</div>
+                  <div className="text-xs" style={{ color: "#818CF8" }}>Lo que hacemos</div>
+                </div>
+                <span className="ml-auto px-2.5 py-1 rounded-full text-xs font-semibold" style={{ background: "rgba(91,98,244,0.2)", color: "#818CF8", border: "1px solid rgba(91,98,244,0.4)" }}>
+                  Recomendado
+                </span>
+              </div>
+              <div className="p-6 flex flex-col gap-3">
+                {[
+                  ["Técnico + estratégico", "No solo teoría — implementamos nosotros"],
+                  ["Entregable en Notion", "Tu equipo lo usa desde el día 1"],
+                  ["Ciberseguridad incluida", "Validado por hackers éticos"],
+                  ["100% a medida", "Adaptado a tu stack y proceso"],
+                  ["CRM personalizado", "Pipeline, diagnósticos y notificaciones"],
+                  ["Garantía de devolución", "Si no hay impacto real, devolvemos"],
+                ].map(([title, sub]) => (
+                  <div key={title} className="flex items-start gap-3">
+                    <div className="w-5 h-5 rounded-full grid place-items-center flex-shrink-0 mt-0.5" style={{ background: "rgba(91,98,244,0.2)", border: "1px solid rgba(91,98,244,0.4)" }}>
+                      <Check style={{ width: "11px", height: "11px", color: "#818CF8" }} />
+                    </div>
+                    <div>
+                      <div className="text-sm font-medium text-white">{title}</div>
+                      <div className="text-xs" style={{ color: "rgba(255,255,255,0.4)" }}>{sub}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+
+            {/* Tradicionales */}
+            <motion.div variants={fadeInUp} className="rounded-2xl overflow-hidden"
+              style={{ background: "#0D0E1F", border: "1px solid rgba(255,255,255,0.08)" }}>
+              <div className="flex items-center gap-3 p-6 pb-5 border-b" style={{ borderColor: "rgba(255,255,255,0.06)" }}>
+                <div className="w-7 h-7 rounded-full grid place-items-center" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)" }}>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" strokeWidth="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+                </div>
+                <div>
+                  <div className="font-bold text-white">Consultoras tradicionales</div>
+                  <div className="text-xs" style={{ color: "rgba(255,255,255,0.35)" }}>Lo que suelen hacer</div>
+                </div>
+              </div>
+              <div className="p-6 flex flex-col gap-3">
+                {[
+                  ["Generalista y teórico", "Recomendaciones sin implementación"],
+                  ["PDF estático", "Un informe que nadie lee después"],
+                  ["Checklist genérico", "No específico de tu sector"],
+                  ["Plantillas de otro cliente", "Sin adaptación real a ti"],
+                  ["Sin herramientas propias", "Dependes de terceros"],
+                  ["Sin garantía", "Pagas aunque no haya resultados"],
+                ].map(([title, sub]) => (
+                  <div key={title} className="flex items-start gap-3 opacity-60">
+                    <div className="w-5 h-5 rounded-full grid place-items-center flex-shrink-0 mt-0.5" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.1)" }}>
+                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" strokeWidth="3"><path d="M18 6 6 18M6 6l12 12"/></svg>
+                    </div>
+                    <div>
+                      <div className="text-sm font-medium text-white">{title}</div>
+                      <div className="text-xs" style={{ color: "rgba(255,255,255,0.35)" }}>{sub}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
 
       <div className="section-divider" />
 
-      {/* ─── CRM Section ─────────────────────────────────────────────────── */}
+            {/* ─── CRM Section ─────────────────────────────────────────────────── */}
       <section className="py-16 md:py-24 overflow-hidden" id="crm">
         <div className="mx-auto px-6 max-w-6xl">
 
