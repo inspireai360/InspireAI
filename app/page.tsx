@@ -697,9 +697,9 @@ export default function LandingPage() {
                   <div className="w-2.5 h-2.5 rounded-full" style={{ background: "#E8A24F" }} />
                   <div className="w-2.5 h-2.5 rounded-full" style={{ background: "#3FB984" }} />
                 </div>
-                <span className="text-xs ml-2" style={{ color: "rgba(255,255,255,0.3)" }}>Pipeline de implementación</span>
+                <span className="text-xs ml-2" style={{ color: "rgba(255,255,255,0.3)" }}>Informe de diagnóstico · 4 áreas auditadas</span>
               </div>
-              <img src="/crm-pipeline.png" alt="Pipeline InspireAI" className="w-full" style={{ display: "block" }} />
+              <img src="/crm-diagnosticos.png" alt="Diagnóstico InspireAI" className="w-full" style={{ display: "block", objectFit: "cover", objectPosition: "top" }} />
             </motion.div>
 
             {/* 4 deliverables grid */}
@@ -939,7 +939,7 @@ export default function LandingPage() {
                 letterSpacing: "-0.02em",
               }}
             >
-              ¿Listo para escalar sin fricciones?
+              ¿Empezamos?
             </h2>
             <p style={{ color: "rgba(255,255,255,0.55)", fontSize: "1rem" }}>
               Primera consulta gratuita. Sin compromisos.
