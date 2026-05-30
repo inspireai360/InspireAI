@@ -1551,20 +1551,7 @@ export default function LandingPage() {
                     </p>
                   )}
 
-                                {/* Campo honeypot — invisible para humanos, los bots lo rellenan */}
-              <div style={{ position: "absolute", left: "-9999px", opacity: 0, pointerEvents: "none" }} aria-hidden="true">
-                <label htmlFor="website">No rellenar</label>
-                <input
-                  type="text"
-                  id="website"
-                  name="website"
-                  tabIndex={-1}
-                  autoComplete="off"
-                  value={formData.website || ""}
-                  onChange={(e) => setFormData((p) => ({ ...p, website: e.target.value }))}
-                />
-              </div>
-<button
+                                <button
                     type="submit"
                     disabled={isSubmitting}
                     className="w-full btn-primary disabled:opacity-50"
