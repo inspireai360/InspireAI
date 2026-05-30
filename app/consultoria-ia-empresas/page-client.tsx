@@ -270,34 +270,31 @@ export default function ConsultoriaIA() {
         </div>
       </section>
 
-      {/* ── GARANTÍAS ─────────────────────────────────────────────────────────── */}
-      <section className="py-16 md:py-24" style={{ background:"rgba(255,255,255,0.015)", borderTop:"1px solid rgba(255,255,255,0.06)" }}>
-        <div className="mx-auto px-6 max-w-4xl">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once:true }} variants={fadeUp} className="text-center mb-10">
-            <h2 className="font-heading font-bold text-white mb-3" style={{ fontSize:"clamp(1.5rem,4vw,2.25rem)", letterSpacing:"-0.02em" }}>
-              El precio se define en la primera llamada
-            </h2>
-            <p style={{ color:"rgba(255,255,255,0.45)", maxWidth:"500px", margin:"0 auto", lineHeight:1.7 }}>
-              El alcance del diagnóstico varía según el número de áreas y la complejidad de la empresa.
-              En la primera llamada entendemos vuestro contexto y os damos una propuesta concreta.
-            </p>
-          </motion.div>
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once:true }} variants={stagger}
-            className="grid md:grid-cols-3 gap-5">
-            {[
-              { icon:"✅", title:"Garantía de impacto real", desc:"Si no identificamos al menos 2 procesos con impacto real y cuantificable en tu empresa, devolvemos el importe íntegro. Sin letras pequeñas.", color:"#818CF8" },
-              { icon:"🎯", title:"Diagnóstico que se recupera", desc:"Si decides avanzar con la implementación en los 30 días siguientes a la entrega, el 100% del coste del diagnóstico se descuenta.", color:"#3FB984" },
-              { icon:"📋", title:"Propuesta sin compromiso", desc:"Primera llamada gratuita para entender vuestro contexto. Os enviamos una propuesta con alcance y precio antes de comprometeros a nada.", color:"#E8A24F" },
-            ].map((c,i) => (
-              <motion.div key={i} variants={fadeUp} className="rounded-2xl p-6" style={{ background:"#0D0E1F", border:`1px solid ${c.color}25` }}>
-                <div className="text-2xl mb-4">{c.icon}</div>
-                <h3 className="font-semibold text-white mb-2">{c.title}</h3>
-                <p className="text-sm leading-relaxed" style={{ color:"rgba(255,255,255,0.5)" }}>{c.desc}</p>
-              </motion.div>
-            ))}
+      {/* PROPUESTA */}
+      <section className="py-16 md:py-20 border-t" style={{borderColor:"rgba(255,255,255,0.06)"}}>
+        <div className="mx-auto px-6 max-w-3xl text-center">
+          <motion.div initial="hidden" whileInView="visible" viewport={{once:true}} variants={stagger}>
+            <motion.div variants={fadeUp} className="inline-flex items-center justify-center gap-3 mb-6">
+              <div className="h-px w-12" style={{background:"rgba(255,255,255,0.12)"}} />
+              <span className="text-xs font-semibold uppercase tracking-widest" style={{color:"rgba(255,255,255,0.35)",letterSpacing:"0.12em"}}>Precio</span>
+              <div className="h-px w-12" style={{background:"rgba(255,255,255,0.12)"}} />
+            </motion.div>
+            <motion.h2 variants={fadeUp} className="font-heading font-bold text-white mb-4"
+              style={{fontSize:"clamp(1.5rem,3.5vw,2.25rem)",letterSpacing:"-0.02em"}}>
+              Solicita una propuesta
+            </motion.h2>
+            <motion.p variants={fadeUp} className="mb-8" style={{color:"rgba(255,255,255,0.45)",lineHeight:1.7,maxWidth:"440px",margin:"0 auto 2rem"}}>
+              El alcance y el precio se definen en la primera llamada, según vuestro caso concreto.
+            </motion.p>
+            <motion.div variants={fadeUp}>
+              <Link href="/#contacto" className="btn-primary inline-flex items-center gap-2">
+                Reservar llamada gratuita <ArrowRight className="w-4 h-4" />
+              </Link>
+            </motion.div>
           </motion.div>
         </div>
       </section>
+
 
       {/* ── FAQ ───────────────────────────────────────────────────────────────── */}
       <section className="py-16 border-t" style={{ borderColor:"rgba(255,255,255,0.06)" }}>
