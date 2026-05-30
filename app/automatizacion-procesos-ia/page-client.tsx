@@ -203,41 +203,29 @@ export default function AutomatizacionProcesos() {
         </div>
       </section>
 
-      {/* PRECIO */}
+      {/* GARANTÍAS */}
       <section className="py-16 md:py-24">
         <div className="mx-auto px-6 max-w-4xl">
-          <motion.div initial="hidden" whileInView="visible" viewport={{once:true}} variants={stagger} className="grid md:grid-cols-2 gap-6">
-            <motion.div variants={fadeUp} className="rounded-2xl p-8" style={{background:"#0D0E1F",border:"1px solid rgba(255,255,255,0.08)"}}>
-              <div className="text-xs font-semibold uppercase tracking-widest mb-4" style={{color:"rgba(255,255,255,0.3)",letterSpacing:"0.1em"}}>Implementación de automatizaciones</div>
-              <div className="text-4xl font-bold text-white mb-1" style={{letterSpacing:"-0.03em"}}>4.000€ – 15.000€</div>
-              <div className="text-sm mb-6" style={{color:"rgba(255,255,255,0.35)"}}>según número y complejidad de flujos · precio cerrado tras diagnóstico</div>
-              <div className="flex flex-col gap-3 mb-7">
-                {["Diagnóstico previo incluido (o descontado si ya lo tenéis)","N8N self-hosted: el código es vuestro","Pruebas en paralelo antes de producción","Formación al equipo que lo va a usar","Monitorización durante el primer mes","Sin lock-in: podéis cambiar de proveedor"].map((f,i) => (
-                  <div key={i} className="flex items-center gap-2.5 text-sm" style={{color:"rgba(255,255,255,0.65)"}}>
-                    <Check style={{width:14,height:14,color:"#E8A24F",flexShrink:0}} />{f}
-                  </div>
-                ))}
-              </div>
-              <button onClick={() => document.getElementById("cta-auto")?.scrollIntoView({behavior:"smooth"})} className="btn-primary w-full">
-                Solicitar presupuesto <ArrowRight className="w-4 h-4" />
-              </button>
-            </motion.div>
-            <motion.div variants={fadeUp} className="flex flex-col gap-5">
-              <div className="rounded-2xl p-7 flex-1" style={{background:"linear-gradient(135deg,rgba(232,162,79,0.12),rgba(232,162,79,0.03))",border:"1px solid rgba(232,162,79,0.25)"}}>
-                <div className="text-2xl mb-3">🔓</div>
-                <h3 className="font-semibold text-white mb-3">Sin lock-in. El código es vuestro.</h3>
-                <p className="text-sm leading-relaxed" style={{color:"rgba(255,255,255,0.55)"}}>
-                  Trabajamos con N8N self-hosted en vuestro servidor. El código de los flujos es vuestro desde el primer día. Podéis llevarlo a cualquier desarrollador si lo preferís. Nada de depender de nuestra suscripción.
-                </p>
-              </div>
-              <div className="rounded-2xl p-7" style={{background:"rgba(63,185,132,0.08)",border:"1px solid rgba(63,185,132,0.2)"}}>
-                <div className="text-2xl mb-3">📊</div>
-                <h3 className="font-semibold text-white mb-3">ROI medible desde la semana 1</h3>
-                <p className="text-sm leading-relaxed" style={{color:"rgba(255,255,255,0.55)"}}>
-                  Definimos antes de implementar cómo vamos a medir el impacto: horas ahorradas por semana, errores eliminados, tiempo de respuesta. Si no se puede medir, no se implementa.
-                </p>
-              </div>
-            </motion.div>
+          <motion.div initial="hidden" whileInView="visible" viewport={{once:true}} variants={fadeUp} className="text-center mb-10">
+            <h2 className="font-heading font-bold text-white mb-3" style={{fontSize:"clamp(1.5rem,4vw,2.25rem)",letterSpacing:"-0.02em"}}>
+              El precio se define tras el diagnóstico
+            </h2>
+            <p style={{color:"rgba(255,255,255,0.45)",maxWidth:"500px",margin:"0 auto",lineHeight:1.7}}>
+              Cada proyecto es diferente. El coste depende del número de automatizaciones, su complejidad y las herramientas involucradas. Os damos una propuesta cerrada tras entender vuestro caso.
+            </p>
+          </motion.div>
+          <motion.div initial="hidden" whileInView="visible" viewport={{once:true}} variants={stagger} className="grid md:grid-cols-3 gap-5">
+            {[
+              {icon:"🔓",title:"Sin lock-in",desc:"N8N self-hosted en vuestro servidor. El código es vuestro desde el primer día. Podéis cambiarnos por cualquier otro proveedor en cualquier momento.",color:"#E8A24F"},
+              {icon:"📊",title:"ROI medible",desc:"Definimos antes de implementar cómo medir el impacto: horas ahorradas, errores eliminados, tiempo de respuesta. Si no se puede medir, no se implementa.",color:"#3FB984"},
+              {icon:"📋",title:"Propuesta sin compromiso",desc:"Primera llamada para entender vuestro contexto. Os enviamos una propuesta con alcance, herramientas y precio antes de comprometeros a nada.",color:"#818CF8"},
+            ].map((c,i) => (
+              <motion.div key={i} variants={fadeUp} className="rounded-2xl p-6" style={{background:"#0D0E1F",border:`1px solid ${c.color}25`}}>
+                <div className="text-2xl mb-4">{c.icon}</div>
+                <h3 className="font-semibold text-white mb-2">{c.title}</h3>
+                <p className="text-sm leading-relaxed" style={{color:"rgba(255,255,255,0.5)"}}>{c.desc}</p>
+              </motion.div>
+            ))}
           </motion.div>
         </div>
       </section>
