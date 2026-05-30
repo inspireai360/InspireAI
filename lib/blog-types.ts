@@ -4,6 +4,7 @@ export interface BlogPost {
   metaTitle: string
   metaDescription: string
   excerpt: string
+  content?: string
   date: string
   readTime: number
   category: string
