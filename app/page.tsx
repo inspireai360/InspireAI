@@ -237,6 +237,40 @@ export default function LandingPage() {
                 {label}
               </button>
             ))}
+            <div className="relative group">
+              <button
+                className="text-sm transition-colors duration-150 flex items-center gap-1"
+                style={{ color: "rgba(255,255,255,0.6)" }}
+                onMouseEnter={(e) =>
+                  (e.currentTarget.style.color = "rgba(255,255,255,1)")
+                }
+                onMouseLeave={(e) =>
+                  (e.currentTarget.style.color = "rgba(255,255,255,0.6)")
+                }
+              >
+                Servicios
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="m6 9 6 6 6-6"/></svg>
+              </button>
+              <div className="absolute top-full left-1/2 -translate-x-1/2 pt-3 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-opacity z-50">
+                <div className="rounded-xl overflow-hidden shadow-xl min-w-[220px]"
+                  style={{ background: "#0F1228", border: "1px solid rgba(255,255,255,0.1)" }}>
+                  {[
+                    { href: "/consultoria-ia-empresas", label: "Consultoría IA" },
+                    { href: "/automatizacion-procesos-ia", label: "Automatización" },
+                    { href: "/ciberseguridad-ia-empresas", label: "Ciberseguridad IA" },
+                    { href: "/formacion-ia-equipos", label: "Formación IA" },
+                  ].map((s) => (
+                    <a key={s.href} href={s.href}
+                      className="flex items-center px-4 py-3 text-sm transition-colors border-b last:border-0"
+                      style={{ color: "rgba(255,255,255,0.7)", borderColor: "rgba(255,255,255,0.06)" }}
+                      onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = "rgba(91,98,244,0.1)"; (e.currentTarget as HTMLElement).style.color = "#fff"; }}
+                      onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = "transparent"; (e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,0.7)"; }}>
+                      {s.label}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </div>
             <button
               onClick={() => scrollTo("contacto")}
               className="btn-primary-sm"
