@@ -271,6 +271,8 @@ export default function LandingPage() {
                 </div>
               </div>
             </div>
+            <Link href="/blog" className="text-sm transition-colors" style={{ color:"rgba(255,255,255,0.6)" }}
+              onMouseEnter={e => (e.currentTarget.style.color="white")} onMouseLeave={e => (e.currentTarget.style.color="rgba(255,255,255,0.6)")}>Blog</Link>
             <button
               onClick={() => scrollTo("contacto")}
               className="btn-primary-sm"
