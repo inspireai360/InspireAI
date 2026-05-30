@@ -270,42 +270,31 @@ export default function ConsultoriaIA() {
         </div>
       </section>
 
-      {/* ── PRECIO + GARANTÍA ─────────────────────────────────────────────────── */}
+      {/* ── GARANTÍAS ─────────────────────────────────────────────────────────── */}
       <section className="py-16 md:py-24" style={{ background:"rgba(255,255,255,0.015)", borderTop:"1px solid rgba(255,255,255,0.06)" }}>
         <div className="mx-auto px-6 max-w-4xl">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once:true }} variants={fadeUp} className="text-center mb-10">
+            <h2 className="font-heading font-bold text-white mb-3" style={{ fontSize:"clamp(1.5rem,4vw,2.25rem)", letterSpacing:"-0.02em" }}>
+              El precio se define en la primera llamada
+            </h2>
+            <p style={{ color:"rgba(255,255,255,0.45)", maxWidth:"500px", margin:"0 auto", lineHeight:1.7 }}>
+              El alcance del diagnóstico varía según el número de áreas y la complejidad de la empresa.
+              En la primera llamada entendemos vuestro contexto y os damos una propuesta concreta.
+            </p>
+          </motion.div>
           <motion.div initial="hidden" whileInView="visible" viewport={{ once:true }} variants={stagger}
-            className="grid md:grid-cols-2 gap-6">
-            <motion.div variants={fadeUp} className="rounded-2xl p-8" style={{ background:"#0D0E1F", border:"1px solid rgba(255,255,255,0.08)" }}>
-              <div className="text-xs font-semibold uppercase tracking-widest mb-4" style={{ color:"rgba(255,255,255,0.3)", letterSpacing:"0.1em" }}>Diagnóstico Inspire Cyber 360</div>
-              <div className="text-4xl font-bold text-white mb-1" style={{ letterSpacing:"-0.03em" }}>1.500€ – 4.500€</div>
-              <div className="text-sm mb-6" style={{ color:"rgba(255,255,255,0.35)" }}>según alcance (1 a 4 áreas auditadas)</div>
-              <div className="flex flex-col gap-3 mb-7">
-                {["4–6 semanas de proceso estructurado","Cuestionarios por área para tu equipo","Informe operativo en Notion","Roadmap técnico priorizado por ROI","Análisis de ciberseguridad incluido","Reunión 1:1 de 60 min con el CTO"].map((f,i) => (
-                  <div key={i} className="flex items-center gap-2.5 text-sm" style={{ color:"rgba(255,255,255,0.65)" }}>
-                    <Check style={{ width:14, height:14, color:"#818CF8", flexShrink:0 }} />{f}
-                  </div>
-                ))}
-              </div>
-              <button onClick={() => document.getElementById("contacto-landing")?.scrollIntoView({ behavior:"smooth" })}
-                className="btn-primary w-full">Solicitar diagnóstico <ArrowRight className="w-4 h-4" /></button>
-            </motion.div>
-
-            <motion.div variants={fadeUp} className="flex flex-col gap-5">
-              <div className="rounded-2xl p-7 flex-1" style={{ background:"linear-gradient(135deg,rgba(91,98,244,0.15),rgba(91,98,244,0.04))", border:"1px solid rgba(91,98,244,0.3)" }}>
-                <div className="text-2xl mb-3">✅</div>
-                <h3 className="font-semibold text-white mb-3">Garantía de impacto real</h3>
-                <p className="text-sm leading-relaxed" style={{ color:"rgba(255,255,255,0.55)" }}>
-                  Si no identificamos al menos <strong style={{ color:"white" }}>2 procesos con impacto real y cuantificable</strong> en tu empresa, devolvemos el importe íntegro. Sin letras pequeñas ni cláusulas de escape.
-                </p>
-              </div>
-              <div className="rounded-2xl p-7" style={{ background:"rgba(63,185,132,0.08)", border:"1px solid rgba(63,185,132,0.2)" }}>
-                <div className="text-2xl mb-3">🎯</div>
-                <h3 className="font-semibold text-white mb-3">Si contratas la implementación</h3>
-                <p className="text-sm leading-relaxed" style={{ color:"rgba(255,255,255,0.55)" }}>
-                  Si decides avanzar con la implementación en los <strong style={{ color:"white" }}>30 días siguientes a la entrega</strong>, el 100% del coste del diagnóstico se descuenta. El diagnóstico no es un gasto — es una inversión que se recupera.
-                </p>
-              </div>
-            </motion.div>
+            className="grid md:grid-cols-3 gap-5">
+            {[
+              { icon:"✅", title:"Garantía de impacto real", desc:"Si no identificamos al menos 2 procesos con impacto real y cuantificable en tu empresa, devolvemos el importe íntegro. Sin letras pequeñas.", color:"#818CF8" },
+              { icon:"🎯", title:"Diagnóstico que se recupera", desc:"Si decides avanzar con la implementación en los 30 días siguientes a la entrega, el 100% del coste del diagnóstico se descuenta.", color:"#3FB984" },
+              { icon:"📋", title:"Propuesta sin compromiso", desc:"Primera llamada gratuita para entender vuestro contexto. Os enviamos una propuesta con alcance y precio antes de comprometeros a nada.", color:"#E8A24F" },
+            ].map((c,i) => (
+              <motion.div key={i} variants={fadeUp} className="rounded-2xl p-6" style={{ background:"#0D0E1F", border:`1px solid ${c.color}25` }}>
+                <div className="text-2xl mb-4">{c.icon}</div>
+                <h3 className="font-semibold text-white mb-2">{c.title}</h3>
+                <p className="text-sm leading-relaxed" style={{ color:"rgba(255,255,255,0.5)" }}>{c.desc}</p>
+              </motion.div>
+            ))}
           </motion.div>
         </div>
       </section>
