@@ -55,6 +55,15 @@ export default function LandingPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
+  // ── Calculadora ROI ────────────────────────────────────────────────────────
+  const [empleados, setEmpleados] = useState(12);
+  const [horasManuales, setHorasManuales] = useState(15);
+  const [costeHora, setCosteHora] = useState(20);
+  const horasAhorradasMes = Math.round(empleados * horasManuales * 0.42 * 4.3);
+  const ahorroMensual = horasAhorradasMes * costeHora;
+  const ahorroAnual = ahorroMensual * 12;
+  const mesesROI = ahorroAnual > 0 ? Math.ceil(3500 / (ahorroMensual)) : 0;
+
   const lenisRef = useRef<Lenis | null>(null);
 
   useEffect(() => {
@@ -413,99 +422,81 @@ export default function LandingPage() {
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.1 }} variants={stagger}
             className="grid gap-4" style={{ gridTemplateColumns: "repeat(12, 1fr)" }}>
 
-            {/* Gran tarjeta izquierda — Notion deliverable */}
-            <motion.div variants={fadeInUp} className="rounded-2xl overflow-hidden col-span-12 md:col-span-7"
-              style={{ background: "#191919", border: "1px solid rgba(255,255,255,0.1)", minHeight: "360px" }}>
-              {/* Notion top bar */}
-              <div className="flex items-center gap-2 px-4 py-2.5 border-b" style={{ background: "#191919", borderColor: "rgba(255,255,255,0.06)" }}>
-                <div className="flex gap-1.5">
-                  <div className="w-2.5 h-2.5 rounded-full" style={{ background: "#E86F6F" }} />
-                  <div className="w-2.5 h-2.5 rounded-full" style={{ background: "#E8A24F" }} />
-                  <div className="w-2.5 h-2.5 rounded-full" style={{ background: "#3FB984" }} />
-                </div>
-                <div className="flex-1 flex items-center justify-center gap-2 text-xs" style={{ color: "rgba(255,255,255,0.25)" }}>
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 12h6M9 16h6M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2z"/></svg>
-                  notion.so / Inspire Cyber 360 — [Tu empresa]
-                </div>
-                <div className="flex items-center gap-1.5">
-                  {["LL","TI","ME"].map((i) => (
-                    <div key={i} className="w-5 h-5 rounded-full grid place-items-center text-[9px] font-bold" style={{ background: "rgba(91,98,244,0.4)", color: "#fff", border: "1.5px solid #191919" }}>{i}</div>
-                  ))}
-                </div>
-              </div>
-              {/* Notion layout */}
-              <div className="flex" style={{ minHeight: "320px" }}>
-                {/* Sidebar */}
-                <div className="hidden md:flex flex-col w-44 flex-shrink-0 py-3 border-r" style={{ background: "#171717", borderColor: "rgba(255,255,255,0.05)" }}>
-                  <div className="px-3 mb-2">
-                    <div className="flex items-center gap-2 px-2 py-1 text-xs font-semibold" style={{ color: "rgba(255,255,255,0.6)" }}>
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
-                      Inspire Cyber 360
+            {/* Calculadora ROI */}
+            <motion.div variants={fadeInUp} className="col-span-12 md:col-span-7 rounded-2xl overflow-hidden"
+              style={{ background: "#0D0E1F", border: "1px solid rgba(255,255,255,0.07)", minHeight: "360px" }}>
+              <div className="grid grid-cols-1 md:grid-cols-2 h-full">
+                {/* Left — sliders */}
+                <div className="p-6 md:p-8 flex flex-col justify-between border-b md:border-b-0 md:border-r" style={{ borderColor: "rgba(255,255,255,0.06)" }}>
+                  <div>
+                    <div className="text-xs font-semibold uppercase tracking-widest mb-6" style={{ color: "rgba(255,255,255,0.3)", letterSpacing: "0.1em" }}>
+                      Calcula tu ahorro
+                    </div>
+                    {/* Slider 1 */}
+                    <div className="mb-6">
+                      <div className="flex justify-between items-center mb-2">
+                        <span className="text-sm font-medium text-white">Empleados en tu empresa</span>
+                        <span className="text-sm font-bold" style={{ color: "#818CF8" }}>{empleados}</span>
+                      </div>
+                      <input type="range" min={2} max={100} value={empleados} onChange={e => setEmpleados(+e.target.value)}
+                        className="w-full h-1.5 rounded-full appearance-none cursor-pointer"
+                        style={{ background: `linear-gradient(to right, #5B62F4 ${(empleados-2)/98*100}%, rgba(255,255,255,0.1) ${(empleados-2)/98*100}%)` }} />
+                    </div>
+                    {/* Slider 2 */}
+                    <div className="mb-6">
+                      <div className="flex justify-between items-center mb-2">
+                        <span className="text-sm font-medium text-white">Horas manuales / semana</span>
+                        <span className="text-sm font-bold" style={{ color: "#818CF8" }}>{horasManuales}h</span>
+                      </div>
+                      <input type="range" min={3} max={40} value={horasManuales} onChange={e => setHorasManuales(+e.target.value)}
+                        className="w-full h-1.5 rounded-full appearance-none cursor-pointer"
+                        style={{ background: `linear-gradient(to right, #5B62F4 ${(horasManuales-3)/37*100}%, rgba(255,255,255,0.1) ${(horasManuales-3)/37*100}%)` }} />
+                    </div>
+                    {/* Slider 3 */}
+                    <div className="mb-6">
+                      <div className="flex justify-between items-center mb-2">
+                        <span className="text-sm font-medium text-white">Coste medio por hora (€)</span>
+                        <span className="text-sm font-bold" style={{ color: "#818CF8" }}>{costeHora}€</span>
+                      </div>
+                      <input type="range" min={12} max={60} value={costeHora} onChange={e => setCosteHora(+e.target.value)}
+                        className="w-full h-1.5 rounded-full appearance-none cursor-pointer"
+                        style={{ background: `linear-gradient(to right, #5B62F4 ${(costeHora-12)/48*100}%, rgba(255,255,255,0.1) ${(costeHora-12)/48*100}%)` }} />
                     </div>
                   </div>
-                  {[
-                    { icon: "📋", label: "01 · Diagnóstico", active: true },
-                    { icon: "⚡", label: "02 · Mapa IA", active: false },
-                    { icon: "🔒", label: "03 · Seguridad", active: false },
-                    { icon: "🗺️", label: "04 · Roadmap", active: false },
-                    { icon: "📊", label: "Resumen ejecutivo", active: false },
-                  ].map((item) => (
-                    <div key={item.label} className="flex items-center gap-2 mx-2 px-2 py-1.5 rounded text-xs"
-                      style={{ background: item.active ? "rgba(91,98,244,0.15)" : "transparent", color: item.active ? "rgba(255,255,255,0.85)" : "rgba(255,255,255,0.35)" }}>
-                      <span>{item.icon}</span><span>{item.label}</span>
-                    </div>
-                  ))}
+                  <div className="pt-4 border-t" style={{ borderColor: "rgba(255,255,255,0.06)" }}>
+                    <div className="text-xs mb-1" style={{ color: "rgba(255,255,255,0.35)", textTransform: "uppercase", letterSpacing: "0.08em" }}>Horas ahorradas / mes</div>
+                    <div className="text-3xl font-bold text-white">{horasAhorradasMes.toLocaleString("es-ES")} <span className="text-lg font-normal" style={{ color: "rgba(255,255,255,0.4)" }}>h / mes</span></div>
+                  </div>
                 </div>
-                {/* Main content */}
-                <div className="flex-1 p-5">
-                  <div className="flex items-center gap-1.5 text-xs mb-4" style={{ color: "rgba(255,255,255,0.3)" }}>
-                    <span>Inspire Cyber 360</span><span>/</span>
-                    <span style={{ color: "rgba(255,255,255,0.6)" }}>01 · Diagnóstico de Áreas</span>
-                  </div>
-                  <div className="flex items-center gap-3 mb-4">
-                    <span className="text-xl">📋</span>
-                    <h3 className="text-base font-bold text-white">Diagnóstico de Procesos</h3>
-                  </div>
-                  <div className="rounded-lg px-4 py-3 mb-4 flex items-start gap-3" style={{ background: "rgba(91,98,244,0.1)", border: "1px solid rgba(91,98,244,0.25)" }}>
-                    <span className="text-sm flex-shrink-0">💡</span>
-                    <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.65)" }}>
-                      <strong style={{ color: "rgba(255,255,255,0.85)" }}>Resumen ejecutivo:</strong> 12 oportunidades de automatización detectadas. Ahorro estimado: 18h/semana y +34.000€/año de impacto directo.
+                {/* Right — results */}
+                <div className="p-6 md:p-8 flex flex-col justify-between" style={{ background: "linear-gradient(135deg, rgba(91,98,244,0.15) 0%, rgba(91,98,244,0.03) 100%)" }}>
+                  <div>
+                    <div className="text-xs font-semibold uppercase tracking-widest mb-4" style={{ color: "rgba(255,255,255,0.35)", letterSpacing: "0.1em" }}>Ahorro anual estimado</div>
+                    <div className="text-5xl font-bold text-white mb-1" style={{ letterSpacing: "-0.04em", fontVariantNumeric: "tabular-nums" }}>
+                      {ahorroAnual.toLocaleString("es-ES")} €
+                    </div>
+                    <div className="text-base mb-6" style={{ color: "rgba(255,255,255,0.4)" }}>
+                      {ahorroMensual.toLocaleString("es-ES")} € al mes
+                    </div>
+                    <div className="rounded-xl p-4 mb-4" style={{ background: "rgba(63,185,132,0.1)", border: "1px solid rgba(63,185,132,0.25)" }}>
+                      <div className="text-xs mb-1" style={{ color: "rgba(63,185,132,0.8)", textTransform: "uppercase", letterSpacing: "0.08em" }}>Recuperas la inversión en</div>
+                      <div className="text-2xl font-bold" style={{ color: "#3FB984" }}>
+                        {mesesROI <= 1 ? "menos de 1 mes" : `${mesesROI} ${mesesROI === 1 ? "mes" : "meses"}`}
+                      </div>
+                    </div>
+                    <p className="text-xs" style={{ color: "rgba(255,255,255,0.3)", lineHeight: 1.6 }}>
+                      Basado en automatizar el 42% de tareas manuales. Resultado real puede variar según sector y herramientas.
                     </p>
                   </div>
-                  <div className="rounded-lg overflow-hidden mb-4" style={{ border: "1px solid rgba(255,255,255,0.07)" }}>
-                    <div className="grid grid-cols-3 px-3 py-2 text-xs font-semibold" style={{ background: "rgba(255,255,255,0.04)", color: "rgba(255,255,255,0.35)", letterSpacing: "0.05em" }}>
-                      <span>ÁREA</span><span className="text-center">IMPACTO</span><span className="text-right">URGENCIA</span>
-                    </div>
-                    {[
-                      ["📢 Marketing", "#3FB984", "Alto", "#E86F6F", "Alta"],
-                      ["💼 Ventas", "#3FB984", "Alto", "#E8A24F", "Media"],
-                      ["⚙️ Operaciones", "#E8A24F", "Medio", "#E86F6F", "Alta"],
-                      ["🚚 Fulfillment", "#E8A24F", "Medio", "#E8A24F", "Media"],
-                    ].map(([area, ic, impact, uc, urgency]) => (
-                      <div key={area as string} className="grid grid-cols-3 px-3 py-2 items-center border-t" style={{ borderColor: "rgba(255,255,255,0.05)" }}>
-                        <span className="text-xs" style={{ color: "rgba(255,255,255,0.65)" }}>{area}</span>
-                        <span className="text-center"><span className="text-xs px-1.5 py-0.5 rounded-full" style={{ background: `${ic}18`, color: ic as string }}>{impact}</span></span>
-                        <span className="text-right"><span className="text-xs px-1.5 py-0.5 rounded-full" style={{ background: `${uc}18`, color: uc as string }}>{urgency}</span></span>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="text-xs font-semibold mb-2" style={{ color: "rgba(255,255,255,0.35)", letterSpacing: "0.08em", textTransform: "uppercase" }}>Principales oportunidades</div>
-                  {[
-                    ["Automatizar captación y seguimiento de leads", "Marketing"],
-                    ["Gestión de pedidos sin intervención manual", "Operaciones"],
-                    ["Respuestas automáticas fuera de horario", "Ventas"],
-                  ].map(([task, area]) => (
-                    <div key={task as string} className="flex items-center gap-2 text-xs mb-1.5">
-                      <div className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: "#818CF8" }} />
-                      <span className="flex-1" style={{ color: "rgba(255,255,255,0.6)" }}>{task}</span>
-                      <span className="text-xs px-1.5 py-0.5 rounded" style={{ background: "rgba(255,255,255,0.05)", color: "rgba(255,255,255,0.25)" }}>{area}</span>
-                    </div>
-                  ))}
+                  <button onClick={() => scrollTo("contacto")}
+                    className="btn-primary w-full mt-4">
+                    Quiero este ahorro <ArrowRight className="w-4 h-4" />
+                  </button>
                 </div>
               </div>
             </motion.div>
 
-            {/* Columna derecha */}
+                        {/* Columna derecha */}
             <div className="col-span-12 md:col-span-5 flex flex-col gap-4">
               {/* Stat card */}
               <motion.div variants={fadeInUp} className="rounded-2xl p-6 flex-1"
