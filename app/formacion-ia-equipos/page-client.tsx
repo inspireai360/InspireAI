@@ -5,74 +5,119 @@ import { motion } from "framer-motion";
 import LandingNav from "@/components/LandingNav";
 
 export default function CRMPersonalizado() {
-  const fadeUp = { hidden:{ opacity:0, y:20 }, visible:{ opacity:1, y:0, transition:{ duration:0.5, ease:[0.16,1,0.3,1] } } };
-  const stagger = { hidden:{ opacity:0 }, visible:{ opacity:1, transition:{ staggerChildren:0.1 } } };
+  const fadeUp = { hidden:{opacity:0,y:20}, visible:{opacity:1,y:0,transition:{duration:0.5,ease:[0.16,1,0.3,1]}} };
+  const stagger = { hidden:{opacity:0}, visible:{opacity:1,transition:{staggerChildren:0.1}} };
 
   return (
     <div className="min-h-screen bg-dark text-white selection:bg-primary/30 selection:text-white">
       <LandingNav ctaLabel="Ver demo en vivo" ctaHref="https://crm-demo-inspireai.vercel.app" ctaExternal />
 
-      {/* Hero */}
-      <section className="relative pt-20 pb-16 md:pt-28 md:pb-24 overflow-hidden" style={{ background:"#08091A" }}>
-        <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage:"radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px)", backgroundSize:"28px 28px" }} />
-        <div className="absolute inset-0 pointer-events-none" style={{ background:"radial-gradient(ellipse 70% 40% at 50% -10%, rgba(91,98,244,0.2) 0%, transparent 70%)" }} />
-        <div className="mx-auto px-6 max-w-4xl relative z-10">
-          <motion.div initial="hidden" animate="visible" variants={stagger}>
-            <motion.div variants={fadeUp} className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-medium mb-6"
-              style={{ background:"rgba(91,98,244,0.1)", color:"#818CF8", border:"1px solid rgba(91,98,244,0.25)", letterSpacing:"0.08em", textTransform:"uppercase" }}>
-              Servicio independiente · CRM a medida
+      <section className="relative pt-20 pb-20 md:pt-28 md:pb-28 overflow-hidden" style={{background:"#08091A"}}>
+        <div className="absolute inset-0 pointer-events-none" style={{backgroundImage:"radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px)",backgroundSize:"28px 28px"}} />
+        <div className="absolute inset-0 pointer-events-none" style={{background:"radial-gradient(ellipse 80% 50% at 50% -10%, rgba(91,98,244,0.2) 0%, transparent 70%)"}} />
+        <div className="mx-auto px-6 max-w-5xl relative z-10">
+          <motion.div initial="hidden" animate="visible" variants={stagger} className="text-center">
+            <motion.div variants={fadeUp} className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-medium mb-8"
+              style={{background:"rgba(91,98,244,0.1)",color:"#818CF8",border:"1px solid rgba(91,98,244,0.3)",letterSpacing:"0.1em",textTransform:"uppercase"}}>
+              ✦ Servicio independiente · CRM a medida
             </motion.div>
             <motion.h1 variants={fadeUp} className="font-heading font-bold text-white mb-6"
-              style={{ fontSize:"clamp(2rem,5vw,3.5rem)", lineHeight:1.1, letterSpacing:"-0.02em" }}>
-              Deja de adaptar tu empresa al CRM.<br />
-              <span style={{ color:"#818CF8" }}>El CRM se adapta a ti.</span>
+              style={{fontSize:"clamp(2.2rem,5.5vw,4rem)",lineHeight:1.08,letterSpacing:"-0.025em",maxWidth:"800px",margin:"0 auto 1.5rem"}}>
+              Deja de adaptar tu empresa al CRM.
+              <br /><span style={{color:"#818CF8"}}>El CRM se adapta a ti.</span>
             </motion.h1>
-            <motion.p variants={fadeUp} className="text-lg mb-8 max-w-2xl" style={{ color:"rgba(255,255,255,0.6)", lineHeight:1.7 }}>
-              Salesforce, HubSpot, Pipedrive — herramientas potentes pero caras, complejas
-              y pensadas para todos. Construimos el CRM exacto que necesita tu empresa:
-              con tu marca, conectado a tu web, adaptado a tu proceso de ventas.
-              Sin licencias por usuario. Sin funciones que no usarás.
+            <motion.p variants={fadeUp} className="text-xl mb-10 mx-auto" style={{color:"rgba(255,255,255,0.55)",lineHeight:1.7,maxWidth:"600px"}}>
+              Salesforce, HubSpot, Pipedrive — pensados para todas las empresas, por eso no se adaptan bien a ninguna.
+              Construimos el CRM exacto para tu proceso de ventas: con tu marca, en tu dominio, con tu terminología.
             </motion.p>
-            <motion.div variants={fadeUp} className="flex flex-col sm:flex-row gap-4">
-              <a href="https://crm-demo-inspireai.vercel.app" target="_blank" rel="noopener noreferrer" className="btn-primary">
+            <motion.div variants={fadeUp} className="flex flex-col sm:flex-row gap-4 justify-center">
+              <a href="https://crm-demo-inspireai.vercel.app" target="_blank" rel="noopener noreferrer" className="btn-primary inline-flex items-center gap-2">
                 Ver demo en vivo <ArrowRight className="w-4 h-4" />
               </a>
-              <button onClick={() => document.getElementById("cta-crm")?.scrollIntoView({ behavior:"smooth" })} className="btn-secondary">
+              <button onClick={() => document.getElementById("cta-crm")?.scrollIntoView({behavior:"smooth"})} className="btn-secondary">
                 Quiero mi CRM propio
               </button>
+            </motion.div>
+          </motion.div>
+          <motion.div initial="hidden" animate="visible" variants={stagger}
+            className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-16 pt-12" style={{borderTop:"1px solid rgba(255,255,255,0.07)"}}>
+            {[
+              {num:"0€",label:"de licencia mensual por usuario — es tuyo"},
+              {num:"100%",label:"adaptado a tu proceso, nomenclatura y equipo"},
+              {num:"Tu dominio",label:"crm.tuempresa.com desde el día 1"},
+              {num:"Demo real",label:"puedes verlo funcionando ahora mismo"},
+            ].map((s,i) => (
+              <motion.div key={i} variants={fadeUp} className="text-center">
+                <div className="text-2xl font-bold text-white mb-1" style={{letterSpacing:"-0.02em"}}>{s.num}</div>
+                <div className="text-xs" style={{color:"rgba(255,255,255,0.35)"}}>{s.label}</div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* COMPARATIVA */}
+      <section className="py-16 md:py-24" style={{background:"rgba(255,255,255,0.015)",borderTop:"1px solid rgba(255,255,255,0.06)"}}>
+        <div className="mx-auto px-6 max-w-5xl">
+          <motion.div initial="hidden" whileInView="visible" viewport={{once:true}} variants={stagger} className="grid md:grid-cols-2 gap-12 items-center">
+            <motion.div variants={fadeUp}>
+              <p className="text-xs font-semibold uppercase tracking-widest mb-4" style={{color:"#818CF8",letterSpacing:"0.12em"}}>El problema</p>
+              <h2 className="font-heading font-bold text-white mb-5" style={{fontSize:"clamp(1.6rem,4vw,2.5rem)",letterSpacing:"-0.02em",lineHeight:1.2}}>
+                Con un CRM genérico, tú te adaptas a la herramienta. No al revés.
+              </h2>
+              <p className="text-sm leading-relaxed mb-4" style={{color:"rgba(255,255,255,0.55)"}}>
+                Pasas semanas configurando etapas que no encajan con tu proceso. Usas el 15% de las
+                funcionalidades y pagas el 100% del precio. Tu equipo lo usa a regañadientes porque
+                no tiene sentido para cómo trabajáis realmente.
+              </p>
+              <p className="text-sm leading-relaxed" style={{color:"rgba(255,255,255,0.55)"}}>
+                Un CRM a medida parte de cómo funciona tu empresa — no de un template — y se construye
+                para que tu equipo lo use de verdad desde el primer día.
+              </p>
+            </motion.div>
+            <motion.div variants={fadeUp} className="grid grid-cols-2 gap-4">
+              {[
+                {label:"CRM genérico (HubSpot / Salesforce)",items:["€200–500/usuario/mes","80% de funciones que no usas","Te adaptas tú al sistema","Datos en sus servidores"],bad:true},
+                {label:"CRM a medida — InspireAI",items:["Sin licencias por usuario","Solo lo que necesitas, nada más","El sistema se adapta a ti","Tu base de datos, tu código"],bad:false},
+              ].map((col,i) => (
+                <div key={i} className="rounded-xl p-5" style={{background:i===0?"rgba(255,255,255,0.03)":"rgba(91,98,244,0.1)",border:i===0?"1px solid rgba(255,255,255,0.07)":"1px solid rgba(91,98,244,0.3)"}}>
+                  <div className="text-xs font-semibold mb-4" style={{color:i===0?"rgba(255,255,255,0.35)":"#818CF8",letterSpacing:"0.06em"}}>{col.label}</div>
+                  {col.items.map((item,j) => (
+                    <div key={j} className="flex items-start gap-2 mb-2.5 text-xs" style={{color:i===0?"rgba(255,255,255,0.4)":"rgba(255,255,255,0.75)"}}>
+                      <span style={{color:i===0?"rgba(232,111,111,0.6)":"#3FB984",flexShrink:0}}>{i===0?"✗":"✓"}</span>{item}
+                    </div>
+                  ))}
+                </div>
+              ))}
             </motion.div>
           </motion.div>
         </div>
       </section>
 
-      {/* Qué incluye */}
+      {/* FUNCIONALIDADES */}
       <section className="py-16 md:py-24">
         <div className="mx-auto px-6 max-w-5xl">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once:true }} variants={fadeUp} className="mb-12">
-            <h2 className="font-heading font-bold text-white mb-3" style={{ fontSize:"clamp(1.5rem,4vw,2.5rem)", letterSpacing:"-0.02em" }}>
-              Qué incluye tu CRM
+          <motion.div initial="hidden" whileInView="visible" viewport={{once:true}} variants={fadeUp} className="mb-12">
+            <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{color:"#818CF8",letterSpacing:"0.12em"}}>Qué incluye</p>
+            <h2 className="font-heading font-bold text-white mb-4" style={{fontSize:"clamp(1.5rem,4vw,2.5rem)",letterSpacing:"-0.02em"}}>
+              Lo que tiene el tuyo, adaptado<br />a cómo trabaja tu empresa
             </h2>
-            <p style={{ color:"rgba(255,255,255,0.45)", maxWidth:"520px", lineHeight:1.7 }}>
-              No es una plantilla que adaptamos. Es una aplicación construida desde cero
-              para tu modelo de negocio, desplegada en tu propio dominio.
-            </p>
+            <p style={{color:"rgba(255,255,255,0.45)",maxWidth:"500px",lineHeight:1.7}}>No es una plantilla que adaptamos. Es una aplicación construida desde cero para tu modelo de negocio.</p>
           </motion.div>
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once:true }} variants={stagger}
-            className="grid md:grid-cols-2 gap-5">
+          <motion.div initial="hidden" whileInView="visible" viewport={{once:true}} variants={stagger} className="grid md:grid-cols-2 gap-5">
             {[
-              { icon:"📊", title:"Dashboard en tiempo real", desc:"KPIs de tu negocio actualizados al instante: revenue, deals activos, close rate, ticket medio. No métricas genéricas — las que tú decides que importan.", color:"#818CF8" },
-              { icon:"🗂️", title:"Pipeline Kanban personalizado", desc:"Las etapas de tu proceso de ventas, con tu terminología. Arrastra deals entre fases con drag & drop. Visible en ordenador y móvil.", color:"#4F6FE8" },
-              { icon:"🔍", title:"Diagnósticos de clientes", desc:"Si ofreces auditorías o servicios de diagnóstico, el CRM gestiona el estado de cada área auditada, guarda las respuestas de los cuestionarios y vincula el entregable de Notion.", color:"#3FA7A0" },
-              { icon:"🔔", title:"Notificaciones automáticas", desc:"Cuando llega un lead desde tu web o un cliente completa un cuestionario, os llega un email al momento a todo el equipo. Sin revisar el CRM manualmente.", color:"#E8A24F" },
-              { icon:"👥", title:"Multi-usuario para el equipo", desc:"Cada socio o comercial tiene su propio acceso. El sistema identifica quién hizo qué y muestra el responsable de cada contacto y oportunidad.", color:"#818CF8" },
-              { icon:"🔗", title:"Conectado a tu web", desc:"El formulario de contacto de tu web crea automáticamente el lead en el CRM. Los cuestionarios de diagnóstico guardan las respuestas directamente. Sin pasos manuales.", color:"#3FB984" },
+              {icon:"📊",title:"Dashboard en tiempo real",desc:"KPIs de tu negocio actualizados al instante: revenue, deals activos, close rate, ticket medio. Las métricas que decides que importan, no las que vienen por defecto.",color:"#818CF8"},
+              {icon:"🗂️",title:"Pipeline Kanban personalizado",desc:"Las etapas de tu proceso de ventas, con tu terminología. Arrastra deals entre fases con drag & drop. Las columnas las defines tú.",color:"#4F6FE8"},
+              {icon:"🔍",title:"Diagnósticos de clientes",desc:"Si ofreces auditorías o servicios de diagnóstico, el CRM gestiona el estado de cada área, guarda cuestionarios y vincula el entregable.",color:"#3FA7A0"},
+              {icon:"🔔",title:"Notificaciones automáticas",desc:"Cuando llega un lead desde tu web o un cliente completa un cuestionario, os llega un email al momento a todo el equipo. Sin revisar el CRM manualmente.",color:"#E8A24F"},
+              {icon:"👥",title:"Multi-usuario para el equipo",desc:"Cada persona tiene su propio acceso. El sistema muestra quién es responsable de cada contacto y oportunidad.",color:"#818CF8"},
+              {icon:"🔗",title:"Conectado a tu web",desc:"El formulario de tu web crea automáticamente el lead en el CRM. Los cuestionarios guardan las respuestas directamente. Sin pasos manuales.",color:"#3FB984"},
             ].map((c,i) => (
-              <motion.div key={i} variants={fadeUp} className="rounded-2xl p-6 flex gap-4"
-                style={{ background:"#0D0E1F", border:`1px solid ${c.color}20` }}>
+              <motion.div key={i} variants={fadeUp} className="rounded-2xl p-6 flex gap-4" style={{background:"#0D0E1F",border:`1px solid ${c.color}20`}}>
                 <div className="text-2xl flex-shrink-0">{c.icon}</div>
                 <div>
                   <h3 className="font-semibold text-white mb-2 text-sm">{c.title}</h3>
-                  <p className="text-sm leading-relaxed" style={{ color:"rgba(255,255,255,0.5)" }}>{c.desc}</p>
+                  <p className="text-sm leading-relaxed" style={{color:"rgba(255,255,255,0.5)"}}>{c.desc}</p>
                 </div>
               </motion.div>
             ))}
@@ -80,169 +125,100 @@ export default function CRMPersonalizado() {
         </div>
       </section>
 
-      {/* Demo screenshot */}
-      <section className="py-12 border-t border-b" style={{ borderColor:"rgba(255,255,255,0.05)", background:"rgba(255,255,255,0.02)" }}>
+      {/* DEMO SCREENSHOT */}
+      <section className="py-12 border-t border-b" style={{borderColor:"rgba(255,255,255,0.06)",background:"rgba(255,255,255,0.015)"}}>
         <div className="mx-auto px-6 max-w-5xl">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once:true }} variants={fadeUp}>
-            <div className="rounded-2xl overflow-hidden" style={{ background:"#0A0A1A", border:"1px solid rgba(255,255,255,0.1)", boxShadow:"0 24px 60px -12px rgba(0,0,0,0.7)" }}>
-              <div className="flex items-center gap-2 px-4 py-3 border-b" style={{ background:"#111122", borderColor:"rgba(255,255,255,0.07)" }}>
-                <div className="flex gap-1.5">
-                  <div className="w-3 h-3 rounded-full" style={{ background:"#E86F6F" }}/>
-                  <div className="w-3 h-3 rounded-full" style={{ background:"#E8A24F" }}/>
-                  <div className="w-3 h-3 rounded-full" style={{ background:"#3FB984" }}/>
-                </div>
+          <motion.div initial="hidden" whileInView="visible" viewport={{once:true}} variants={fadeUp}>
+            <div className="rounded-2xl overflow-hidden" style={{background:"#0A0A1A",border:"1px solid rgba(255,255,255,0.1)",boxShadow:"0 24px 60px -12px rgba(0,0,0,0.7)"}}>
+              <div className="flex items-center gap-2 px-4 py-3 border-b" style={{background:"#111122",borderColor:"rgba(255,255,255,0.07)"}}>
+                <div className="flex gap-1.5"><div className="w-3 h-3 rounded-full" style={{background:"#E86F6F"}}/><div className="w-3 h-3 rounded-full" style={{background:"#E8A24F"}}/><div className="w-3 h-3 rounded-full" style={{background:"#3FB984"}}/></div>
                 <div className="flex-1 flex justify-center">
-                  <div className="flex items-center gap-2 px-3 py-1 rounded text-xs" style={{ background:"rgba(255,255,255,0.05)", color:"rgba(255,255,255,0.3)" }}>
-                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-                    crm.tuempresa.es
+                  <div className="flex items-center gap-2 px-3 py-1 rounded text-xs" style={{background:"rgba(255,255,255,0.05)",color:"rgba(255,255,255,0.3)"}}>
+                    🔒 crm.tuempresa.com
                   </div>
                 </div>
               </div>
-              <img src="/crm-dashboard.png" alt="Demo CRM InspireAI — dashboard personalizado"
-                className="w-full" style={{ display:"block", objectFit:"cover", objectPosition:"top", maxHeight:"420px" }} />
+              <img src="/crm-dashboard.png" alt="Demo CRM a medida — InspireAI" className="w-full" style={{display:"block",objectFit:"cover",objectPosition:"top",maxHeight:"420px"}} />
             </div>
-            <p className="text-center mt-4 text-xs" style={{ color:"rgba(255,255,255,0.25)" }}>
-              Demo real del CRM — datos ficticios · <a href="https://crm-demo-inspireai.vercel.app" target="_blank" rel="noopener noreferrer" style={{ color:"#818CF8" }}>Abrirlo en vivo →</a>
+            <p className="text-center mt-4 text-xs" style={{color:"rgba(255,255,255,0.25)"}}>
+              Demo real del CRM · datos ficticios ·{" "}
+              <a href="https://crm-demo-inspireai.vercel.app" target="_blank" rel="noopener noreferrer" style={{color:"#818CF8"}}>Abrirlo en vivo →</a>
             </p>
           </motion.div>
         </div>
       </section>
 
-      {/* Stack tecnológico */}
+      {/* PRECIO */}
       <section className="py-16 md:py-24">
-        <div className="mx-auto px-6 max-w-5xl">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once:true }} variants={stagger}
-            className="grid md:grid-cols-2 gap-8 items-center">
-            <motion.div variants={fadeUp}>
-              <h2 className="font-heading font-bold text-white mb-4" style={{ fontSize:"clamp(1.5rem,3vw,2.25rem)", letterSpacing:"-0.02em" }}>
-                Construido con tecnología de última generación
-              </h2>
-              <p className="mb-5 text-sm leading-relaxed" style={{ color:"rgba(255,255,255,0.55)" }}>
-                No es WordPress con plugins. Es una aplicación web moderna, rápida y segura,
-                desplegada en tu propio dominio, con tu base de datos privada y actualizaciones
-                en tiempo real. Sin terceros que tengan tus datos de clientes.
-              </p>
-              <div className="flex flex-col gap-3">
-                {[
-                  "Next.js 14 + TypeScript — rápido, seguro y responsive",
-                  "Supabase — base de datos privada con RLS y realtime",
-                  "Vercel — desplegado en tu dominio con SSL incluido",
-                  "Brevo — notificaciones de leads al instante al equipo",
-                  "Código 100% vuestro — sin dependencia de nosotros",
-                ].map((item,i) => (
-                  <div key={i} className="flex items-start gap-3 text-sm" style={{ color:"rgba(255,255,255,0.65)" }}>
-                    <div className="w-5 h-5 rounded-full grid place-items-center flex-shrink-0 mt-0.5"
-                      style={{ background:"rgba(91,98,244,0.2)", border:"1px solid rgba(91,98,244,0.4)" }}>
-                      <Check style={{ width:10, height:10, color:"#818CF8" }} />
-                    </div>
-                    {item}
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-            <motion.div variants={fadeUp} className="rounded-2xl p-7" style={{ background:"#0D0E1F", border:"1px solid rgba(255,255,255,0.08)" }}>
-              <h3 className="font-semibold text-white mb-4">¿Qué lo diferencia de HubSpot?</h3>
-              <div className="flex flex-col gap-3">
-                {[
-                  ["Sin licencias por usuario","HubSpot: desde 90€/usuario/mes"],
-                  ["Adaptado a tu proceso","HubSpot: tú te adaptas a él"],
-                  ["Tus datos en tu servidor","HubSpot: en los suyos"],
-                  ["Pipeline a tu medida","HubSpot: etapas genéricas"],
-                  ["Conectado a tu web","HubSpot: requiere integración"],
-                  ["Código que es tuyo","HubSpot: te va la suscripción"],
-                ].map(([pro, contra]) => (
-                  <div key={pro} className="grid grid-cols-2 gap-3 py-2.5 border-b text-xs" style={{ borderColor:"rgba(255,255,255,0.05)" }}>
-                    <div className="flex items-center gap-2" style={{ color:"rgba(255,255,255,0.7)" }}>
-                      <span style={{ color:"#3FB984" }}>✓</span> {pro}
-                    </div>
-                    <div style={{ color:"rgba(255,255,255,0.3)" }}>{contra}</div>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Precio */}
-      <section className="py-16 md:py-20" style={{ background:"rgba(255,255,255,0.02)", borderTop:"1px solid rgba(255,255,255,0.05)" }}>
         <div className="mx-auto px-6 max-w-4xl">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once:true }} variants={stagger}
-            className="grid md:grid-cols-2 gap-6">
-            <motion.div variants={fadeUp} className="rounded-2xl p-8" style={{ background:"#0D0E1F", border:"1px solid rgba(255,255,255,0.08)" }}>
-              <div className="text-sm font-semibold uppercase tracking-widest mb-4" style={{ color:"rgba(255,255,255,0.35)", letterSpacing:"0.1em" }}>CRM a medida</div>
-              <div className="text-4xl font-bold text-white mb-1" style={{ letterSpacing:"-0.03em" }}>3.500€ – 8.000€</div>
-              <div className="text-sm mb-5" style={{ color:"rgba(255,255,255,0.4)" }}>según funcionalidades y complejidad</div>
-              <div className="flex flex-col gap-3 mb-6">
-                {["Dominio propio (crm.tuempresa.com)","Base de datos privada","Pipeline adaptado a tu proceso","Usuarios ilimitados sin coste adicional","Conectado a tu web y formularios","Formación para el equipo incluida","Sin cuota mensual de licencia"].map((f,i) => (
-                  <div key={i} className="flex items-center gap-2 text-sm" style={{ color:"rgba(255,255,255,0.65)" }}>
-                    <Check style={{ width:14, height:14, color:"#818CF8" }} />{f}
+          <motion.div initial="hidden" whileInView="visible" viewport={{once:true}} variants={stagger} className="grid md:grid-cols-2 gap-6">
+            <motion.div variants={fadeUp} className="rounded-2xl p-8" style={{background:"#0D0E1F",border:"1px solid rgba(255,255,255,0.08)"}}>
+              <div className="text-xs font-semibold uppercase tracking-widest mb-4" style={{color:"rgba(255,255,255,0.3)",letterSpacing:"0.1em"}}>CRM a medida</div>
+              <div className="text-4xl font-bold text-white mb-1" style={{letterSpacing:"-0.03em"}}>3.500€ – 8.000€</div>
+              <div className="text-sm mb-6" style={{color:"rgba(255,255,255,0.35)"}}>según funcionalidades · precio cerrado tras llamada</div>
+              <div className="flex flex-col gap-3 mb-7">
+                {["Dominio propio (crm.tuempresa.com)","Base de datos privada — tus datos son tuyos","Pipeline adaptado a tu proceso real","Usuarios ilimitados sin coste adicional","Conectado a tu web y formularios","Formación al equipo incluida","Código 100% vuestro, sin lock-in"].map((f,i) => (
+                  <div key={i} className="flex items-center gap-2.5 text-sm" style={{color:"rgba(255,255,255,0.65)"}}>
+                    <Check style={{width:14,height:14,color:"#818CF8",flexShrink:0}} />{f}
                   </div>
                 ))}
               </div>
-              <button onClick={() => document.getElementById("cta-crm")?.scrollIntoView({ behavior:"smooth" })}
-                className="btn-primary w-full">Quiero mi CRM <ArrowRight className="w-4 h-4" /></button>
+              <button onClick={() => document.getElementById("cta-crm")?.scrollIntoView({behavior:"smooth"})} className="btn-primary w-full">
+                Quiero mi CRM <ArrowRight className="w-4 h-4" />
+              </button>
             </motion.div>
-            <motion.div variants={fadeUp} className="rounded-2xl p-8 flex flex-col gap-5" style={{ background:"linear-gradient(135deg,rgba(91,98,244,0.12),rgba(91,98,244,0.03))", border:"1px solid rgba(91,98,244,0.3)" }}>
-              <div>
-                <div className="font-semibold text-white mb-2">Si contratas el Inspire Cyber 360 primero</div>
-                <p className="text-sm leading-relaxed" style={{ color:"rgba(255,255,255,0.5)" }}>
-                  El diagnóstico identifica exactamente qué necesita tu CRM. Si lo contratas
-                  dentro de los 30 días siguientes, el coste del diagnóstico se descuenta
-                  íntegramente del desarrollo.
+            <motion.div variants={fadeUp} className="flex flex-col gap-5">
+              <div className="rounded-2xl p-7 flex-1" style={{background:"linear-gradient(135deg,rgba(91,98,244,0.15),rgba(91,98,244,0.04))",border:"1px solid rgba(91,98,244,0.3)"}}>
+                <div className="text-2xl mb-3">🎯</div>
+                <h3 className="font-semibold text-white mb-3">Si contratas el Inspire Cyber 360 primero</h3>
+                <p className="text-sm leading-relaxed" style={{color:"rgba(255,255,255,0.55)"}}>
+                  El diagnóstico identifica exactamente qué necesita tu CRM. Si lo contratas en los <strong style={{color:"white"}}>30 días siguientes</strong>, el coste del diagnóstico se descuenta íntegramente.
                 </p>
               </div>
-              <div>
-                <div className="font-semibold text-white mb-2">¿Necesitáis mantenimiento?</div>
-                <p className="text-sm leading-relaxed" style={{ color:"rgba(255,255,255,0.5)" }}>
-                  Ofrecemos soporte mensual opcional para mejoras, nuevas funcionalidades e
-                  integraciones. El código es vuestro y podéis llevar el mantenimiento con
-                  cualquier desarrollador si lo preferís.
+              <div className="rounded-2xl p-7" style={{background:"rgba(63,185,132,0.08)",border:"1px solid rgba(63,185,132,0.2)"}}>
+                <div className="text-2xl mb-3">🔓</div>
+                <h3 className="font-semibold text-white mb-3">Sin lock-in. El código es vuestro.</h3>
+                <p className="text-sm leading-relaxed" style={{color:"rgba(255,255,255,0.55)"}}>
+                  Está en vuestro repositorio de GitHub. Podéis llevarlo a cualquier desarrollador si lo preferís. Nada de depender de nuestra suscripción para que vuestro CRM siga funcionando.
                 </p>
               </div>
-              <a href="https://crm-demo-inspireai.vercel.app" target="_blank" rel="noopener noreferrer"
-                className="btn-secondary inline-flex items-center justify-center gap-2 mt-auto">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>
-                Ver demo en vivo
-              </a>
             </motion.div>
           </motion.div>
         </div>
       </section>
 
       {/* FAQ */}
-      <section className="py-16 border-t" style={{ borderColor:"rgba(255,255,255,0.05)" }}>
+      <section className="py-16 border-t" style={{borderColor:"rgba(255,255,255,0.06)"}}>
         <div className="mx-auto px-6 max-w-3xl">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once:true }} variants={fadeUp} className="mb-8">
-            <h2 className="font-heading font-bold text-white" style={{ fontSize:"clamp(1.4rem,3vw,2rem)", letterSpacing:"-0.02em" }}>Preguntas frecuentes</h2>
+          <motion.div initial="hidden" whileInView="visible" viewport={{once:true}} variants={fadeUp} className="mb-10">
+            <h2 className="font-heading font-bold text-white" style={{fontSize:"clamp(1.4rem,3vw,2rem)",letterSpacing:"-0.02em"}}>Preguntas frecuentes</h2>
           </motion.div>
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once:true }} variants={stagger} className="flex flex-col gap-3">
+          <motion.div initial="hidden" whileInView="visible" viewport={{once:true}} variants={stagger} className="flex flex-col gap-3">
             {[
-              { q:"¿Cuánto tiempo tardáis en construirlo?", a:"Entre 4 y 8 semanas desde el kickoff, dependiendo de la complejidad. El proceso incluye una fase de diseño con vosotros (etapas, campos, usuarios) antes de empezar a desarrollar. No construimos sin tener claro qué necesitáis." },
-              { q:"¿Podemos añadir funcionalidades después?", a:"Sí. El código está diseñado para escalar. Podemos añadir módulos (facturación, informes avanzados, integraciones con ERPs...) en cualquier momento. Cada nueva funcionalidad tiene su propio presupuesto." },
-              { q:"¿Qué pasa si queremos cambiar de proveedor?", a:"El código es vuestro. Está en vuestro repositorio de GitHub y podéis llevarlo a cualquier desarrollador. No hay lock-in. Lo mismo con los datos: están en vuestra base de datos de Supabase, exportable en cualquier momento." },
-              { q:"¿Funciona en móvil?", a:"Sí. El CRM es responsive y está optimizado para usar en cualquier dispositivo. El pipeline, los diagnósticos y las notificaciones funcionan igual en móvil que en escritorio." },
+              {q:"¿Cuánto tiempo tardáis en construirlo?",a:"Entre 4 y 8 semanas desde el kickoff, dependiendo de la complejidad. El proceso incluye una fase de diseño con vosotros (etapas, campos, usuarios) antes de empezar a desarrollar."},
+              {q:"¿Podemos añadir funcionalidades después?",a:"Sí. El código está diseñado para escalar. Podemos añadir módulos en cualquier momento. Cada nueva funcionalidad tiene su propio presupuesto."},
+              {q:"¿Qué pasa si queremos cambiar de proveedor?",a:"El código es vuestro. Está en vuestro repositorio de GitHub y podéis llevarlo a cualquier desarrollador. No hay lock-in. Lo mismo con los datos: están en vuestra base de datos, exportable en cualquier momento."},
+              {q:"¿Funciona en móvil?",a:"Sí. El CRM es responsive y está optimizado para cualquier dispositivo. El pipeline, los diagnósticos y las notificaciones funcionan igual en móvil que en escritorio."},
             ].map((f,i) => (
-              <motion.details key={i} variants={fadeUp} className="rounded-xl overflow-hidden" style={{ background:"#0D0E1F", border:"1px solid rgba(255,255,255,0.07)" }}>
-                <summary className="px-5 py-4 cursor-pointer font-medium text-white text-sm">{f.q}</summary>
-                <div className="px-5 pb-4 text-sm leading-relaxed" style={{ color:"rgba(255,255,255,0.55)" }}>{f.a}</div>
+              <motion.details key={i} variants={fadeUp} className="rounded-xl overflow-hidden" style={{background:"#0D0E1F",border:"1px solid rgba(255,255,255,0.07)"}}>
+                <summary className="px-5 py-4 cursor-pointer font-medium text-white text-sm select-none">{f.q}</summary>
+                <div className="px-5 pb-4 text-sm leading-relaxed" style={{color:"rgba(255,255,255,0.55)"}}>{f.a}</div>
               </motion.details>
             ))}
           </motion.div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section id="cta-crm" className="py-16 md:py-24 border-t" style={{ borderColor:"rgba(255,255,255,0.05)" }}>
+      <section id="cta-crm" className="py-20 md:py-28 border-t" style={{borderColor:"rgba(255,255,255,0.06)"}}>
         <div className="mx-auto px-6 max-w-2xl text-center">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once:true }} variants={stagger}>
-            <motion.h2 variants={fadeUp} className="font-heading font-bold text-white mb-4"
-              style={{ fontSize:"clamp(1.75rem,4vw,2.75rem)", letterSpacing:"-0.02em" }}>
-              Cuéntanos cómo es tu proceso de ventas
+          <motion.div initial="hidden" whileInView="visible" viewport={{once:true}} variants={stagger}>
+            <motion.p variants={fadeUp} className="text-xs font-semibold uppercase tracking-widest mb-4" style={{color:"#818CF8",letterSpacing:"0.12em"}}>Primera llamada sin coste</motion.p>
+            <motion.h2 variants={fadeUp} className="font-heading font-bold text-white mb-5"
+              style={{fontSize:"clamp(1.75rem,4vw,3rem)",letterSpacing:"-0.025em",lineHeight:1.1}}>
+              Cuéntanos cómo es<br />tu proceso de ventas.
             </motion.h2>
-            <motion.p variants={fadeUp} className="mb-8" style={{ color:"rgba(255,255,255,0.5)", lineHeight:1.7 }}>
-              Entendemos qué necesitáis, os mostramos la demo en vivo y
-              os damos un presupuesto orientativo. Sin compromiso.
+            <motion.p variants={fadeUp} className="mb-8 text-lg" style={{color:"rgba(255,255,255,0.5)",lineHeight:1.7}}>
+              Entendemos qué necesitáis, os mostramos la demo en vivo y os damos un presupuesto orientativo. Sin compromiso.
             </motion.p>
             <motion.div variants={fadeUp} className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/#contacto" className="btn-primary inline-flex items-center gap-2">
@@ -254,23 +230,18 @@ export default function CRMPersonalizado() {
                 Ver demo primero
               </a>
             </motion.div>
+            <motion.p variants={fadeUp} className="mt-4 text-xs" style={{color:"rgba(255,255,255,0.2)"}}>Sin spam · Sin compromiso · Respuesta en menos de 24h</motion.p>
           </motion.div>
         </div>
       </section>
 
-      <section className="py-10 border-t" style={{ borderColor:"rgba(255,255,255,0.05)", background:"rgba(255,255,255,0.02)" }}>
+      <section className="py-10 border-t" style={{borderColor:"rgba(255,255,255,0.05)",background:"rgba(255,255,255,0.02)"}}>
         <div className="mx-auto px-6 max-w-5xl">
-          <p className="text-xs uppercase tracking-widest mb-5 text-center" style={{ color:"rgba(255,255,255,0.25)", letterSpacing:"0.1em" }}>Otros servicios</p>
+          <p className="text-xs uppercase tracking-widest mb-5 text-center" style={{color:"rgba(255,255,255,0.2)",letterSpacing:"0.1em"}}>Otros servicios</p>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-            {[
-              { href:"/consultoria-ia-empresas", label:"Consultoría IA para empresas" },
-              { href:"/automatizacion-procesos-ia", label:"Automatización de procesos" },
-              { href:"/ciberseguridad-ia-empresas", label:"Ciberseguridad IA" },
-            ].map((l) => (
-              <Link key={l.href} href={l.href} className="rounded-xl px-4 py-3 text-sm font-medium text-center transition-colors"
-                style={{ background:"#0D0E1F", border:"1px solid rgba(255,255,255,0.07)", color:"rgba(255,255,255,0.55)" }}>
-                {l.label}
-              </Link>
+            {[{href:"/consultoria-ia-empresas",label:"Consultoría IA"},{href:"/automatizacion-procesos-ia",label:"Automatización"},{href:"/ciberseguridad-ia-empresas",label:"Ciberseguridad IA"}].map(l => (
+              <Link key={l.href} href={l.href} className="rounded-xl px-4 py-3 text-sm font-medium text-center"
+                style={{background:"#0D0E1F",border:"1px solid rgba(255,255,255,0.07)",color:"rgba(255,255,255,0.5)"}}>{l.label}</Link>
             ))}
           </div>
         </div>
