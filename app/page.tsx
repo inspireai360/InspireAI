@@ -258,7 +258,7 @@ export default function LandingPage() {
                     { href: "/consultoria-ia-empresas", label: "Consultoría IA" },
                     { href: "/automatizacion-procesos-ia", label: "Automatización" },
                     { href: "/ciberseguridad-ia-empresas", label: "Ciberseguridad IA" },
-                    { href: "/formacion-ia-equipos", label: "Formación IA" },
+                    { href: "/formacion-ia-equipos", label: "CRM a medida" },
                   ].map((s) => (
                     <a key={s.href} href={s.href}
                       className="flex items-center px-4 py-3 text-sm transition-colors border-b last:border-0"
