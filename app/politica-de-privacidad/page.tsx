@@ -67,6 +67,9 @@ export default function PoliticaPrivacidad() {
             <p>
               El usuario garantiza que los datos aportados son verdaderos, exactos, completos y actualizados, siendo responsable de cualquier daño o perjuicio, directo o indirecto, que pudiera ocasionarse como consecuencia del incumplimiento de tal obligación.
             </p>
+            <p className="mt-4 text-sm text-white/50">
+              Por razones de seguridad, no envíe contraseñas, claves privadas, tokens o secretos a través de los formularios. Si necesita compartir información sensible, contacte primero con InspireAI y use un canal seguro.
+            </p>
           </section>
 
           <section>

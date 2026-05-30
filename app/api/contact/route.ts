@@ -1,28 +1,66 @@
 import { NextRequest, NextResponse } from "next/server";
 import { supabaseAdmin, ADMIN_USER_ID } from "@/lib/supabase-server";
+import { checkRateLimit, escapeHtml, isSameSiteRequest, isBotSubmission, isValidPhone, sanitizeInput } from "@/lib/security";
 import { Resend } from "resend";
 
 const VALID_TAMANIO = ["1-10", "11-50", "51-200", "200+"];
+const MAX_LENGTHS = {
+  nombre: 120,
+  email: 254,
+  telefono: 32,
+  empresa: 120,
+  mensaje: 2000,
+};
 const NOTIF_EMAILS = ["monteslluc@gmail.com", "Merikarpre@gmail.com"];
 
 export async function POST(req: NextRequest) {
+  const rateLimit = checkRateLimit(req);
+  if (!rateLimit.allowed) {
+    return NextResponse.json({ success: false, error: rateLimit.error }, { status: 429 });
+  }
   let body: Record<string, unknown>;
   try { body = await req.json(); }
   catch { return NextResponse.json({ success: false, error: "Cuerpo de la petición inválido" }, { status: 400 }); }
 
-  const { nombre, email, telefono, empresa, tamanio, mensaje } = body as {
-    nombre?: string; email?: string; telefono?: string;
-    empresa?: string; tamanio?: string; mensaje?: string;
-  };
+  const appOrigin = process.env.APP_ORIGIN;
+  if (appOrigin && !isSameSiteRequest(req, appOrigin)) {
+    return NextResponse.json({ success: false, error: "Origen de petición no permitido" }, { status: 403 });
+  }
+
+  const botField = sanitizeInput(body.botField, 100);
+  if (isBotSubmission(botField)) {
+    return NextResponse.json({ success: false, error: "Petición sospechosa" }, { status: 400 });
+  }
+
+  const acceptedTerms = body.acceptedTerms === true || body.acceptedTerms === "true";
+  if (!acceptedTerms) {
+    return NextResponse.json({ success: false, error: "Debes aceptar las condiciones" }, { status: 400 });
+  }
+
+  const nombreRaw = sanitizeInput(body.nombre, MAX_LENGTHS.nombre);
+  const emailRaw = sanitizeInput(body.email, MAX_LENGTHS.email);
+  const telefonoRaw = sanitizeInput(body.telefono, MAX_LENGTHS.telefono);
+  const empresaRaw = sanitizeInput(body.empresa, MAX_LENGTHS.empresa);
+  const tamanioRaw = sanitizeInput(body.tamanio, 20);
+  const mensajeRaw = sanitizeInput(body.mensaje, MAX_LENGTHS.mensaje);
 
   const missingFields: string[] = [];
-  if (!nombre?.trim()) missingFields.push("nombre");
-  if (!email?.trim()) missingFields.push("email");
-  if (!empresa?.trim()) missingFields.push("empresa");
+  if (!nombreRaw) missingFields.push("nombre");
+  if (!emailRaw) missingFields.push("email");
+  if (!empresaRaw) missingFields.push("empresa");
   if (missingFields.length > 0)
     return NextResponse.json({ success: false, error: "Faltan campos obligatorios", missingFields }, { status: 400 });
-  if (!/\S+@\S+\.\S+/.test(email!))
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailRaw))
     return NextResponse.json({ success: false, error: "El email no tiene un formato válido" }, { status: 400 });
+  if (telefonoRaw && !isValidPhone(telefonoRaw))
+    return NextResponse.json({ success: false, error: "El teléfono no tiene un formato válido" }, { status: 400 });
+
+  const nombre = nombreRaw;
+  const email = emailRaw.toLowerCase();
+  const telefono = telefonoRaw || null;
+  const empresa = empresaRaw;
+  const tamanio = tamanioRaw;
+  const mensaje = mensajeRaw || null;
 
   const tamanioValido = tamanio && VALID_TAMANIO.includes(tamanio) ? tamanio : null;
 
@@ -63,13 +101,20 @@ export async function POST(req: NextRequest) {
     // Email a los socios
     if (process.env.RESEND_API_KEY) {
       const resend = new Resend(process.env.RESEND_API_KEY);
+      const safeNombre = escapeHtml(nombre);
+      const safeEmail = escapeHtml(email);
+      const safeTelefono = telefono ? escapeHtml(telefono) : null;
+      const safeEmpresa = escapeHtml(empresa);
+      const safeMensaje = mensaje ? escapeHtml(mensaje) : null;
+
       const rows = [
-        `<tr><td style="padding:8px 0;color:rgba(255,255,255,0.45);font-size:13px;width:130px">Email</td><td style="padding:8px 0;font-size:14px"><a href="mailto:${email!.trim()}" style="color:#9DB1F2">${email!.trim()}</a></td></tr>`,
-        telefono?.trim() ? `<tr><td style="padding:8px 0;color:rgba(255,255,255,0.45);font-size:13px">Teléfono</td><td style="padding:8px 0;font-size:14px"><a href="tel:${telefono.trim()}" style="color:#9DB1F2">${telefono.trim()}</a></td></tr>` : "",
-        tamanioValido ? `<tr><td style="padding:8px 0;color:rgba(255,255,255,0.45);font-size:13px">Tamaño empresa</td><td style="padding:8px 0;font-size:14px">${tamanioValido} empleados</td></tr>` : "",
-        mensaje?.trim() ? `<tr><td style="padding:8px 0;color:rgba(255,255,255,0.45);font-size:13px;vertical-align:top">Mensaje</td><td style="padding:8px 0;font-size:14px;line-height:1.5">${mensaje.trim()}</td></tr>` : "",
+        `<tr><td style="padding:8px 0;color:rgba(255,255,255,0.45);font-size:13px;width:130px">Email</td><td style="padding:8px 0;font-size:14px"><a href="mailto:${safeEmail}" style="color:#9DB1F2">${safeEmail}</a></td></tr>`,
+        safeTelefono ? `<tr><td style="padding:8px 0;color:rgba(255,255,255,0.45);font-size:13px">Teléfono</td><td style="padding:8px 0;font-size:14px"><a href="tel:${safeTelefono}" style="color:#9DB1F2">${safeTelefono}</a></td></tr>` : "",
+        tamanioValido ? `<tr><td style="padding:8px 0;color:rgba(255,255,255,0.45);font-size:13px">Tamaño empresa</td><td style="padding:8px 0;font-size:14px">${escapeHtml(tamanioValido)} empleados</td></tr>` : "",
+        safeMensaje ? `<tr><td style="padding:8px 0;color:rgba(255,255,255,0.45);font-size:13px;vertical-align:top">Mensaje</td><td style="padding:8px 0;font-size:14px;line-height:1.5">${safeMensaje}</td></tr>` : "",
       ].filter(r => r !== "").join("");
 
+      const safeSubjectName = safeNombre || safeEmpresa;
       const html = `<!DOCTYPE html><html><head><meta charset="UTF-8"/></head>
 <body style="margin:0;padding:0;background:#08091A;font-family:Inter,system-ui,sans-serif;color:#fff">
 <div style="max-width:560px;margin:0 auto;padding:40px 24px">
@@ -80,8 +125,8 @@ export async function POST(req: NextRequest) {
   <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:20px;overflow:hidden;margin-bottom:24px">
     <div style="background:linear-gradient(135deg,rgba(91,98,244,0.2),rgba(91,98,244,0.05));padding:24px 28px;border-bottom:1px solid rgba(255,255,255,0.07)">
       <div style="font-size:12px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px">🔔 Nuevo lead desde la web</div>
-      <div style="font-size:22px;font-weight:700">${nombre!.trim()}</div>
-      <div style="font-size:15px;color:rgba(255,255,255,0.55);margin-top:4px">${empresa!.trim()}</div>
+      <div style="font-size:22px;font-weight:700">${safeNombre}</div>
+      <div style="font-size:15px;color:rgba(255,255,255,0.55);margin-top:4px">${safeEmpresa}</div>
     </div>
     <div style="padding:24px 28px">
       <table style="width:100%;border-collapse:collapse">${rows}</table>
@@ -94,7 +139,7 @@ export async function POST(req: NextRequest) {
       await resend.emails.send({
         from: "InspireAI CRM <crm@inspireai.es>",
         to: NOTIF_EMAILS,
-        subject: `🔔 Nuevo lead: ${nombre!.trim()} — ${empresa!.trim()}`,
+        subject: `🔔 Nuevo lead: ${safeSubjectName} — ${safeEmpresa}`,
         html,
       });
     }

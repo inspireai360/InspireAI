@@ -48,6 +48,8 @@ export default function LandingPage() {
     empresa: "",
     tamanio: "",
     mensaje: "",
+    botField: "",
+    acceptedTerms: false,
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -96,8 +98,10 @@ export default function LandingPage() {
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
   ) => {
-    const { name, value } = e.target;
-    setFormState((prev) => ({ ...prev, [name]: value }));
+    const target = e.target as HTMLInputElement;
+    const { name, type, value, checked } = target;
+    const fieldValue = type === "checkbox" ? checked : value;
+    setFormState((prev) => ({ ...prev, [name]: fieldValue }));
     if (errors[name]) {
       setErrors((prev) => {
         const n = { ...prev };
@@ -117,6 +121,7 @@ export default function LandingPage() {
     }
     if (!formState.empresa.trim()) errs.empresa = "La empresa es obligatoria";
     if (!formState.tamanio) errs.tamanio = "Selecciona el tamaño de tu empresa";
+    if (!formState.acceptedTerms) errs.acceptedTerms = "Debes aceptar las condiciones";
     setErrors(errs);
     return Object.keys(errs).length === 0;
   };
@@ -128,7 +133,7 @@ export default function LandingPage() {
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", "X-Requested-With": "XMLHttpRequest" },
         body: JSON.stringify(formState),
       });
       const data = await res.json() as { success: boolean; error?: string };
@@ -1205,6 +1210,23 @@ export default function LandingPage() {
                 </motion.div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-6">
+                  <input
+                    type="text"
+                    name="botField"
+                    value={formState.botField}
+                    onChange={handleChange}
+                    autoComplete="off"
+                    tabIndex={-1}
+                    aria-hidden="true"
+                    style={{
+                      position: "absolute",
+                      left: "-9999px",
+                      width: "1px",
+                      height: "1px",
+                      opacity: 0,
+                      pointerEvents: "none",
+                    }}
+                  />
                   <div>
                     <h3
                       className="font-heading font-bold text-white mb-1"
@@ -1415,6 +1437,26 @@ export default function LandingPage() {
                     </p>
                   )}
 
+                  <div className="flex items-start gap-3">
+                    <label className="flex items-start gap-3 text-sm leading-6" style={{ color: "rgba(255,255,255,0.75)" }}>
+                      <input
+                        type="checkbox"
+                        name="acceptedTerms"
+                        checked={formState.acceptedTerms}
+                        onChange={handleChange}
+                        className="mt-1 h-4 w-4 rounded border border-white/20 bg-slate-950 text-primary focus:ring-primary"
+                      />
+                      <span>
+                        He leído y acepto la <a href="/politica-de-privacidad" className="underline text-white">política de privacidad</a>.
+                      </span>
+                    </label>
+                  </div>
+                  {errors.acceptedTerms && (
+                    <p className="text-xs" style={{ color: "#F87171" }}>
+                      {errors.acceptedTerms}
+                    </p>
+                  )}
+
                   <button
                     type="submit"
                     disabled={isSubmitting}
@@ -1443,6 +1485,16 @@ export default function LandingPage() {
                       política de privacidad
                     </Link>
                     . Te respondemos en menos de 24h.
+                  </p>
+                  <p
+                    className="text-center"
+                    style={{
+                      color: "rgba(255,255,255,0.35)",
+                      fontSize: "0.72rem",
+                      marginTop: "0.5rem",
+                    }}
+                  >
+                    No envíes contraseñas, claves privadas, tokens o secretos en este formulario.
                   </p>
                 </form>
               )}

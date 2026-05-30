@@ -1,11 +1,31 @@
 import { NextRequest, NextResponse } from "next/server";
 import { supabaseAdmin, ADMIN_USER_ID } from "@/lib/supabase-server";
+import { checkRateLimit, containsSensitiveData, escapeHtml, isBotSubmission, isSameSiteRequest, isValidPhone, sanitizeInput } from "@/lib/security";
 import { Resend } from "resend";
 
 type AreaKey = "ventas" | "marketing" | "operaciones" | "delivery" | "administracion_documentacion";
 
-interface RespuestaDetallada {
-  id: string; label: string; type: string; answer: string; section?: string;
+type RespuestaDetallada = {
+  id?: string; label?: string; type?: string; answer?: string; section?: string;
+};
+
+const MAX_LENGTHS = {
+  empresa: 120,
+  contacto: 120,
+  email: 254,
+  telefono: 32,
+  observaciones: 2000,
+  respuesta: 500,
+};
+
+function sanitizeRespuesta(respuesta: RespuestaDetallada): RespuestaDetallada {
+  return {
+    id: sanitizeInput(respuesta.id, 100),
+    label: sanitizeInput(respuesta.label, 200),
+    type: sanitizeInput(respuesta.type, 60),
+    answer: sanitizeInput(respuesta.answer, MAX_LENGTHS.respuesta),
+    section: sanitizeInput(respuesta.section, 120) || undefined,
+  };
 }
 
 const AREA_ALIASES: Record<string, AreaKey> = {
@@ -33,9 +53,9 @@ const ALTA_KEYWORDS = [
 ];
 
 function calcPriority(respuestas: RespuestaDetallada[], obs: string): string {
-  const texto = [obs, ...respuestas.map(r => r.answer)].join(" ").toLowerCase();
-  if (respuestas.some(r => r.type === "scale" && parseInt(r.answer) >= 9) || ALTA_KEYWORDS.some(k => texto.includes(k))) return "Alta";
-  if (respuestas.some(r => r.type === "scale" && parseInt(r.answer) >= 7)) return "Media";
+  const texto = [obs, ...respuestas.map(r => r.answer ?? "")].join(" ").toLowerCase();
+  if (respuestas.some(r => r.type === "scale" && parseInt(r.answer ?? "0") >= 9) || ALTA_KEYWORDS.some(k => texto.includes(k))) return "Alta";
+  if (respuestas.some(r => r.type === "scale" && parseInt(r.answer ?? "0") >= 7)) return "Media";
   return "Baja";
 }
 
@@ -49,21 +69,63 @@ export async function POST(req: NextRequest) {
 
   const {
     area: areaRaw, empresa, contacto, email, telefono,
-    respuestas: respuestasRaw = [], observaciones = "", accessKey,
+    respuestas: respuestasRaw = [], observaciones = "", accessKey, acceptedTerms,
   } = body as {
     area?: string; empresa?: string; contacto?: string; email?: string; telefono?: string;
-    respuestas?: RespuestaDetallada[]; observaciones?: string; accessKey?: string;
+    respuestas?: RespuestaDetallada[]; observaciones?: string; accessKey?: string; acceptedTerms?: boolean | string;
   };
+
+  const rateLimit = checkRateLimit(req);
+  if (!rateLimit.allowed) {
+    return NextResponse.json({ success: false, error: rateLimit.error }, { status: 429 });
+  }
 
   const validKey = process.env.ONBOARDING_ACCESS_KEY;
   if (validKey && accessKey !== validKey)
     return NextResponse.json({ success: false, error: "Clave de acceso inválida" }, { status: 403 });
 
-  const area = AREA_ALIASES[areaRaw?.toLowerCase().trim() ?? ""] ?? null;
-  if (!area) return NextResponse.json({ success: false, error: `Área desconocida: ${areaRaw}` }, { status: 400 });
-  if (!email?.trim()) return NextResponse.json({ success: false, error: "El email es obligatorio" }, { status: 400 });
+  const appOrigin = process.env.APP_ORIGIN;
+  if (appOrigin && !isSameSiteRequest(req, appOrigin)) {
+    return NextResponse.json({ success: false, error: "Origen de petición no permitido" }, { status: 403 });
+  }
 
-  const prioridad = calcPriority(respuestasRaw, observaciones as string);
+  const botField = sanitizeInput(body.botField, 100);
+  if (isBotSubmission(botField)) {
+    return NextResponse.json({ success: false, error: "Petición sospechosa" }, { status: 400 });
+  }
+
+  const hasAcceptedTerms = acceptedTerms === true || acceptedTerms === "true";
+  if (!hasAcceptedTerms) {
+    return NextResponse.json({ success: false, error: "Debes aceptar las condiciones" }, { status: 400 });
+  }
+
+  const area = AREA_ALIASES[areaRaw?.toLowerCase().trim() ?? ""] ?? null;
+  if (!area) return NextResponse.json({ success: false, error: `Área desconocida: ${String(areaRaw)}` }, { status: 400 });
+
+  const empresaRaw = sanitizeInput(empresa, MAX_LENGTHS.empresa);
+  const contactoRaw = sanitizeInput(contacto, MAX_LENGTHS.contacto);
+  const emailRaw = sanitizeInput(email, MAX_LENGTHS.email).toLowerCase();
+  const telefonoRaw = sanitizeInput(telefono, MAX_LENGTHS.telefono);
+  const observacionesRaw = sanitizeInput(observaciones, MAX_LENGTHS.observaciones);
+  const respuestas = Array.isArray(respuestasRaw)
+    ? respuestasRaw.map((respuesta) => sanitizeRespuesta(respuesta))
+    : [];
+
+  if (!emailRaw)
+    return NextResponse.json({ success: false, error: "El email es obligatorio" }, { status: 400 });
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailRaw))
+    return NextResponse.json({ success: false, error: "El email no tiene un formato válido" }, { status: 400 });
+  if (telefonoRaw && !isValidPhone(telefonoRaw))
+    return NextResponse.json({ success: false, error: "El teléfono no tiene un formato válido" }, { status: 400 });
+  if (containsSensitiveData([empresaRaw, contactoRaw, emailRaw, telefonoRaw, observacionesRaw, respuestas.map(r => r.answer ?? "").join(" ")].join(" ")))
+    return NextResponse.json({ success: false, error: "No puedo aceptar datos sensibles o secretos. Por favor, redacta el contenido y vuelve a intentarlo." }, { status: 400 });
+
+  const empresaValue = empresaRaw;
+  const contactoValue = contactoRaw;
+  const emailValue = emailRaw;
+  const telefonoValue = telefonoRaw || null;
+  const observacionesValue = observacionesRaw;
+  const prioridad = calcPriority(respuestas, observacionesValue);
   const statusCol = AREA_TO_STATUS[area];
 
   try {
@@ -71,23 +133,23 @@ export async function POST(req: NextRequest) {
     let dealId: string | null = null;
 
     const { data: existingContact } = await supabaseAdmin.from("contacts").select("id")
-      .eq("email", email.trim().toLowerCase()).eq("user_id", ADMIN_USER_ID).maybeSingle();
+      .eq("email", emailValue).eq("user_id", ADMIN_USER_ID).maybeSingle();
 
     if (existingContact) {
       contactId = existingContact.id;
     } else {
       let companyId: string | null = null;
-      if (empresa?.trim()) {
-        const { data: ec } = await supabaseAdmin.from("companies").select("id").eq("name", empresa.trim()).eq("user_id", ADMIN_USER_ID).maybeSingle();
+      if (empresaValue) {
+        const { data: ec } = await supabaseAdmin.from("companies").select("id").eq("name", empresaValue).eq("user_id", ADMIN_USER_ID).maybeSingle();
         if (ec) { companyId = ec.id; }
         else {
-          const { data: nc } = await supabaseAdmin.from("companies").insert({ name: empresa.trim(), user_id: ADMIN_USER_ID }).select("id").single();
+          const { data: nc } = await supabaseAdmin.from("companies").insert({ name: empresaValue, user_id: ADMIN_USER_ID }).select("id").single();
           companyId = nc?.id ?? null;
         }
       }
       const { data: nc } = await supabaseAdmin.from("contacts").insert({
-        name: contacto?.trim() ?? email.trim(), email: email.trim().toLowerCase(),
-        phone: telefono?.trim() ?? null, company_id: companyId,
+        name: contactoValue || emailValue, email: emailValue,
+        phone: telefonoValue, company_id: companyId,
         type: "prospect", owner: "LL", lead_source: "web", user_id: ADMIN_USER_ID,
       }).select("id").single();
       contactId = nc?.id ?? null;
@@ -108,7 +170,7 @@ export async function POST(req: NextRequest) {
       }
     } else {
       const { data: nd } = await supabaseAdmin.from("deals").insert({
-        title: `Diagnóstico — ${empresa?.trim() ?? contacto?.trim() ?? email.trim()}`,
+        title: `Diagnóstico — ${empresaValue || contactoValue || emailValue}`,
         contact_id: contactId, stage: "diagnostico_activo", value: 0,
         owner: "LL", lead_source: "web", [statusCol]: "en_progreso", user_id: ADMIN_USER_ID,
       }).select("id").single();
@@ -116,10 +178,10 @@ export async function POST(req: NextRequest) {
     }
 
     await supabaseAdmin.from("diagnostico_respuestas").insert({
-      contact_id: contactId, deal_id: dealId, area, empresa: empresa?.trim() ?? null,
-      contacto: contacto?.trim() ?? null, email: email.trim().toLowerCase(),
-      telefono: telefono?.trim() ?? null, respuestas: respuestasRaw,
-      observaciones: observaciones as string, prioridad,
+      contact_id: contactId, deal_id: dealId, area, empresa: empresaValue || null,
+      contacto: contactoValue || null, email: emailValue,
+      telefono: telefonoValue, respuestas,
+      observaciones: observacionesValue, prioridad,
     });
 
     await supabaseAdmin.from("activities").insert({
@@ -132,10 +194,16 @@ export async function POST(req: NextRequest) {
     if (process.env.RESEND_API_KEY) {
       const resend = new Resend(process.env.RESEND_API_KEY);
       const prioColor = PRIORIDAD_COLOR[prioridad] ?? "#4F6FE8";
+      const safeContacto = escapeHtml(contactoValue || emailValue);
+      const safeEmail = escapeHtml(emailValue);
+      const safeEmpresa = escapeHtml(empresaValue || "");
+      const safePrioridad = escapeHtml(prioridad);
+      const safeArea = escapeHtml(AREA_NAMES[area]);
+
       await resend.emails.send({
         from: "InspireAI CRM <crm@inspireai.es>",
         to: NOTIF_EMAILS,
-        subject: `📋 Cuestionario ${AREA_NAMES[area]}: ${contacto?.trim() ?? email.trim()} — Prioridad ${prioridad}`,
+        subject: `📋 Cuestionario ${safeArea}: ${safeContacto} — Prioridad ${safePrioridad}`,
         html: `
 <!DOCTYPE html>
 <html lang="es">
@@ -151,23 +219,23 @@ export async function POST(req: NextRequest) {
     </div>
     <div style="background:#111122;border-radius:16px;border:1px solid rgba(255,255,255,0.08);overflow:hidden;margin-bottom:24px;">
       <div style="background:linear-gradient(135deg,rgba(79,111,232,0.2),rgba(79,111,232,0.05));padding:24px 28px;border-bottom:1px solid rgba(255,255,255,0.08);">
-        <div style="font-size:13px;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px;">${AREA_NAMES[area]}</div>
-        <div style="font-size:22px;font-weight:700;">${contacto?.trim() ?? email.trim()}</div>
-        <div style="font-size:15px;color:rgba(255,255,255,0.6);margin-top:4px;">${empresa?.trim() ?? ""}</div>
+        <div style="font-size:13px;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px;">${safeArea}</div>
+        <div style="font-size:22px;font-weight:700;">${safeContacto}</div>
+        <div style="font-size:15px;color:rgba(255,255,255,0.6);margin-top:4px;">${safeEmpresa}</div>
       </div>
       <div style="padding:24px 28px;">
         <div style="margin-bottom:16px;">
           <div style="font-size:11.5px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:4px;">Email</div>
-          <div style="font-size:14px;"><a href="mailto:${email}" style="color:#9DB1F2;">${email}</a></div>
+          <div style="font-size:14px;"><a href="mailto:${safeEmail}" style="color:#9DB1F2;">${safeEmail}</a></div>
         </div>
         <div style="margin-bottom:16px;">
           <div style="font-size:11.5px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:4px;">Respuestas</div>
-          <div style="font-size:14px;color:rgba(255,255,255,0.85);">${respuestasRaw.length} preguntas respondidas</div>
+          <div style="font-size:14px;color:rgba(255,255,255,0.85);">${respuestas.length} preguntas respondidas</div>
         </div>
         <div>
           <div style="font-size:11.5px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px;">Prioridad detectada</div>
           <span style="display:inline-block;padding:6px 16px;border-radius:100px;background:${prioColor}22;color:${prioColor};font-weight:600;font-size:14px;border:1px solid ${prioColor}44;">
-            ${prioridad}
+            ${safePrioridad}
           </span>
         </div>
       </div>

@@ -184,6 +184,8 @@ export default function OnboardingForm({
     email: "",
     telefono: "",
   });
+  const [botField, setBotField] = useState("");
+  const [acceptedTerms, setAcceptedTerms] = useState(false);
   const [respuestas, setRespuestas] = useState<Record<string, string>>({});
   const [observaciones, setObservaciones] = useState("");
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -309,6 +311,7 @@ export default function OnboardingForm({
     } else if (!/\S+@\S+\.\S+/.test(datos.email)) {
       errs.email = "Email no válido";
     }
+    if (!acceptedTerms) errs.acceptedTerms = "Debes aceptar las condiciones";
     questions.forEach((q) => {
       if (!q.required || q.type === "fixed") return;
       if (q.type === "number_group") {
@@ -367,7 +370,7 @@ export default function OnboardingForm({
     try {
       const res = await fetch("/api/onboarding/submit", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", "X-Requested-With": "XMLHttpRequest" },
         body: JSON.stringify({
           accessKey,
           area,
@@ -378,6 +381,8 @@ export default function OnboardingForm({
           respuestas: finalRespuestas,
           respuestasDetalladas,
           observaciones,
+          botField,
+          acceptedTerms,
         }),
       });
 
@@ -622,6 +627,23 @@ export default function OnboardingForm({
         </div>
 
         <form onSubmit={handleSubmit} noValidate className="space-y-10">
+          <input
+            type="text"
+            name="botField"
+            value={botField}
+            onChange={(e) => setBotField(e.target.value)}
+            autoComplete="off"
+            tabIndex={-1}
+            aria-hidden="true"
+            style={{
+              position: "absolute",
+              left: "-9999px",
+              width: "1px",
+              height: "1px",
+              opacity: 0,
+              pointerEvents: "none",
+            }}
+          />
 
           {/* ── Sección 1: Datos generales ──────────────────────────────── */}
           <section>
@@ -1130,6 +1152,25 @@ export default function OnboardingForm({
               style={{ fontFamily: "var(--font-dm-sans), system-ui, sans-serif" }}
             />
           </section>
+
+          <div className="flex items-start gap-3">
+            <label className="flex items-start gap-3 text-sm leading-6" style={{ color: "rgba(255,255,255,0.75)" }}>
+              <input
+                type="checkbox"
+                checked={acceptedTerms}
+                onChange={(e) => setAcceptedTerms(e.target.checked)}
+                className="mt-1 h-4 w-4 rounded border border-white/20 bg-slate-950 text-primary focus:ring-primary"
+              />
+              <span>
+                He leído y acepto la <Link href="/politica-de-privacidad" className="underline text-white">política de privacidad</Link>.
+              </span>
+            </label>
+          </div>
+          {errors.acceptedTerms && (
+            <p className="text-xs" style={{ color: "#F87171" }}>
+              {errors.acceptedTerms}
+            </p>
+          )}
 
           {/* ── Error de envío ───────────────────────────────────────────── */}
           {submitError && (
