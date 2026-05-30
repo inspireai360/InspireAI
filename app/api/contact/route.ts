@@ -9,10 +9,16 @@ export async function POST(req: NextRequest) {
   try { body = await req.json(); }
   catch { return NextResponse.json({ success: false, error: "Cuerpo de la petición inválido" }, { status: 400 }); }
 
-  const { nombre, email, telefono, empresa, tamanio, mensaje } = body as {
+// Honeypot: los bots rellenan este campo oculto, los humanos no lo ven
+  const { nombre, email, telefono, empresa, tamanio, mensaje, website: honeypot } = body as {
     nombre?: string; email?: string; telefono?: string;
-    empresa?: string; tamanio?: string; mensaje?: string;
+    empresa?: string; tamanio?: string; mensaje?: string; website?: string;
   };
+
+  // Si el campo honeypot tiene valor, es un bot — rechazar silenciosamente
+  if (honeypot?.trim()) {
+    return NextResponse.json({ success: true }); // Respuesta falsa para confundir al bot
+  }
 
   const missingFields: string[] = [];
   if (!nombre?.trim()) missingFields.push("nombre");
