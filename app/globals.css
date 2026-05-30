@@ -130,3 +130,20 @@ h6 {
   height: 1px;
   background: rgba(255, 255, 255, 0.04);
 }
+
+/* Blog prose */
+.prose-inspirai h2 { font-family: var(--font-plus-jakarta-sans), system-ui, sans-serif; font-weight: 700; font-size: 1.5rem; letter-spacing: -0.02em; color: #fff; margin: 2.5rem 0 1rem; line-height: 1.25; }
+.prose-inspirai h3 { font-weight: 600; font-size: 1.15rem; color: rgba(255,255,255,0.9); margin: 2rem 0 0.75rem; }
+.prose-inspirai p { color: rgba(255,255,255,0.65); line-height: 1.8; margin-bottom: 1.25rem; }
+.prose-inspirai strong { color: rgba(255,255,255,0.9); font-weight: 600; }
+.prose-inspirai ul, .prose-inspirai ol { color: rgba(255,255,255,0.65); padding-left: 1.5rem; margin-bottom: 1.25rem; line-height: 1.8; }
+.prose-inspirai li { margin-bottom: 0.4rem; }
+.prose-inspirai a { color: #818CF8; text-decoration: underline; text-underline-offset: 3px; }
+.prose-inspirai a:hover { color: #a5b4fc; }
+.prose-inspirai blockquote { border-left: 3px solid rgba(91,98,244,0.5); padding: 0.75rem 1.25rem; margin: 1.5rem 0; background: rgba(91,98,244,0.06); border-radius: 0 8px 8px 0; }
+.prose-inspirai blockquote p { color: rgba(255,255,255,0.7); margin: 0; font-style: italic; }
+.prose-inspirai hr { border: none; border-top: 1px solid rgba(255,255,255,0.08); margin: 2.5rem 0; }
+.prose-inspirai table { width: 100%; border-collapse: collapse; margin-bottom: 1.5rem; font-size: 0.9rem; }
+.prose-inspirai th { background: rgba(91,98,244,0.1); color: rgba(255,255,255,0.85); font-weight: 600; padding: 0.6rem 0.9rem; text-align: left; border: 1px solid rgba(255,255,255,0.08); }
+.prose-inspirai td { color: rgba(255,255,255,0.6); padding: 0.55rem 0.9rem; border: 1px solid rgba(255,255,255,0.07); }
+.prose-inspirai code { background: rgba(255,255,255,0.07); color: #a5b4fc; padding: 0.15rem 0.4rem; border-radius: 4px; font-size: 0.88em; }
