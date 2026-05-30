@@ -1000,7 +1000,7 @@ export default function LandingPage() {
           <div className="text-center mb-12 md:mb-16">
             <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-medium mb-5"
               style={{ background: "rgba(91,98,244,0.12)", color: "#818CF8", border: "1px solid rgba(91,98,244,0.25)" }}>
-              ✦ Servicio independiente · CRM a medida
+              ✦ 100% personalizado a tu modelo de negocio
             </span>
             <h2 className="font-heading font-bold text-white mb-4"
               style={{ fontSize: "clamp(2rem, 5vw, 3rem)", lineHeight: 1.15, letterSpacing: "-0.02em" }}>
@@ -1008,9 +1008,9 @@ export default function LandingPage() {
               <span style={{ color: "#818CF8" }}>sin pagar por Salesforce</span>
             </h2>
             <p className="max-w-2xl mx-auto text-lg" style={{ color: "rgba(255,255,255,0.55)", lineHeight: 1.7 }}>
-              Salesforce, HubSpot, Pipedrive — herramientas potentes pero caras, complejas y pensadas para todos.
-              Nosotros construimos el CRM exacto que necesita tu empresa: con tu marca, conectado a tu web,
-              adaptado a tu proceso de ventas. Sin licencias por usuario. Sin funciones que no usas.
+              Lo que ves en la demo está construido para InspireAI. El tuyo se construye para ti:
+              con tus etapas de pipeline, tu terminología, tus métricas y conectado a tu web.
+              Sin licencias por usuario. Sin funciones que no usarás nunca.
             </p>
           </div>
 
@@ -1065,7 +1065,7 @@ export default function LandingPage() {
 
           {/* CTAs */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a href="https://demo.crm.inspireai.es" target="_blank" rel="noopener noreferrer"
+            <a href="https://demo.crm.inspireai.es/auto-login" target="_blank" rel="noopener noreferrer"
               className="btn-primary inline-flex items-center gap-2">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/>
