@@ -4,6 +4,9 @@ import { ArrowLeft } from "lucide-react";
 export const metadata = {
   title: "Aviso Legal | InspireAI",
   description: "Aviso legal general y condiciones de uso de InspireAI.",
+  alternates: {
+    canonical: "https://inspireai.es/aviso-legal",
+  },
 };
 
 export default function AvisoLegal() {
