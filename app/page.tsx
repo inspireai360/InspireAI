@@ -720,9 +720,9 @@ export default function LandingPage() {
                     </div>
                   </div>
                   {[
-                    { icon: "📢", label: "01 · Auditorías", active: false },
+                    { icon: "📢", label: "01 · Auditorías", active: true },
                     { icon: "⚡", label: "02 · Mapa IA", active: false },
-                    { icon: "🔒", label: "03 · Seguridad", active: true },
+                    { icon: "🔒", label: "03 · Seguridad", active: false },
                     { icon: "🗺️", label: "04 · Roadmap", active: false },
                     { icon: "📋", label: "Resumen ejecutivo", active: false },
                   ].map((item) => (
@@ -740,59 +740,60 @@ export default function LandingPage() {
                   <div className="flex items-center gap-1.5 text-xs mb-4" style={{ color: "rgba(255,255,255,0.3)" }}>
                     <span>Inspire Cyber 360</span>
                     <span>/</span>
-                    <span style={{ color: "rgba(255,255,255,0.6)" }}>03 · Estudio de Seguridad</span>
+                    <span style={{ color: "rgba(255,255,255,0.6)" }}>01 · Diagnóstico de Áreas</span>
                   </div>
 
                   {/* Page title */}
-                  <div className="flex items-center gap-3 mb-5">
-                    <span className="text-2xl">🔒</span>
-                    <h3 className="text-lg font-bold text-white">Estudio de Vulnerabilidades</h3>
+                  <div className="flex items-center gap-3 mb-4">
+                    <span className="text-2xl">📋</span>
+                    <h3 className="text-lg font-bold text-white">Auditoría de Procesos</h3>
                   </div>
 
                   {/* Summary callout */}
-                  <div className="rounded-lg px-4 py-3 mb-4 flex items-start gap-3" style={{ background: "rgba(232,111,111,0.1)", border: "1px solid rgba(232,111,111,0.25)" }}>
-                    <span className="text-sm flex-shrink-0 mt-0.5">⚠️</span>
+                  <div className="rounded-lg px-4 py-3 mb-4 flex items-start gap-3" style={{ background: "rgba(91,98,244,0.1)", border: "1px solid rgba(91,98,244,0.25)" }}>
+                    <span className="text-sm flex-shrink-0 mt-0.5">💡</span>
                     <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.65)" }}>
-                      <strong style={{ color: "rgba(255,255,255,0.85)" }}>Riesgo global: Medio-Alto.</strong> Se han detectado 3 vulnerabilidades críticas y 7 de nivel medio en el análisis de integraciones actuales.
+                      <strong style={{ color: "rgba(255,255,255,0.85)" }}>Resumen ejecutivo:</strong> Se han identificado 12 oportunidades de automatización con un ahorro estimado de 18h/semana y un impacto económico de +34.000€/año.
                     </p>
                   </div>
 
-                  {/* Risk table */}
+                  {/* 4 areas table */}
                   <div className="rounded-lg overflow-hidden mb-4" style={{ border: "1px solid rgba(255,255,255,0.07)" }}>
                     <div className="grid grid-cols-3 px-3 py-2 text-xs font-semibold" style={{ background: "rgba(255,255,255,0.04)", color: "rgba(255,255,255,0.4)", letterSpacing: "0.05em" }}>
-                      <span>VULNERABILIDAD</span>
-                      <span className="text-center">NIVEL</span>
-                      <span className="text-right">ESTADO</span>
+                      <span>ÁREA</span>
+                      <span className="text-center">IMPACTO</span>
+                      <span className="text-right">URGENCIA</span>
                     </div>
                     {[
-                      ["Datos sin cifrar en tránsito", "#E86F6F", "Alta", "Mitigar inmediato"],
-                      ["APIs sin autenticación", "#E8A24F", "Media", "Revisar en 30d"],
-                      ["Backups sin verificar", "#E8A24F", "Media", "Programar auditoría"],
-                      ["RGPD — consentimientos", "#3FB984", "Baja", "Documentado ✓"],
-                    ].map(([vuln, color, level, status]) => (
-                      <div key={vuln as string} className="grid grid-cols-3 px-3 py-2.5 items-center border-t" style={{ borderColor: "rgba(255,255,255,0.05)" }}>
-                        <span className="text-xs" style={{ color: "rgba(255,255,255,0.65)" }}>{vuln}</span>
+                      ["📢 Marketing", "#3FB984", "Alto", "#E86F6F", "Alta"],
+                      ["💼 Ventas", "#3FB984", "Alto", "#E8A24F", "Media"],
+                      ["⚙️ Operaciones", "#E8A24F", "Medio", "#E86F6F", "Alta"],
+                      ["🚚 Fulfillment", "#E8A24F", "Medio", "#E8A24F", "Media"],
+                    ].map(([area, ic, impact, uc, urgency]) => (
+                      <div key={area as string} className="grid grid-cols-3 px-3 py-2.5 items-center border-t" style={{ borderColor: "rgba(255,255,255,0.05)" }}>
+                        <span className="text-xs" style={{ color: "rgba(255,255,255,0.7)" }}>{area}</span>
                         <span className="text-center">
-                          <span className="text-xs px-2 py-0.5 rounded-full font-medium" style={{ background: `${color}18`, color: color as string, border: `1px solid ${color}30` }}>{level}</span>
+                          <span className="text-xs px-2 py-0.5 rounded-full font-medium" style={{ background: `${ic}18`, color: ic as string, border: `1px solid ${ic}30` }}>{impact}</span>
                         </span>
-                        <span className="text-right text-xs" style={{ color: "rgba(255,255,255,0.4)" }}>{status}</span>
+                        <span className="text-right">
+                          <span className="text-xs px-2 py-0.5 rounded-full font-medium" style={{ background: `${uc}18`, color: uc as string, border: `1px solid ${uc}30` }}>{urgency}</span>
+                        </span>
                       </div>
                     ))}
                   </div>
 
-                  {/* Next steps */}
-                  <div className="text-xs font-semibold mb-2" style={{ color: "rgba(255,255,255,0.4)", letterSpacing: "0.08em", textTransform: "uppercase" }}>Plan de acción</div>
+                  {/* Top oportunidades */}
+                  <div className="text-xs font-semibold mb-2" style={{ color: "rgba(255,255,255,0.4)", letterSpacing: "0.08em", textTransform: "uppercase" }}>Top oportunidades detectadas</div>
                   <div className="flex flex-col gap-1.5">
                     {[
-                      ["Implementar HTTPS + TLS en todas las integraciones", true],
-                      ["Añadir API keys con rotación automática", true],
-                      ["Configurar backup verificado semanal", false],
-                    ].map(([task, done]) => (
-                      <div key={task as string} className="flex items-center gap-2 text-xs" style={{ color: done ? "rgba(255,255,255,0.35)" : "rgba(255,255,255,0.6)" }}>
-                        <div className="w-4 h-4 rounded flex-shrink-0 grid place-items-center" style={{ background: done ? "rgba(63,185,132,0.2)" : "rgba(255,255,255,0.05)", border: `1px solid ${done ? "rgba(63,185,132,0.4)" : "rgba(255,255,255,0.12)"}` }}>
-                          {done && <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="#3FB984" strokeWidth="3"><path d="m5 12 5 5 9-11"/></svg>}
-                        </div>
-                        <span style={{ textDecoration: done ? "line-through" : "none" }}>{task}</span>
+                      ["Automatizar captación y seguimiento de leads", "Marketing", "#3FB984"],
+                      ["Gestión de pedidos sin intervención manual", "Operaciones", "#E8A24F"],
+                      ["Respuestas automáticas fuera de horario", "Ventas", "#818CF8"],
+                    ].map(([task, area, color]) => (
+                      <div key={task as string} className="flex items-center gap-2 text-xs">
+                        <div className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: color as string }} />
+                        <span className="flex-1" style={{ color: "rgba(255,255,255,0.65)" }}>{task}</span>
+                        <span className="text-xs px-1.5 py-0.5 rounded" style={{ background: "rgba(255,255,255,0.05)", color: "rgba(255,255,255,0.3)" }}>{area}</span>
                       </div>
                     ))}
                   </div>
