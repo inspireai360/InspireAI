@@ -17,6 +17,39 @@ interface AccessGateProps {
   children: (verifiedKey: string) => React.ReactNode;
 }
 
+function PageShell({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="min-h-screen flex flex-col items-center justify-center px-6 relative overflow-hidden"
+      style={{ background: "#08091A" }}>
+      {/* Dot grid */}
+      <div className="fixed inset-0 pointer-events-none" style={{
+        backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px)",
+        backgroundSize: "28px 28px",
+      }} />
+      {/* Glow top */}
+      <div className="fixed inset-0 pointer-events-none" style={{
+        background: "radial-gradient(ellipse 80% 40% at 50% -10%, rgba(91,98,244,0.18) 0%, transparent 70%)",
+      }} />
+      <div className="relative z-10 w-full max-w-sm">
+        {children}
+      </div>
+    </div>
+  );
+}
+
+function Logo() {
+  return (
+    <Link href="/" className="inline-flex items-center gap-3 mb-10">
+      <img src="/logo.png" alt="InspireAI" width={40} height={40}
+        style={{ width: 40, height: 40, borderRadius: "50%", objectFit: "cover",
+          boxShadow: "0 0 20px rgba(91,98,244,0.35)" }} />
+      <span className="font-orbitron font-bold tracking-[0.05em] text-white" style={{ fontSize: "1.1rem" }}>
+        INSPIRE<span style={{ color: "#818CF8" }}>AI</span>
+      </span>
+    </Link>
+  );
+}
+
 export default function AccessGate({ accessKey, children }: AccessGateProps) {
   const [state, setState] = useState<GateState>({ status: "loading" });
   const [password, setPassword] = useState("");
@@ -26,12 +59,8 @@ export default function AccessGate({ accessKey, children }: AccessGateProps) {
   useEffect(() => {
     try {
       const cached = sessionStorage.getItem(SESSION_KEY);
-
       if (accessKey) {
-        if (cached === accessKey) {
-          setState({ status: "valid", key: accessKey });
-          return;
-        }
+        if (cached === accessKey) { setState({ status: "valid", key: accessKey }); return; }
         verifyKey(accessKey);
       } else if (cached) {
         setState({ status: "valid", key: cached });
@@ -39,11 +68,8 @@ export default function AccessGate({ accessKey, children }: AccessGateProps) {
         setState({ status: "needs-password" });
       }
     } catch {
-      if (accessKey) {
-        verifyKey(accessKey);
-      } else {
-        setState({ status: "needs-password" });
-      }
+      if (accessKey) { verifyKey(accessKey); }
+      else { setState({ status: "needs-password" }); }
     }
   }, [accessKey]);
 
@@ -53,7 +79,7 @@ export default function AccessGate({ accessKey, children }: AccessGateProps) {
       const res = await fetch(`/api/verify-access?key=${encodeURIComponent(key)}`);
       const data = (await res.json()) as { valid: boolean; error?: string };
       if (data.valid) {
-        try { sessionStorage.setItem(SESSION_KEY, key); } catch { /* ignore */ }
+        try { sessionStorage.setItem(SESSION_KEY, key); } catch { }
         setState({ status: "valid", key });
       } else {
         setState({ status: "invalid", error: data.error ?? "Clave de acceso incorrecta" });
@@ -66,17 +92,14 @@ export default function AccessGate({ accessKey, children }: AccessGateProps) {
   async function handlePasswordSubmit(e: React.FormEvent) {
     e.preventDefault();
     const trimmed = password.trim();
-    if (!trimmed) {
-      setPasswordError("Introduce la clave de acceso");
-      return;
-    }
+    if (!trimmed) { setPasswordError("Introduce la clave de acceso"); return; }
     setIsChecking(true);
     setPasswordError("");
     try {
       const res = await fetch(`/api/verify-access?key=${encodeURIComponent(trimmed)}`);
       const data = (await res.json()) as { valid: boolean; error?: string };
       if (data.valid) {
-        try { sessionStorage.setItem(SESSION_KEY, trimmed); } catch { /* ignore */ }
+        try { sessionStorage.setItem(SESSION_KEY, trimmed); } catch { }
         setState({ status: "valid", key: trimmed });
       } else {
         setPasswordError("Clave de acceso incorrecta");
@@ -90,207 +113,81 @@ export default function AccessGate({ accessKey, children }: AccessGateProps) {
 
   if (state.status === "loading") {
     return (
-      <div className="min-h-screen bg-[#09090B] flex items-center justify-center">
+      <PageShell>
         <div className="flex flex-col items-center gap-4">
           <div className="w-8 h-8 border-2 border-white/10 border-t-[#5B62F4] rounded-full animate-spin" />
-          <p style={{ color: "rgba(255,255,255,0.35)", fontSize: "0.875rem" }}>
-            Verificando acceso...
-          </p>
+          <p style={{ color: "rgba(255,255,255,0.35)", fontSize: "0.875rem" }}>Verificando acceso...</p>
         </div>
-      </div>
+      </PageShell>
     );
   }
 
   if (state.status === "invalid") {
-    return <AccessDeniedScreen message={state.error} />;
+    return (
+      <PageShell>
+        <Logo />
+        <div className="p-8 text-center" style={{
+          background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "20px",
+          boxShadow: "0 0 60px rgba(91,98,244,0.06)",
+        }}>
+          <div className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-5"
+            style={{ background: "rgba(239,68,68,0.1)", border: "1px solid rgba(239,68,68,0.2)" }}>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F87171" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+          </div>
+          <h1 className="font-heading font-bold text-white mb-3" style={{ fontSize: "1.25rem" }}>Acceso no permitido</h1>
+          <p style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.875rem", lineHeight: 1.6 }}>{state.error}</p>
+          <p className="mt-4" style={{ color: "rgba(255,255,255,0.3)", fontSize: "0.78rem" }}>
+            Contacta con el equipo de InspireAI para recibir el enlace correcto.
+          </p>
+        </div>
+        <Link href="/" className="inline-block mt-6 text-sm transition-colors text-center w-full"
+          style={{ color: "rgba(255,255,255,0.35)" }}>
+          Volver a inspireai.es →
+        </Link>
+      </PageShell>
+    );
   }
 
   if (state.status === "needs-password") {
     return (
-      <PasswordScreen
-        password={password}
-        setPassword={setPassword}
-        error={passwordError}
-        isChecking={isChecking}
-        onSubmit={handlePasswordSubmit}
-      />
-    );
-  }
-
-  return <>{children(state.key)}</>;
-}
-
-function PasswordScreen({
-  password,
-  setPassword,
-  error,
-  isChecking,
-  onSubmit,
-}: {
-  password: string;
-  setPassword: (v: string) => void;
-  error: string;
-  isChecking: boolean;
-  onSubmit: (e: React.FormEvent) => void;
-}) {
-  return (
-    <div
-      className="min-h-screen flex flex-col items-center justify-center px-6"
-      style={{ background: "#09090B" }}
-    >
-      <div
-        className="fixed inset-0 pointer-events-none"
-        style={{
-          backgroundImage:
-            "radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px)",
-          backgroundSize: "28px 28px",
-        }}
-      />
-      <div className="relative z-10 w-full max-w-sm">
-        <Link href="/" className="inline-block mb-10">
-          <span className="font-orbitron font-bold text-[1.4rem] tracking-[0.05em] text-white">
-            INSPIRE<span style={{ color: "#818CF8" }}>AI</span>
-          </span>
-        </Link>
-        <div
-          className="p-8"
-          style={{
-            background: "#111115",
-            border: "1px solid rgba(255,255,255,0.07)",
-            borderRadius: "16px",
-          }}
-        >
-          <h1
-            className="font-heading font-bold text-white mb-2"
-            style={{ fontSize: "1.2rem" }}
-          >
-            Acceso restringido
-          </h1>
-          <p
-            className="mb-6"
-            style={{ color: "rgba(255,255,255,0.45)", fontSize: "0.875rem", lineHeight: 1.6 }}
-          >
+      <PageShell>
+        <Logo />
+        <div className="p-8" style={{
+          background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "20px",
+          boxShadow: "0 0 60px rgba(91,98,244,0.06)",
+        }}>
+          <h1 className="font-heading font-bold text-white mb-2" style={{ fontSize: "1.25rem" }}>Acceso restringido</h1>
+          <p className="mb-6" style={{ color: "rgba(255,255,255,0.45)", fontSize: "0.875rem", lineHeight: 1.6 }}>
             Introduce la clave de acceso que te ha proporcionado el equipo de InspireAI.
           </p>
-          <form onSubmit={onSubmit} className="space-y-4">
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Clave de acceso"
-              className="input-field"
-              autoFocus
-            />
-            {error && (
+          <form onSubmit={handlePasswordSubmit} className="space-y-4">
+            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)}
+              placeholder="Clave de acceso" className="input-field" autoFocus />
+            {passwordError && (
               <p className="text-xs flex items-center gap-1" style={{ color: "#F87171" }}>
-                <AlertCircle className="w-3 h-3" />
-                {error}
+                <AlertCircle className="w-3 h-3" />{passwordError}
               </p>
             )}
-            <button
-              type="submit"
-              disabled={isChecking}
-              className="w-full btn-primary disabled:opacity-50"
-              style={{ borderRadius: "8px", padding: "12px", fontSize: "0.9rem" }}
-            >
+            <button type="submit" disabled={isChecking} className="w-full btn-primary disabled:opacity-50"
+              style={{ borderRadius: "10px", padding: "13px", fontSize: "0.95rem" }}>
               {isChecking ? (
                 <span className="flex items-center justify-center gap-2">
                   <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                   Verificando...
                 </span>
-              ) : (
-                "Acceder"
-              )}
+              ) : "Acceder"}
             </button>
           </form>
         </div>
-        <Link
-          href="/"
-          className="inline-block mt-6 text-sm transition-colors"
-          style={{ color: "rgba(255,255,255,0.35)" }}
-        >
+        <Link href="/" className="inline-block mt-6 text-sm transition-colors text-center w-full"
+          style={{ color: "rgba(255,255,255,0.35)" }}>
           Volver a inspireai.es →
         </Link>
-      </div>
-    </div>
-  );
-}
+      </PageShell>
+    );
+  }
 
-function AccessDeniedScreen({ message }: { message: string }) {
-  return (
-    <div
-      className="min-h-screen flex flex-col items-center justify-center px-6"
-      style={{ background: "#09090B" }}
-    >
-      <div
-        className="fixed inset-0 pointer-events-none"
-        style={{
-          backgroundImage:
-            "radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px)",
-          backgroundSize: "28px 28px",
-        }}
-      />
-      <div className="relative z-10 w-full max-w-sm text-center">
-        <Link href="/" className="inline-block mb-10">
-          <span className="font-orbitron font-bold text-[1.4rem] tracking-[0.05em] text-white">
-            INSPIRE<span style={{ color: "#818CF8" }}>AI</span>
-          </span>
-        </Link>
-        <div
-          className="p-8"
-          style={{
-            background: "#111115",
-            border: "1px solid rgba(255,255,255,0.07)",
-            borderRadius: "16px",
-          }}
-        >
-          <div
-            className="w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-6"
-            style={{
-              background: "rgba(239,68,68,0.1)",
-              border: "1px solid rgba(239,68,68,0.2)",
-            }}
-          >
-            <svg
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="#F87171"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <circle cx="12" cy="12" r="10" />
-              <line x1="12" y1="8" x2="12" y2="12" />
-              <line x1="12" y1="16" x2="12.01" y2="16" />
-            </svg>
-          </div>
-          <h1
-            className="font-heading font-bold text-white mb-3"
-            style={{ fontSize: "1.2rem" }}
-          >
-            Acceso no permitido
-          </h1>
-          <p
-            className="mb-6"
-            style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.875rem", lineHeight: 1.6 }}
-          >
-            {message}
-          </p>
-          <p style={{ color: "rgba(255,255,255,0.35)", fontSize: "0.8rem" }}>
-            Si crees que es un error, contacta con el equipo de InspireAI para
-            recibir el enlace correcto.
-          </p>
-        </div>
-        <Link
-          href="/"
-          className="inline-block mt-6 text-sm transition-colors"
-          style={{ color: "rgba(255,255,255,0.35)" }}
-        >
-          Volver a inspireai.es →
-        </Link>
-      </div>
-    </div>
-  );
+  return <>{children(state.key)}</>;
 }
