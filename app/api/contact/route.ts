@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { NextRequest, NextResponse } from "next/server";
 import { supabaseAdmin, ADMIN_USER_ID } from "@/lib/supabase-server";
 import { sendLeadNotification } from "@/lib/mailer";
