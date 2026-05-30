@@ -24,8 +24,8 @@ export default function CRMPersonalizado() {
             </motion.div>
             <motion.h1 variants={fadeUp} className="font-heading font-bold text-white mb-6"
               style={{ fontSize:"clamp(2rem,5vw,3.5rem)", lineHeight:1.1, letterSpacing:"-0.02em" }}>
-              Tu propio CRM,<br />
-              <span style={{ color:"#818CF8" }}>sin pagar por Salesforce</span>
+              Deja de adaptar tu empresa al CRM.<br />
+              <span style={{ color:"#818CF8" }}>El CRM se adapta a ti.</span>
             </motion.h1>
             <motion.p variants={fadeUp} className="text-lg mb-8 max-w-2xl" style={{ color:"rgba(255,255,255,0.6)", lineHeight:1.7 }}>
               Salesforce, HubSpot, Pipedrive — herramientas potentes pero caras, complejas
