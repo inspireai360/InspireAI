@@ -59,25 +59,6 @@ export default function CRMPersonalizado() {
         </div>
       </section>
 
-      {/* El problema con los CRM genéricos */}
-      <section className="py-16 md:py-20" style={{ background:"rgba(255,255,255,0.02)", borderTop:"1px solid rgba(255,255,255,0.05)" }}>
-        <div className="mx-auto px-6 max-w-5xl">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once:true }} variants={stagger}
-            className="grid md:grid-cols-3 gap-5">
-            {[
-              { num:"€200–500", label:"por usuario y mes en Salesforce Enterprise. Para un equipo de 10: hasta 60.000€/año en licencias.", color:"#E86F6F" },
-              { num:"80%", label:"de las funciones de un CRM estándar no las usa nunca una PYME. Pero las pagas igual.", color:"#E8A24F" },
-              { num:"6 meses", label:"de media tarda un equipo en adaptar un CRM genérico a su proceso real. Si lo consiguen.", color:"#818CF8" },
-            ].map((s,i) => (
-              <motion.div key={i} variants={fadeUp} className="rounded-2xl p-6" style={{ background:"#0D0E1F", border:`1px solid ${s.color}25` }}>
-                <div className="text-4xl font-bold mb-3" style={{ color:s.color, letterSpacing:"-0.04em" }}>{s.num}</div>
-                <p className="text-sm leading-relaxed" style={{ color:"rgba(255,255,255,0.5)" }}>{s.label}</p>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
-
       {/* Qué incluye */}
       <section className="py-16 md:py-24">
         <div className="mx-auto px-6 max-w-5xl">
