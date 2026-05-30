@@ -4,6 +4,9 @@ import { ArrowLeft } from "lucide-react";
 export const metadata = {
   title: "Política de Privacidad | InspireAI",
   description: "Política de privacidad y protección de datos de InspireAI.",
+  alternates: {
+    canonical: "https://inspireai.es/politica-de-privacidad",
+  },
 };
 
 export default function PoliticaPrivacidad() {
