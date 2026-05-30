@@ -255,7 +255,7 @@ export default function CRMPersonalizado() {
               Cuéntanos cómo es tu proceso de ventas
             </motion.h2>
             <motion.p variants={fadeUp} className="mb-8" style={{ color:"rgba(255,255,255,0.5)", lineHeight:1.7 }}>
-              En 30 minutos entendemos qué necesitáis, os mostramos la demo en vivo y
+              Entendemos qué necesitáis, os mostramos la demo en vivo y
               os damos un presupuesto orientativo. Sin compromiso.
             </motion.p>
             <motion.div variants={fadeUp} className="flex flex-col sm:flex-row gap-4 justify-center">
