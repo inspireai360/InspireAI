@@ -78,9 +78,7 @@ export default function BlogPage() {
             <div className="grid gap-6">
               {POSTS.map((post) => (
                 <Link key={post.slug} href={`/blog/${post.slug}`}
-                  className="group rounded-2xl p-7 flex flex-col md:flex-row gap-5 transition-all"
-                  style={{ background:"#0D0E1F", border:"1px solid rgba(255,255,255,0.07)" }}
-className="blog-card-hover">
+                  className="group rounded-2xl p-7 flex flex-col md:flex-row gap-5 blog-card-hover">
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-3 mb-3">
                       <span className="text-xs px-2.5 py-1 rounded-full" style={{ background:"rgba(91,98,244,0.12)", color:"#818CF8" }}>{post.category}</span>
