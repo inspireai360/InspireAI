@@ -1,12 +1,24 @@
 import { createClient } from "@supabase/supabase-js";
 
-// Durante el build de Next.js las route handlers no se ejecutan — solo se compilan.
-// En runtime, Vercel inyecta las env vars reales.
-const url = process.env.NEXT_PUBLIC_SUPABASE_URL || "https://fdqsmraawrmutartgisn.supabase.co";
-const key = process.env.SUPABASE_SERVICE_KEY || "build-placeholder";
+// La función se llama en runtime, no durante la compilación del build
+export function getSupabaseAdmin() {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+  const key = process.env.SUPABASE_SERVICE_KEY!;
+  return createClient(url, key, {
+    auth: { persistSession: false, autoRefreshToken: false },
+  });
+}
 
-export const supabaseAdmin = createClient(url, key, {
-  auth: { persistSession: false, autoRefreshToken: false },
-});
+// Alias directo: devuelve un nuevo cliente en cada llamada
+// (aceptable para server-side donde cada request es independiente)
+export const supabaseAdmin = {
+  from: (...args: Parameters<ReturnType<typeof getSupabaseAdmin>["from"]>) =>
+    getSupabaseAdmin().from(...args),
+  auth: new Proxy({} as ReturnType<typeof getSupabaseAdmin>["auth"], {
+    get(_, prop) {
+      return (...a: any[]) => (getSupabaseAdmin().auth as any)[prop](...a);
+    },
+  }),
+} as ReturnType<typeof getSupabaseAdmin>;
 
 export const ADMIN_USER_ID = "bb933d46-5dbb-488c-8090-3e7e42ddd562";
