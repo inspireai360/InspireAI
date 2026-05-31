@@ -147,3 +147,7 @@ h6 {
 .prose-inspirai th { background: rgba(91,98,244,0.1); color: rgba(255,255,255,0.85); font-weight: 600; padding: 0.6rem 0.9rem; text-align: left; border: 1px solid rgba(255,255,255,0.08); }
 .prose-inspirai td { color: rgba(255,255,255,0.6); padding: 0.55rem 0.9rem; border: 1px solid rgba(255,255,255,0.07); }
 .prose-inspirai code { background: rgba(255,255,255,0.07); color: #a5b4fc; padding: 0.15rem 0.4rem; border-radius: 4px; font-size: 0.88em; }
+
+/* Blog card hover */
+.blog-card-hover { background: #0D0E1F; border: 1px solid rgba(255,255,255,0.07); transition: border-color .2s; }
+.blog-card-hover:hover { border-color: rgba(91,98,244,0.4); }
