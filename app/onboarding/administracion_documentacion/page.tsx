@@ -383,7 +383,7 @@ export default function AdminDocPage({ searchParams }: PageProps) {
 
   return (
     <OnboardingPage
-      area="operaciones"
+      area="administracion_documentacion"
       areaTitle="Auditoría de Administración y Documentación"
       areaSubtitle="Analizaremos cómo gestionáis la documentación, los procesos administrativos y el cumplimiento normativo para identificar oportunidades de automatización y mejora operativa."
       questions={questions}

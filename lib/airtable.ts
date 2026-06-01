@@ -36,7 +36,7 @@ function handleErrorResponse(
   const errorMsg = (body?.error as Record<string, unknown>)?.message as string | undefined;
   const errorType = (body?.error as Record<string, unknown>)?.type as string | undefined;
 
-  console.error("[Airtable] Error HTTP:", { status, table: tableName, errorType, message: errorMsg });
+  console.error("[Airtable] Error HTTP:", { status, errorType, message: errorMsg });
 
   if (status === 401 || status === 403) {
     throw new AirtableError(
