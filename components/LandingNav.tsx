@@ -5,9 +5,9 @@ import { useState } from "react";
 
 const SERVICES = [
   { href: "/consultoria-ia-empresas",    label: "Consultoría IA" },
-  { href: "/automatizacion-procesos-ia", label: "Automatización" },
+  { href: "/crm-personalizado",          label: "CRM a medida" },
   { href: "/ciberseguridad-ia-empresas", label: "Ciberseguridad IA" },
-  { href: "/crm-personalizado",           label: "CRM a medida" },
+  { href: "/automatizacion-procesos-ia", label: "Automatización" },
 ];
 
 interface LandingNavProps {

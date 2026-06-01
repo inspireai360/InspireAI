@@ -256,9 +256,9 @@ export default function LandingPage() {
                   style={{ background: "#0F1228", border: "1px solid rgba(255,255,255,0.1)" }}>
                   {[
                     { href: "/consultoria-ia-empresas", label: "Consultoría IA" },
-                    { href: "/automatizacion-procesos-ia", label: "Automatización" },
-                    { href: "/ciberseguridad-ia-empresas", label: "Ciberseguridad IA" },
                     { href: "/crm-personalizado", label: "CRM a medida" },
+                    { href: "/ciberseguridad-ia-empresas", label: "Ciberseguridad IA" },
+                    { href: "/automatizacion-procesos-ia", label: "Automatización" },
                   ].map((s) => (
                     <a key={s.href} href={s.href}
                       className="flex items-center px-4 py-3 text-sm transition-colors border-b last:border-0"
@@ -318,9 +318,9 @@ export default function LandingPage() {
                   <p className="text-[11px] font-medium tracking-widest uppercase mb-2" style={{ color: "rgba(255,255,255,0.3)" }}>Servicios</p>
                   {[
                     { href: "/consultoria-ia-empresas", label: "Consultoría IA" },
-                    { href: "/automatizacion-procesos-ia", label: "Automatización" },
-                    { href: "/ciberseguridad-ia-empresas", label: "Ciberseguridad IA" },
                     { href: "/crm-personalizado", label: "CRM a medida" },
+                    { href: "/ciberseguridad-ia-empresas", label: "Ciberseguridad IA" },
+                    { href: "/automatizacion-procesos-ia", label: "Automatización" },
                   ].map((s) => (
                     <Link key={s.href} href={s.href}
                       className="block py-2 text-sm border-b last:border-0"
