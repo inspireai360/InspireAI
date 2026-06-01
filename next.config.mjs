@@ -38,7 +38,7 @@ const nextConfig = {
 
   async redirects() {
     return [
-      { source: "/crm-personalizado", destination: "/formacion-ia-equipos", permanent: true },
+      { source: "/formacion-ia-equipos", destination: "/crm-personalizado", permanent: true },
     ];
   },
 
