@@ -68,17 +68,17 @@ export default function LandingPage() {
 
   useEffect(() => {
     const lenis = new Lenis({
-      duration: 1.4,
-      easing: (t) => 1 - Math.pow(1 - t, 4),
+      duration: 1.1,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
-      wheelMultiplier: 0.9,
-      touchMultiplier: 1.5,
+      wheelMultiplier: 1.0,
+      touchMultiplier: 2.0,
+      infinite: false,
     });
     lenisRef.current = lenis;
 
-    // keep Framer Motion scroll tracking in sync
-    lenis.on("scroll", () => {
-      setIsScrolled(window.scrollY > 50);
+    lenis.on("scroll", ({ scroll }: { scroll: number }) => {
+      setIsScrolled(scroll > 50);
     });
 
     let rafId: number;
@@ -97,11 +97,11 @@ export default function LandingPage() {
   const scrollTo = (id: string) => {
     setMobileMenuOpen(false);
     if (id === "") {
-      lenisRef.current?.scrollTo(0, { duration: 1.4 });
+      lenisRef.current?.scrollTo(0, { duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
       return;
     }
     const el = document.getElementById(id);
-    if (el) lenisRef.current?.scrollTo(el, { offset: -80, duration: 1.4 });
+    if (el) lenisRef.current?.scrollTo(el, { offset: -80, duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
   };
 
   const handleChange = (
