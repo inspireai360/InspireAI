@@ -7,6 +7,7 @@ export const metadata = {
   alternates: {
     canonical: "https://inspireai.es/aviso-legal",
   },
+  robots: { index: false, follow: false },
 };
 
 export default function AvisoLegal() {

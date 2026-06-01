@@ -3,8 +3,8 @@ import ConsultoriaIA from "./page-client";
 export { default } from "./page-client";
 
 export const metadata: Metadata = {
-  title: "Consultoría IA para Empresas en España | Inspire Cyber 360 — InspireAI",
-  description: "Auditamos tus procesos de negocio e identificamos oportunidades reales de IA y automatización. Diagnóstico completo en 4 áreas con entregable en Notion. Garantía de devolución. PYMEs de 5–50 empleados.",
+  title: "Consultoría IA para Empresas | Inspire Cyber 360 — InspireAI",
+  description: "Auditamos tus procesos e identificamos oportunidades reales de IA. Diagnóstico en 4 áreas, entregable en Notion y garantía de devolución.",
   alternates: {
     canonical: "https://inspireai.es/consultoria-ia-empresas",
   },

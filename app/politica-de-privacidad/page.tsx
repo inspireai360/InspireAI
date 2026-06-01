@@ -7,6 +7,7 @@ export const metadata = {
   alternates: {
     canonical: "https://inspireai.es/politica-de-privacidad",
   },
+  robots: { index: false, follow: false },
 };
 
 export default function PoliticaPrivacidad() {
