@@ -56,13 +56,13 @@ export default function LandingPage() {
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   // ── Calculadora ROI ────────────────────────────────────────────────────────
-  const [empleados, setEmpleados] = useState(12);
-  const [horasManuales, setHorasManuales] = useState(15);
-  const [costeHora, setCosteHora] = useState(20);
+  const [empleados, setEmpleados] = useState(8);
+  const [horasManuales, setHorasManuales] = useState(10);
+  const [costeHora, setCosteHora] = useState(18);
   const horasAhorradasMes = Math.round(empleados * horasManuales * 0.42 * 4.3);
   const ahorroMensual = horasAhorradasMes * costeHora;
   const ahorroAnual = ahorroMensual * 12;
-  const mesesROI = ahorroAnual > 0 ? Math.ceil(3500 / (ahorroMensual)) : 0;
+  const mesesROI = ahorroMensual > 0 ? Math.max(1, Math.ceil(3500 / ahorroMensual)) : 0;
 
   const lenisRef = useRef<Lenis | null>(null);
 
@@ -500,7 +500,7 @@ export default function LandingPage() {
                     {/* Slider 2 */}
                     <div className="mb-6">
                       <div className="flex justify-between items-center mb-2">
-                        <span className="text-sm font-medium text-white">Horas manuales / semana</span>
+                        <span className="text-sm font-medium text-white">Horas manuales por empleado / semana</span>
                         <span className="text-sm font-bold" style={{ color: "#818CF8" }}>{horasManuales}h</span>
                       </div>
                       <input type="range" min={3} max={40} value={horasManuales} onChange={e => setHorasManuales(+e.target.value)}
@@ -534,13 +534,16 @@ export default function LandingPage() {
                       {ahorroMensual.toLocaleString("es-ES")} € al mes
                     </div>
                     <div className="rounded-xl p-4 mb-4" style={{ background: "rgba(63,185,132,0.1)", border: "1px solid rgba(63,185,132,0.25)" }}>
-                      <div className="text-xs mb-1" style={{ color: "rgba(63,185,132,0.8)", textTransform: "uppercase", letterSpacing: "0.08em" }}>Recuperas la inversión en</div>
+                      <div className="text-xs mb-1" style={{ color: "rgba(63,185,132,0.8)", textTransform: "uppercase", letterSpacing: "0.08em" }}>Recuperas el diagnóstico en</div>
                       <div className="text-2xl font-bold" style={{ color: "#3FB984" }}>
-                        {mesesROI <= 1 ? "menos de 1 mes" : `${mesesROI} ${mesesROI === 1 ? "mes" : "meses"}`}
+                        {mesesROI === 1 ? "1 mes" : `${mesesROI} meses`}
+                      </div>
+                      <div className="text-xs mt-1" style={{ color: "rgba(63,185,132,0.6)" }}>
+                        Coste estimado diagnóstico Inspire Cyber 360: 3.500€
                       </div>
                     </div>
                     <p className="text-xs" style={{ color: "rgba(255,255,255,0.3)", lineHeight: 1.6 }}>
-                      Basado en automatizar el 42% de tareas manuales. Resultado real puede variar según sector y herramientas.
+                      Estimación basada en automatizar el 42% de tareas manuales. El resultado real varía según sector y procesos.
                     </p>
                   </div>
                   <button onClick={() => scrollTo("contacto")}
