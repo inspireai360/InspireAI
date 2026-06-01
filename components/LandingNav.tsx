@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Menu, X } from "lucide-react";
 import { useState } from "react";
 
 const SERVICES = [
@@ -19,10 +19,19 @@ interface LandingNavProps {
 
 export default function LandingNav({ ctaLabel = "Solicitar información", ctaHref, ctaExternal, onCtaClick }: LandingNavProps) {
   const [open, setOpen] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  const CtaElement = ({ className }: { className?: string }) => {
+    const cls = className ?? "btn-primary-sm";
+    if (ctaExternal && ctaHref) return <a href={ctaHref} target="_blank" rel="noopener noreferrer" className={cls}>{ctaLabel}</a>;
+    if (ctaHref) return <Link href={ctaHref} className={cls}>{ctaLabel}</Link>;
+    if (onCtaClick) return <button onClick={onCtaClick} className={cls}>{ctaLabel}</button>;
+    return null;
+  };
 
   return (
-    <nav className="py-4 border-b border-white/5 bg-[#08091A]/90 backdrop-blur-md sticky top-0 z-50">
-      <div className="mx-auto px-6 max-w-6xl flex items-center justify-between gap-6">
+    <nav className="border-b border-white/5 bg-[#08091A]/90 backdrop-blur-md sticky top-0 z-50">
+      <div className="mx-auto px-6 max-w-6xl flex items-center justify-between gap-6 py-4">
 
         {/* Izquierda: volver + logo */}
         <div className="flex items-center gap-5">
@@ -38,9 +47,8 @@ export default function LandingNav({ ctaLabel = "Solicitar información", ctaHre
           </Link>
         </div>
 
-        {/* Derecha: dropdown Servicios + CTA */}
+        {/* Derecha desktop: dropdown Servicios + CTA */}
         <div className="hidden md:flex items-center gap-3">
-          {/* Servicios dropdown */}
           <div className="relative">
             <button
               onClick={() => setOpen(o => !o)}
@@ -69,16 +77,36 @@ export default function LandingNav({ ctaLabel = "Solicitar información", ctaHre
             )}
           </div>
 
-          {/* CTA */}
-          {ctaExternal && ctaHref ? (
-            <a href={ctaHref} target="_blank" rel="noopener noreferrer" className="btn-primary-sm">{ctaLabel}</a>
-          ) : ctaHref ? (
-            <Link href={ctaHref} className="btn-primary-sm">{ctaLabel}</Link>
-          ) : onCtaClick ? (
-            <button onClick={onCtaClick} className="btn-primary-sm">{ctaLabel}</button>
-          ) : null}
+          <CtaElement />
         </div>
+
+        {/* Hamburguesa mobile */}
+        <button
+          className="md:hidden text-white p-1"
+          onClick={() => setMobileOpen(o => !o)}
+          aria-label="Menú">
+          {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+        </button>
       </div>
+
+      {/* Menú mobile desplegado */}
+      {mobileOpen && (
+        <div className="md:hidden border-t px-6 pb-6 pt-4 flex flex-col gap-1"
+          style={{ background: "#0F1228", borderColor: "rgba(255,255,255,0.06)" }}>
+          <p className="text-[11px] font-medium tracking-widest uppercase mb-2" style={{ color: "rgba(255,255,255,0.3)" }}>Servicios</p>
+          {SERVICES.map((s) => (
+            <Link key={s.href} href={s.href}
+              className="block py-2.5 text-sm border-b last:border-0"
+              style={{ color: "rgba(255,255,255,0.7)", borderColor: "rgba(255,255,255,0.06)" }}
+              onClick={() => setMobileOpen(false)}>
+              {s.label}
+            </Link>
+          ))}
+          <div className="mt-4">
+            <CtaElement className="btn-primary w-full text-center" />
+          </div>
+        </div>
+      )}
     </nav>
   );
 }

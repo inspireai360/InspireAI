@@ -303,20 +303,39 @@ export default function LandingPage() {
                 borderColor: "rgba(255,255,255,0.05)",
               }}
             >
-              <div className="flex flex-col gap-3 p-6">
+              <div className="flex flex-col gap-1 p-6">
                 {["problemas", "solucion"].map((id) => (
                   <button
                     key={id}
-                    onClick={() => scrollTo(id)}
+                    onClick={() => { scrollTo(id); setMobileMenuOpen(false); }}
                     className="text-left py-2 text-sm capitalize"
                     style={{ color: "rgba(255,255,255,0.6)" }}
                   >
                     {id.charAt(0).toUpperCase() + id.slice(1)}
                   </button>
                 ))}
+                <div className="border-t mt-2 pt-3" style={{ borderColor: "rgba(255,255,255,0.06)" }}>
+                  <p className="text-[11px] font-medium tracking-widest uppercase mb-2" style={{ color: "rgba(255,255,255,0.3)" }}>Servicios</p>
+                  {[
+                    { href: "/consultoria-ia-empresas", label: "Consultoría IA" },
+                    { href: "/automatizacion-procesos-ia", label: "Automatización" },
+                    { href: "/ciberseguridad-ia-empresas", label: "Ciberseguridad IA" },
+                    { href: "/formacion-ia-equipos", label: "CRM a medida" },
+                  ].map((s) => (
+                    <Link key={s.href} href={s.href}
+                      className="block py-2 text-sm border-b last:border-0"
+                      style={{ color: "rgba(255,255,255,0.6)", borderColor: "rgba(255,255,255,0.06)" }}
+                      onClick={() => setMobileMenuOpen(false)}>
+                      {s.label}
+                    </Link>
+                  ))}
+                </div>
+                <Link href="/blog" className="py-2 text-sm border-t mt-1" style={{ color: "rgba(255,255,255,0.6)", borderColor: "rgba(255,255,255,0.06)" }} onClick={() => setMobileMenuOpen(false)}>
+                  Blog
+                </Link>
                 <button
-                  onClick={() => scrollTo("contacto")}
-                  className="btn-primary mt-2"
+                  onClick={() => { scrollTo("contacto"); setMobileMenuOpen(false); }}
+                  className="btn-primary mt-3"
                 >
                   Reservar llamada
                 </button>
@@ -1126,7 +1145,7 @@ export default function LandingPage() {
 
           {/* CTAs */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a href="https://crm-demo-inspireai.vercel.app" target="_blank" rel="noopener noreferrer"
+            <a href="https://crm-demo-inspireai.vercel.app/auto-login" target="_blank" rel="noopener noreferrer"
               className="btn-primary inline-flex items-center gap-2">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/>

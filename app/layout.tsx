@@ -32,6 +32,14 @@ export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
   title: "InspireAI | Consultoría de IA y Automatización Empresarial en España",
   description: "Auditamos tus procesos con IA, detectamos ineficiencias reales y te entregamos un plan accionable en Notion. Primera consulta gratuita. Basados en España.",
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/logo.png", type: "image/png" },
+    ],
+    shortcut: "/favicon.ico",
+    apple: "/logo.png",
+  },
   alternates: {
     canonical: BASE_URL,
   },
