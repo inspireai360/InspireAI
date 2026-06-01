@@ -52,11 +52,14 @@ export default function BlogPostPage({ params }: Props) {
           <Link href="/" className="flex items-center gap-2.5">
             <img src="/logo.png" alt="InspireAI" width={28} height={28}
               style={{ width:28, height:28, borderRadius:"50%", objectFit:"cover" }} />
-            <span className="font-orbitron font-bold text-[1rem] tracking-[0.05em] text-white">
+            <span className="font-orbitron font-bold text-[1rem] tracking-[0.05em] text-white hidden sm:block">
               INSPIRE<span style={{ color:"#818CF8" }}>AI</span>
             </span>
           </Link>
-          <Link href="/#contacto" className="btn-primary-sm hidden md:flex">Reservar llamada</Link>
+          <Link href="/#contacto" className="text-sm font-semibold px-4 py-2 rounded-[10px] transition-colors hidden md:block"
+            style={{ background:"#5b62f4", color:"#fff" }}>
+            Reservar llamada
+          </Link>
         </div>
       </nav>
       <article className="py-16 md:py-24">
