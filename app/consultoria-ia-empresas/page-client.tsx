@@ -328,7 +328,7 @@ export default function ConsultoriaIA() {
             {[
               { href:"/automatizacion-procesos-ia", label:"Automatización de procesos" },
               { href:"/ciberseguridad-ia-empresas", label:"Ciberseguridad IA" },
-              { href:"/formacion-ia-equipos", label:"CRM personalizado" },
+              { href:"/crm-personalizado", label:"CRM personalizado" },
             ].map((l) => (
               <Link key={l.href} href={l.href} className="rounded-xl px-4 py-3 text-sm font-medium text-center transition-colors"
                 style={{ background:"#0D0E1F", border:"1px solid rgba(255,255,255,0.07)", color:"rgba(255,255,255,0.5)" }}>

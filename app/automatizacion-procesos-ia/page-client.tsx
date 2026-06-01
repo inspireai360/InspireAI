@@ -252,7 +252,7 @@ export default function AutomatizacionProcesos() {
         <div className="mx-auto px-6 max-w-5xl">
           <p className="text-xs uppercase tracking-widest mb-5 text-center" style={{color:"rgba(255,255,255,0.2)",letterSpacing:"0.1em"}}>Otros servicios</p>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-            {[{href:"/consultoria-ia-empresas",label:"Consultoría IA"},{href:"/ciberseguridad-ia-empresas",label:"Ciberseguridad IA"},{href:"/formacion-ia-equipos",label:"CRM personalizado"}].map(l => (
+            {[{href:"/consultoria-ia-empresas",label:"Consultoría IA"},{href:"/ciberseguridad-ia-empresas",label:"Ciberseguridad IA"},{href:"/crm-personalizado",label:"CRM personalizado"}].map(l => (
               <Link key={l.href} href={l.href} className="rounded-xl px-4 py-3 text-sm font-medium text-center"
                 style={{background:"#0D0E1F",border:"1px solid rgba(255,255,255,0.07)",color:"rgba(255,255,255,0.5)"}}>{l.label}</Link>
             ))}
