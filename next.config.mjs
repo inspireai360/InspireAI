@@ -38,8 +38,7 @@ const nextConfig = {
 
   async redirects() {
     return [
-      { source: "/formacion-ia-equipos", destination: "/consultoria-ia-empresas", permanent: true },
-      { source: "/crm-personalizado",    destination: "/consultoria-ia-empresas", permanent: true },
+      { source: "/crm-personalizado", destination: "/formacion-ia-equipos", permanent: true },
     ];
   },
 
