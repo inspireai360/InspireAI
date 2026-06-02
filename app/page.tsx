@@ -215,13 +215,13 @@ export default function LandingPage() {
               <button
                 key={id}
                 onClick={() => scrollTo(id)}
-                className="text-sm transition-colors duration-150"
-                style={{ color: "rgba(255,255,255,0.6)" }}
+                className="text-sm font-medium transition-colors duration-150"
+                style={{ color: "rgba(255,255,255,0.85)" }}
                 onMouseEnter={(e) =>
-                  (e.currentTarget.style.color = "rgba(255,255,255,1)")
+                  (e.currentTarget.style.color = "#fff")
                 }
                 onMouseLeave={(e) =>
-                  (e.currentTarget.style.color = "rgba(255,255,255,0.6)")
+                  (e.currentTarget.style.color = "rgba(255,255,255,0.85)")
                 }
               >
                 {label}
@@ -229,13 +229,13 @@ export default function LandingPage() {
             ))}
             <div className="relative group">
               <button
-                className="text-sm transition-colors duration-150 flex items-center gap-1"
-                style={{ color: "rgba(255,255,255,0.6)" }}
+                className="text-sm font-medium transition-colors duration-150 flex items-center gap-1"
+                style={{ color: "rgba(255,255,255,0.85)" }}
                 onMouseEnter={(e) =>
-                  (e.currentTarget.style.color = "rgba(255,255,255,1)")
+                  (e.currentTarget.style.color = "#fff")
                 }
                 onMouseLeave={(e) =>
-                  (e.currentTarget.style.color = "rgba(255,255,255,0.6)")
+                  (e.currentTarget.style.color = "rgba(255,255,255,0.85)")
                 }
               >
                 Servicios
@@ -261,8 +261,8 @@ export default function LandingPage() {
                 </div>
               </div>
             </div>
-            <Link href="/blog" className="text-sm transition-colors" style={{ color:"rgba(255,255,255,0.6)" }}
-              onMouseEnter={e => (e.currentTarget.style.color="white")} onMouseLeave={e => (e.currentTarget.style.color="rgba(255,255,255,0.6)")}>Blog</Link>
+            <Link href="/blog" className="text-sm font-medium transition-colors" style={{ color:"rgba(255,255,255,0.85)" }}
+              onMouseEnter={e => (e.currentTarget.style.color="#fff")} onMouseLeave={e => (e.currentTarget.style.color="rgba(255,255,255,0.85)")}>Blog</Link>
             <button
               onClick={() => scrollTo("contacto")}
               className="btn-primary-sm"
