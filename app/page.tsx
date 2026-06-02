@@ -491,17 +491,26 @@ export default function LandingPage() {
                     <div className="mb-6">
                       <div className="flex justify-between items-center mb-2">
                         <span className="text-sm font-medium text-white">Empleados en tu empresa</span>
-                        <span className="text-sm font-bold" style={{ color: "#818CF8" }}>{empleados}</span>
+                        <input type="number" min={2} max={500} value={empleados}
+                          onChange={e => setEmpleados(Math.max(2, Math.min(500, +e.target.value || 2)))}
+                          className="w-16 text-right text-sm font-bold bg-transparent border-0 outline-none"
+                          style={{ color: "#818CF8" }} />
                       </div>
-                      <input type="range" min={2} max={100} value={empleados} onChange={e => setEmpleados(+e.target.value)}
+                      <input type="range" min={2} max={100} value={Math.min(empleados, 100)} onChange={e => setEmpleados(+e.target.value)}
                         className="w-full h-1.5 rounded-full appearance-none cursor-pointer"
-                        style={{ background: `linear-gradient(to right, #5B62F4 ${(empleados-2)/98*100}%, rgba(255,255,255,0.1) ${(empleados-2)/98*100}%)` }} />
+                        style={{ background: `linear-gradient(to right, #5B62F4 ${(Math.min(empleados,100)-2)/98*100}%, rgba(255,255,255,0.1) ${(Math.min(empleados,100)-2)/98*100}%)` }} />
                     </div>
                     {/* Slider 2 */}
                     <div className="mb-6">
                       <div className="flex justify-between items-center mb-2">
                         <span className="text-sm font-medium text-white">Horas manuales por empleado / semana</span>
-                        <span className="text-sm font-bold" style={{ color: "#818CF8" }}>{horasManuales}h</span>
+                        <div className="flex items-center gap-0.5">
+                          <input type="number" min={1} max={40} value={horasManuales}
+                            onChange={e => setHorasManuales(Math.max(1, Math.min(40, +e.target.value || 1)))}
+                            className="w-12 text-right text-sm font-bold bg-transparent border-0 outline-none"
+                            style={{ color: "#818CF8" }} />
+                          <span className="text-sm font-bold" style={{ color: "#818CF8" }}>h</span>
+                        </div>
                       </div>
                       <input type="range" min={3} max={40} value={horasManuales} onChange={e => setHorasManuales(+e.target.value)}
                         className="w-full h-1.5 rounded-full appearance-none cursor-pointer"
@@ -511,11 +520,17 @@ export default function LandingPage() {
                     <div className="mb-6">
                       <div className="flex justify-between items-center mb-2">
                         <span className="text-sm font-medium text-white">Coste medio por hora (€)</span>
-                        <span className="text-sm font-bold" style={{ color: "#818CF8" }}>{costeHora}€</span>
+                        <div className="flex items-center gap-0.5">
+                          <input type="number" min={10} max={200} value={costeHora}
+                            onChange={e => setCosteHora(Math.max(10, Math.min(200, +e.target.value || 10)))}
+                            className="w-14 text-right text-sm font-bold bg-transparent border-0 outline-none"
+                            style={{ color: "#818CF8" }} />
+                          <span className="text-sm font-bold" style={{ color: "#818CF8" }}>€</span>
+                        </div>
                       </div>
-                      <input type="range" min={12} max={60} value={costeHora} onChange={e => setCosteHora(+e.target.value)}
+                      <input type="range" min={12} max={60} value={Math.min(costeHora, 60)} onChange={e => setCosteHora(+e.target.value)}
                         className="w-full h-1.5 rounded-full appearance-none cursor-pointer"
-                        style={{ background: `linear-gradient(to right, #5B62F4 ${(costeHora-12)/48*100}%, rgba(255,255,255,0.1) ${(costeHora-12)/48*100}%)` }} />
+                        style={{ background: `linear-gradient(to right, #5B62F4 ${(Math.min(costeHora,60)-12)/48*100}%, rgba(255,255,255,0.1) ${(Math.min(costeHora,60)-12)/48*100}%)` }} />
                     </div>
                   </div>
                   <div className="pt-4 border-t" style={{ borderColor: "rgba(255,255,255,0.06)" }}>
