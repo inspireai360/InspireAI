@@ -20,7 +20,7 @@ import {
   Search,
   Zap,
   Shield,
-  MapIcon as Map,
+  Map as MapIcon,
   PackageCheck,
   ClipboardList,
   Megaphone,
@@ -748,7 +748,7 @@ export default function LandingPage() {
               { n: "01", title: "Auditoría", desc: "4 ejes clave: operaciones, marketing, ventas y delivery.", Icon: Search, get: "Mapa de procesos actual" },
               { n: "02", title: "Análisis", desc: "Detección de ineficiencias y oportunidades de IA con impacto real.", Icon: Zap, get: "Top 10 quick wins" },
               { n: "03", title: "Ciberseguridad", desc: "Vulnerabilidades en las automatizaciones propuestas.", Icon: Shield, get: "Plan de mitigación" },
-              { n: "04", title: "Arquitectura IA", desc: "Roadmap visual para escalar sin cuellos de botella.", Icon: MapIcon as Map, get: "Roadmap priorizado" },
+              { n: "04", title: "Arquitectura IA", desc: "Roadmap visual para escalar sin cuellos de botella.", Icon: MapIcon, get: "Roadmap priorizado" },
               { n: "05", title: "Entrega", desc: "Reunión 1:1 con el CTO + informe Notion operativo.", Icon: PackageCheck, get: "Listo desde el día 1" },
             ].map((step, i) => (
               <motion.div key={i} variants={fadeInUp} className="flex flex-col items-center text-center relative">
@@ -856,7 +856,7 @@ export default function LandingPage() {
                     { Icon: Search,       label: "01 · Auditorías",    active: true },
                     { Icon: Zap,          label: "02 · Mapa IA",       active: false },
                     { Icon: Shield,       label: "03 · Seguridad",     active: false },
-                    { Icon: MapIcon as Map,          label: "04 · Roadmap",       active: false },
+                    { Icon: MapIcon,          label: "04 · Roadmap",       active: false },
                     { Icon: ClipboardList,label: "Resumen ejecutivo",  active: false },
                   ].map((item) => (
                     <div key={item.label} className="flex items-center gap-2 mx-2 px-2 py-1.5 rounded text-xs"
@@ -940,7 +940,7 @@ export default function LandingPage() {
                 { Icon: Megaphone,    title: "Auditorías de Área", desc: "Marketing, Ventas, Operaciones y Delivery con hallazgos concretos.", color: "#E8A24F" },
                 { Icon: Zap,         title: "Mapa de Automatización", desc: "Cada oportunidad con impacto €, dificultad y urgencia.", color: "#818CF8" },
                 { Icon: Shield,      title: "Estudio de Seguridad", desc: "Riesgos identificados, probabilidad y plan de mitigación.", color: "#E86F6F" },
-                { Icon: MapIcon as Map,         title: "Roadmap Técnico", desc: "Fases, herramientas y estimación de recursos. Ejecutable.", color: "#3FB984" },
+                { Icon: MapIcon,         title: "Roadmap Técnico", desc: "Fases, herramientas y estimación de recursos. Ejecutable.", color: "#3FB984" },
               ].map((d, i) => (
                 <motion.div key={i} variants={fadeInUp} className="rounded-xl p-5"
                   style={{ background: "#0D0E1F", border: "1px solid rgba(255,255,255,0.07)" }}>
@@ -1123,7 +1123,7 @@ export default function LandingPage() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
             {[
               { Icon: BarChart3, title: "Dashboard en tiempo real", desc: "KPIs, pipeline y actividad actualizados al instante" },
-              { Icon: MapIcon as Map,      title: "Pipeline Kanban", desc: "Arrastra deals entre etapas con drag & drop" },
+              { Icon: MapIcon,      title: "Pipeline Kanban", desc: "Arrastra deals entre etapas con drag & drop" },
               { Icon: Search,   title: "Diagnósticos completos", desc: "4 áreas auditadas con respuestas y prioridad" },
               { Icon: Bell,     title: "Notificaciones automáticas", desc: "Email inmediato a todo el equipo cuando llega un lead" },
             ].map((f) => (
