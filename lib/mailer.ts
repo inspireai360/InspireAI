@@ -1,7 +1,7 @@
 // Envío de emails via Brevo HTTP API (funciona en Vercel serverless)
 
 const NOTIF_EMAILS = ["monteslluc@gmail.com","Merikarpre@gmail.com"];
-const SENDER = { name: "InspireAI CRM", email: "inspireaiagency.contact@gmail.com" };
+const SENDER = { name: "InspireAI CRM", email: "hola@inspireai.es" };
 const PRIORIDAD_COLOR: Record<string, string> = { Alta: "#E86F6F", Media: "#E8A24F", Baja: "#3FB984" };
 
 async function sendBrevo(subject: string, html: string): Promise<void> {

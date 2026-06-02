@@ -50,7 +50,7 @@ export default function AvisoLegal() {
             </p>
             <ul className="list-disc pl-5 space-y-2">
               <li><strong>Empresa titular del sitio web:</strong> InspireAI</li>
-              <li><strong>Correo electrónico de contacto:</strong> inspireaiagency.contact@gmail.com</li>
+              <li><strong>Correo electrónico de contacto:</strong> hola@inspireai.es</li>
             </ul>
           </section>
 

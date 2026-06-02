@@ -50,7 +50,7 @@ export default function PoliticaPrivacidad() {
             </p>
             <ul className="list-disc pl-5 space-y-2">
               <li><strong>Denominación comercial:</strong> InspireAI</li>
-              <li><strong>Correo electrónico:</strong> inspireaiagency.contact@gmail.com</li>
+              <li><strong>Correo electrónico:</strong> hola@inspireai.es</li>
               <li><strong>Actividad:</strong> Consultoría de IA y desarrollo de automatizaciones</li>
             </ul>
           </section>
@@ -118,7 +118,7 @@ export default function PoliticaPrivacidad() {
               <li>Solicitar la <strong>portabilidad</strong> de los datos.</li>
             </ul>
             <p>
-              Puede ejercer estos derechos enviando un correo electrónico a inspireaiagency.contact@gmail.com, identificándose debidamente e indicando de forma expresa el concreto derecho que se quiere ejercer. Además, tiene derecho a presentar una reclamación ante la Agencia Española de Protección de Datos (AEPD) si considera que el tratamiento no se ajusta a la normativa vigente.
+              Puede ejercer estos derechos enviando un correo electrónico a hola@inspireai.es, identificándose debidamente e indicando de forma expresa el concreto derecho que se quiere ejercer. Además, tiene derecho a presentar una reclamación ante la Agencia Española de Protección de Datos (AEPD) si considera que el tratamiento no se ajusta a la normativa vigente.
             </p>
           </section>
 
