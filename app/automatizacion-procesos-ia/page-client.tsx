@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { ArrowRight, Check, Briefcase, Megaphone, Settings, ClipboardList, Search, Zap, BarChart3 } from "lucide-react";
+import { ArrowRight, Check, Briefcase, Megaphone, Settings, ClipboardList, Search, Map as MapIcon, Zap, BarChart3 } from "lucide-react";
 import { motion } from "framer-motion";
 import LandingNav from "@/components/LandingNav";
 
@@ -179,7 +179,7 @@ export default function AutomatizacionProcesos() {
           <motion.div initial="hidden" whileInView="visible" viewport={{once:true}} variants={stagger} className="flex flex-col gap-3">
             {[
               {n:"01",Icon:Search,title:"Diagnóstico de procesos",time:"4–6 semanas",desc:"Primero mapeamos qué se hace a mano, cuánto cuesta en tiempo real y dónde está el ROI. Sin diagnóstico, automatizar es disparar a ciegas."},
-              {n:"02",Icon:Map,title:"Diseño de flujos",time:"1–2 semanas",desc:"Mapeamos cada automatización como flujo de trabajo antes de construir nada. Incluye escenarios de error, dependencias y dónde necesita validación humana."},
+              {n:"02",Icon:MapIcon,title:"Diseño de flujos",time:"1–2 semanas",desc:"Mapeamos cada automatización como flujo de trabajo antes de construir nada. Incluye escenarios de error, dependencias y dónde necesita validación humana."},
               {n:"03",Icon:Zap,title:"Implementación y pruebas",time:"2–4 semanas",desc:"Construcción en N8N o Make. Pruebas en paralelo con los procesos actuales. Formación básica al equipo que lo va a usar. Nada se sube a producción sin test."},
               {n:"04",Icon:BarChart3,title:"Monitorización y ajuste",time:"4 semanas",desc:"Las primeras semanas son críticas. Monitorizamos que los flujos funcionan en producción real y ajustamos lo necesario. Incluido en el precio de implementación."},
             ].map((s,i) => (

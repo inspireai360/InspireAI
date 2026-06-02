@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { ArrowRight, Check, Briefcase, Megaphone, Settings, Package, ClipboardList, Search, Shield, Map, Target, Zap, BarChart3 } from "lucide-react";
+import { ArrowRight, Check, Briefcase, Megaphone, Settings, Package, ClipboardList, Search, Shield, Map as MapIcon, Target, Zap, BarChart3 } from "lucide-react";
 import { motion } from "framer-motion";
 import LandingNav from "@/components/LandingNav";
 
@@ -170,7 +170,7 @@ export default function ConsultoriaIA() {
                 desc:"Procesamos las respuestas, mapeamos los procesos críticos, cruzamos con benchmarks del sector e identificamos las oportunidades con mayor ROI. Aquí es donde separamos lo que vale de lo que suena bien." },
               { n:"03", Icon:Shield, title:"Validación de ciberseguridad", time:"Semana 4",
                 desc:"Cada automatización propuesta pasa por un análisis de seguridad. No implementamos nada que abra vulnerabilidades. Esta fase no la hace ninguna otra consultora de IA." },
-              { n:"04", Icon:Map, title:"Roadmap técnico priorizado", time:"Semana 5",
+              { n:"04", Icon:MapIcon, title:"Roadmap técnico priorizado", time:"Semana 5",
                 desc:"Un plan de implementación con fases, herramientas concretas, estimación de tiempo y recursos. Priorizado por impacto económico, no por complejidad técnica." },
               { n:"05", Icon:Target, title:"Entrega + reunión 1:1 con el CTO", time:"Semana 5–6",
                 desc:"Reunión de 60 minutos con Timur para presentar el informe, responder dudas técnicas y definir los próximos pasos. El Notion queda operativo para vuestro equipo ese mismo día." },
@@ -244,10 +244,16 @@ export default function ConsultoriaIA() {
               </div>
               <div className="flex" style={{ minHeight:"300px" }}>
                 <div className="hidden md:flex flex-col w-44 flex-shrink-0 py-3 border-r" style={{ background:"#171717", borderColor:"rgba(255,255,255,0.05)" }}>
-                  {[[ClipboardList,"01 · Diagnóstico",true],[Zap,"02 · Mapa IA",false],[Shield,"03 · Seguridad",false],[Map,"04 · Roadmap",false],[BarChart3,"Resumen ejecutivo",false]].map(([Icon,label,active]) => (
-                    <div key={label as string} className="flex items-center gap-2 mx-2 px-2 py-1.5 rounded text-xs"
+                  {[
+                    { Icon:ClipboardList, label:"01 · Diagnóstico",   active:true  },
+                    { Icon:Zap,           label:"02 · Mapa IA",       active:false },
+                    { Icon:Shield,        label:"03 · Seguridad",     active:false },
+                    { Icon:MapIcon,       label:"04 · Roadmap",       active:false },
+                    { Icon:BarChart3,     label:"Resumen ejecutivo",  active:false },
+                  ].map(({Icon:TabIcon,label,active}) => (
+                    <div key={label} className="flex items-center gap-2 mx-2 px-2 py-1.5 rounded text-xs"
                       style={{ background: active ? "rgba(91,98,244,0.15)" : "transparent", color: active ? "rgba(255,255,255,0.85)" : "rgba(255,255,255,0.35)" }}>
-                      {(() => { const I = Icon as React.ElementType; return <I size={11} strokeWidth={2} />; })()}<span>{label as string}</span>
+                      <TabIcon size={11} strokeWidth={2} /><span>{label}</span>
                     </div>
                   ))}
                 </div>
@@ -256,7 +262,7 @@ export default function ConsultoriaIA() {
                   <div className="rounded-lg px-4 py-3 mb-4 text-xs" style={{ background:"rgba(91,98,244,0.1)", border:"1px solid rgba(91,98,244,0.25)", color:"rgba(255,255,255,0.65)", lineHeight:1.6 }}>
                     <strong style={{ color:"white" }}>Resumen ejecutivo:</strong> 12 oportunidades detectadas. Ahorro estimado: 18h/semana y +34.000€/año de impacto directo.
                   </div>
-                  {[["💼 Ventas","Alto","Alta","#818CF8"],["📢 Marketing","Alto","Media","#E8A24F"],["⚙️ Operaciones","Medio","Alta","#E86F6F"],["🚚 Fulfillment","Medio","Media","#3FB984"]].map(([area,imp,urg,color]) => (
+                  {[["Ventas","Alto","Alta","#818CF8"],["Marketing","Alto","Media","#E8A24F"],["Operaciones","Medio","Alta","#E86F6F"],["Fulfillment","Medio","Media","#3FB984"]].map(([area,imp,urg,color]) => (
                     <div key={area as string} className="flex items-center justify-between py-2 text-xs border-b" style={{ borderColor:"rgba(255,255,255,0.05)" }}>
                       <span style={{ color:"rgba(255,255,255,0.65)" }}>{area}</span>
                       <span className="px-1.5 py-0.5 rounded-full" style={{ background:`${color}18`, color:color as string }}>{imp}</span>
