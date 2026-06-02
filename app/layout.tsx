@@ -174,6 +174,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es" className="scroll-smooth">
+      <head>
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" href="/logo.png" type="image/png" />
+        <link rel="shortcut icon" href="/favicon.ico" />
+        <link rel="apple-touch-icon" href="/logo.png" />
+      </head>
       <body className={`${inter.variable} ${dmSans.variable} ${syne.variable} ${orbitron.variable} font-sans bg-dark text-white antialiased`}>
         <script
           type="application/ld+json"
