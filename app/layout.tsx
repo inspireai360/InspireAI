@@ -65,20 +65,28 @@ export const metadata: Metadata = {
 
 const organizationSchema = {
   "@context": "https://schema.org",
-  "@type": "ProfessionalService",
+  "@type": ["ProfessionalService", "LocalBusiness"],
   "name": "InspireAI",
   "url": "https://inspireai.es",
   "logo": "https://inspireai.es/logo.png",
+  "image": "https://inspireai.es/logo.png",
+  "email": "hola@inspireai.es",
   "description": "Consultora tecnológica especializada en auditorías de IA y automatización empresarial para empresas en España.",
   "address": {
     "@type": "PostalAddress",
-    "addressCountry": "ES"
+    "addressCountry": "ES",
+    "addressRegion": "España"
   },
-  "areaServed": "España",
+  "areaServed": {
+    "@type": "Country",
+    "name": "España"
+  },
+  "priceRange": "€€",
   "serviceType": ["Auditoría de IA", "Automatización de procesos", "Consultoría de Inteligencia Artificial", "Ciberseguridad IA"],
   "sameAs": ["https://www.linkedin.com/company/inspireai"],
   "contactPoint": {
     "@type": "ContactPoint",
+    "email": "hola@inspireai.es",
     "contactType": "customer service",
     "availableLanguage": "Spanish"
   },
