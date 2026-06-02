@@ -2,6 +2,7 @@ export const dynamic = "force-dynamic";
 import { NextRequest, NextResponse } from "next/server";
 import { supabaseAdmin, ADMIN_USER_ID } from "@/lib/supabase-server";
 import { sendQuestionnaireNotification } from "@/lib/mailer";
+import { updateRecord } from "@/lib/airtable";
 
 type AreaKey = "ventas" | "marketing" | "operaciones" | "delivery" | "administracion_documentacion";
 interface RespuestaDetallada { id: string; label: string; type: string; answer: string; section?: string; }
@@ -38,9 +39,9 @@ export async function POST(req: NextRequest) {
   catch { return NextResponse.json({ success: false, error: "Cuerpo inválido" }, { status: 400 }); }
 
   const { area: areaRaw, empresa, contacto, email, telefono,
-    respuestas: respuestasRaw = [], observaciones = "", accessKey } = body as {
+    respuestas: respuestasRaw = [], observaciones = "", accessKey, tokenRecordId } = body as {
     area?: string; empresa?: string; contacto?: string; email?: string; telefono?: string;
-    respuestas?: RespuestaDetallada[]; observaciones?: string; accessKey?: string;
+    respuestas?: RespuestaDetallada[]; observaciones?: string; accessKey?: string; tokenRecordId?: string;
   };
 
   const validKey = process.env.ONBOARDING_ACCESS_KEY;
@@ -116,6 +117,12 @@ export async function POST(req: NextRequest) {
     });
 
     // Notificación por email (fire & forget)
+    // Marcar token como Usado para que el enlace no pueda volver a enviarse
+    if (tokenRecordId && process.env.AIRTABLE_TOKENS_TABLE) {
+      updateRecord(process.env.AIRTABLE_TOKENS_TABLE, tokenRecordId, { estado: "Usado" })
+        .catch(err => console.error("[submit] No se pudo invalidar el token:", err));
+    }
+
     sendQuestionnaireNotification({
       area, areaName: AREA_NAMES[area], contacto: contacto?.trim() ?? email.trim(),
       email: email.trim().toLowerCase(), empresa: empresa?.trim(),

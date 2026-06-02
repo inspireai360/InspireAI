@@ -84,6 +84,7 @@ interface OnboardingFormProps {
   areaSubtitle: string;
   questions: Question[];
   accessKey: string;
+  tokenRecordId?: string;
 }
 
 interface DatosGenerales {
@@ -177,6 +178,7 @@ export default function OnboardingForm({
   areaSubtitle,
   questions,
   accessKey,
+  tokenRecordId,
 }: OnboardingFormProps) {
   const [datos, setDatos] = useState<DatosGenerales>({
     empresa: "",
@@ -373,6 +375,7 @@ export default function OnboardingForm({
         headers: { "Content-Type": "application/json", "X-Requested-With": "XMLHttpRequest" },
         body: JSON.stringify({
           accessKey,
+          tokenRecordId,
           area,
           empresa: datos.empresa,
           contacto: datos.contacto,
