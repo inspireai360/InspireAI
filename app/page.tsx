@@ -280,8 +280,6 @@ export default function LandingPage() {
           </button>
         </div>
 
-        </div>
-
         {/* Mobile menu — dropdown bajo la píldora */}
         <AnimatePresence>
           {mobileMenuOpen && (
