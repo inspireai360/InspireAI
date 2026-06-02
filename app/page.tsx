@@ -181,24 +181,14 @@ export default function LandingPage() {
       <ScrollProgress />
 
       {/* ─── Navbar ─────────────────────────────────────────────────────── */}
-      <nav
-        className={cn(
-          "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-          isScrolled
-            ? "py-3 border-b"
-            : "py-5"
-        )}
-        style={
-          isScrolled
-            ? {
-                background: "rgba(8,9,26,0.85)",
-                backdropFilter: "blur(16px)",
-                borderColor: "rgba(255,255,255,0.05)",
-              }
-            : {}
-        }
-      >
-        <div className="mx-auto px-6 max-w-6xl flex items-center justify-between">
+      <nav className="fixed top-0 left-0 right-0 z-50 px-4 pt-4 transition-all duration-300">
+        <div className="mx-auto max-w-6xl rounded-2xl px-5 py-3 flex items-center justify-between transition-all duration-300"
+          style={{
+            background: isScrolled ? "rgba(8,9,26,0.97)" : "rgba(8,9,26,0.82)",
+            backdropFilter: "blur(20px)",
+            border: "1px solid rgba(255,255,255,0.08)",
+            boxShadow: isScrolled ? "0 4px 24px rgba(0,0,0,0.4)" : "0 2px 16px rgba(0,0,0,0.2)",
+          }}>
           {/* Logo */}
           <button
             onClick={() => scrollTo("")}
@@ -290,20 +280,25 @@ export default function LandingPage() {
           </button>
         </div>
 
-        {/* Mobile menu */}
+        </div>
+
+        {/* Mobile menu — dropdown bajo la píldora */}
         <AnimatePresence>
           {mobileMenuOpen && (
             <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              className="md:hidden overflow-hidden border-b"
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.18 }}
+              className="md:hidden mx-auto max-w-6xl mt-2 rounded-2xl overflow-hidden"
               style={{
-                background: "#0F1228",
-                borderColor: "rgba(255,255,255,0.05)",
+                background: "rgba(8,9,26,0.97)",
+                backdropFilter: "blur(20px)",
+                border: "1px solid rgba(255,255,255,0.08)",
+                boxShadow: "0 8px 32px rgba(0,0,0,0.4)",
               }}
             >
-              <div className="flex flex-col gap-1 p-6">
+              <div className="flex flex-col gap-1 p-5">
                 {["problemas", "solucion"].map((id) => (
                   <button
                     key={id}
