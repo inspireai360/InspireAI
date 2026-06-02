@@ -33,12 +33,9 @@ export const metadata: Metadata = {
   title: "InspireAI | Consultoría de IA y Automatización Empresarial en España",
   description: "Auditamos tus procesos con IA, detectamos ineficiencias reales y te entregamos un plan accionable en Notion. Primera consulta gratuita. Basados en España.",
   icons: {
-    icon: [
-      { url: "/favicon.ico", sizes: "any" },
-      { url: "/logo.png", type: "image/png" },
-    ],
+    icon: "/favicon.ico",
     shortcut: "/favicon.ico",
-    apple: "/logo.png",
+    apple: "/favicon.ico",
   },
   alternates: {
     canonical: BASE_URL,
@@ -176,9 +173,8 @@ export default function RootLayout({
     <html lang="es" className="scroll-smooth">
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="icon" href="/logo.png" type="image/png" />
         <link rel="shortcut icon" href="/favicon.ico" />
-        <link rel="apple-touch-icon" href="/logo.png" />
+        <link rel="apple-touch-icon" href="/favicon.ico" />
       </head>
       <body className={`${inter.variable} ${dmSans.variable} ${syne.variable} ${orbitron.variable} font-sans bg-dark text-white antialiased`}>
         <script
