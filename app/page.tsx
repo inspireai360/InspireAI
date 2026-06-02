@@ -493,8 +493,8 @@ export default function LandingPage() {
                         <span className="text-sm font-medium text-white">Empleados en tu empresa</span>
                         <input type="number" min={2} max={500} value={empleados}
                           onChange={e => setEmpleados(Math.max(2, Math.min(500, +e.target.value || 2)))}
-                          className="w-16 text-right text-sm font-bold bg-transparent border-0 outline-none"
-                          style={{ color: "#818CF8" }} />
+                          className="w-16 text-right text-sm font-bold outline-none rounded-lg px-2 py-1 transition-all"
+                          style={{ color: "#818CF8", background: "rgba(91,98,244,0.12)", border: "1px solid rgba(91,98,244,0.35)" }} />
                       </div>
                       <input type="range" min={2} max={100} value={Math.min(empleados, 100)} onChange={e => setEmpleados(+e.target.value)}
                         className="w-full h-1.5 rounded-full appearance-none cursor-pointer"
@@ -504,10 +504,10 @@ export default function LandingPage() {
                     <div className="mb-6">
                       <div className="flex justify-between items-center mb-2">
                         <span className="text-sm font-medium text-white">Horas manuales por empleado / semana</span>
-                        <div className="flex items-center gap-0.5">
+                        <div className="flex items-center gap-1 rounded-lg px-2 py-1" style={{ background: "rgba(91,98,244,0.12)", border: "1px solid rgba(91,98,244,0.35)" }}>
                           <input type="number" min={1} max={40} value={horasManuales}
                             onChange={e => setHorasManuales(Math.max(1, Math.min(40, +e.target.value || 1)))}
-                            className="w-12 text-right text-sm font-bold bg-transparent border-0 outline-none"
+                            className="w-10 text-right text-sm font-bold bg-transparent border-0 outline-none"
                             style={{ color: "#818CF8" }} />
                           <span className="text-sm font-bold" style={{ color: "#818CF8" }}>h</span>
                         </div>
@@ -520,10 +520,10 @@ export default function LandingPage() {
                     <div className="mb-6">
                       <div className="flex justify-between items-center mb-2">
                         <span className="text-sm font-medium text-white">Coste medio por hora (€)</span>
-                        <div className="flex items-center gap-0.5">
+                        <div className="flex items-center gap-1 rounded-lg px-2 py-1" style={{ background: "rgba(91,98,244,0.12)", border: "1px solid rgba(91,98,244,0.35)" }}>
                           <input type="number" min={10} max={200} value={costeHora}
                             onChange={e => setCosteHora(Math.max(10, Math.min(200, +e.target.value || 10)))}
-                            className="w-14 text-right text-sm font-bold bg-transparent border-0 outline-none"
+                            className="w-12 text-right text-sm font-bold bg-transparent border-0 outline-none"
                             style={{ color: "#818CF8" }} />
                           <span className="text-sm font-bold" style={{ color: "#818CF8" }}>€</span>
                         </div>
