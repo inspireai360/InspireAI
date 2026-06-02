@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { ArrowRight, Check } from "lucide-react";
+import { ArrowRight, Check, Briefcase, Megaphone, Settings, Package, ClipboardList, Search, Shield, Map, Target, Zap, BarChart3 } from "lucide-react";
 import { motion } from "framer-motion";
 import LandingNav from "@/components/LandingNav";
 
@@ -116,22 +116,22 @@ export default function ConsultoriaIA() {
           <motion.div initial="hidden" whileInView="visible" viewport={{ once:true }} variants={stagger}
             className="grid md:grid-cols-2 gap-5">
             {[
-              { icon:"💼", area:"Ventas", color:"#818CF8",
+              { Icon:Briefcase, area:"Ventas", color:"#818CF8",
                 desc:"Cómo captáis leads, qué pasa con los que no responden, cuánto tarda un deal en cerrarse y dónde se escapan clientes que no deberían escaparse.",
                 ejemplos:["Seguimiento automático de leads sin respuesta","Propuestas generadas sin intervención manual","CRM actualizado solo tras cada interacción"] },
-              { icon:"📢", area:"Marketing", color:"#E8A24F",
+              { Icon:Megaphone, area:"Marketing", color:"#E8A24F",
                 desc:"Canales, conversión, contenido. Si gastáis en ads o no, si sabéis de dónde vienen vuestros mejores clientes y si el tiempo que invertís en marketing da retorno real.",
                 ejemplos:["Atribución de leads por canal","Publicación automatizada en múltiples plataformas","Respuestas automáticas fuera de horario"] },
-              { icon:"⚙️", area:"Operaciones", color:"#3FB984",
+              { Icon:Settings, area:"Operaciones", color:"#3FB984",
                 desc:"Los procesos del día a día que se hacen a mano: pedidos, facturación, contratos, comunicación interna. Dónde se pierde tiempo y dónde se cometen errores evitables.",
                 ejemplos:["Pedidos de WhatsApp al sistema sin tocar teclado","Facturación automática al confirmar entrega","Contratos generados desde plantilla en segundos"] },
-              { icon:"🚚", area:"Fulfillment / Delivery", color:"#E86F6F",
+              { Icon:Package, area:"Fulfillment / Delivery", color:"#E86F6F",
                 desc:"Desde que se acepta un pedido hasta que llega al cliente. Coordinación, tracking, incidencias y satisfacción post-entrega.",
                 ejemplos:["Tracking automático con aviso al cliente","Gestión de incidencias sin cadena de WhatsApps","Encuestas de satisfacción automatizadas"] },
             ].map((a,i) => (
               <motion.div key={i} variants={fadeUp} className="rounded-2xl p-6" style={{ background:"#0D0E1F", border:`1px solid ${a.color}20` }}>
                 <div className="flex items-center gap-3 mb-4">
-                  <span className="text-2xl">{a.icon}</span>
+                  <a.Icon size={20} strokeWidth={1.5} style={{ color:a.color, flexShrink:0 }} />
                   <h3 className="font-semibold text-white">{a.area}</h3>
                   <div className="ml-auto w-2 h-2 rounded-full" style={{ background:a.color }} />
                 </div>
@@ -164,15 +164,15 @@ export default function ConsultoriaIA() {
           <motion.div initial="hidden" whileInView="visible" viewport={{ once:true }} variants={stagger}
             className="flex flex-col gap-3">
             {[
-              { n:"01", icon:"📋", title:"Cuestionarios por área", time:"Semanas 1–2",
+              { n:"01", Icon:ClipboardList, title:"Cuestionarios por área", time:"Semanas 1–2",
                 desc:"Tu equipo rellena 4 cuestionarios de ~50 preguntas cada uno, en su propio ritmo y sin reuniones previas. Capturamos la realidad de vuestros procesos sin filtros ni preparación." },
-              { n:"02", icon:"🔍", title:"Auditoría y análisis", time:"Semanas 2–4",
+              { n:"02", Icon:Search, title:"Auditoría y análisis", time:"Semanas 2–4",
                 desc:"Procesamos las respuestas, mapeamos los procesos críticos, cruzamos con benchmarks del sector e identificamos las oportunidades con mayor ROI. Aquí es donde separamos lo que vale de lo que suena bien." },
-              { n:"03", icon:"🔒", title:"Validación de ciberseguridad", time:"Semana 4",
+              { n:"03", Icon:Shield, title:"Validación de ciberseguridad", time:"Semana 4",
                 desc:"Cada automatización propuesta pasa por un análisis de seguridad. No implementamos nada que abra vulnerabilidades. Esta fase no la hace ninguna otra consultora de IA." },
-              { n:"04", icon:"🗺️", title:"Roadmap técnico priorizado", time:"Semana 5",
+              { n:"04", Icon:Map, title:"Roadmap técnico priorizado", time:"Semana 5",
                 desc:"Un plan de implementación con fases, herramientas concretas, estimación de tiempo y recursos. Priorizado por impacto económico, no por complejidad técnica." },
-              { n:"05", icon:"🎯", title:"Entrega + reunión 1:1 con el CTO", time:"Semana 5–6",
+              { n:"05", Icon:Target, title:"Entrega + reunión 1:1 con el CTO", time:"Semana 5–6",
                 desc:"Reunión de 60 minutos con Timur para presentar el informe, responder dudas técnicas y definir los próximos pasos. El Notion queda operativo para vuestro equipo ese mismo día." },
             ].map((s,i) => (
               <motion.div key={i} variants={fadeUp}
@@ -180,7 +180,7 @@ export default function ConsultoriaIA() {
                 style={{ background:"#0D0E1F", border:"1px solid rgba(255,255,255,0.07)" }}>
                 <div className="w-11 h-11 rounded-xl grid place-items-center flex-shrink-0"
                   style={{ background:"rgba(91,98,244,0.12)", border:"1px solid rgba(91,98,244,0.25)" }}>
-                  <span className="text-lg">{s.icon}</span>
+                  <s.Icon size={18} strokeWidth={1.5} color="#818CF8" />
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between gap-4 mb-1.5">
@@ -244,15 +244,15 @@ export default function ConsultoriaIA() {
               </div>
               <div className="flex" style={{ minHeight:"300px" }}>
                 <div className="hidden md:flex flex-col w-44 flex-shrink-0 py-3 border-r" style={{ background:"#171717", borderColor:"rgba(255,255,255,0.05)" }}>
-                  {[["📋","01 · Diagnóstico",true],["⚡","02 · Mapa IA",false],["🔒","03 · Seguridad",false],["🗺️","04 · Roadmap",false],["📊","Resumen ejecutivo",false]].map(([icon,label,active]) => (
+                  {[[ClipboardList,"01 · Diagnóstico",true],[Zap,"02 · Mapa IA",false],[Shield,"03 · Seguridad",false],[Map,"04 · Roadmap",false],[BarChart3,"Resumen ejecutivo",false]].map(([Icon,label,active]) => (
                     <div key={label as string} className="flex items-center gap-2 mx-2 px-2 py-1.5 rounded text-xs"
                       style={{ background: active ? "rgba(91,98,244,0.15)" : "transparent", color: active ? "rgba(255,255,255,0.85)" : "rgba(255,255,255,0.35)" }}>
-                      {icon}<span>{label}</span>
+                      {(() => { const I = Icon as React.ElementType; return <I size={11} strokeWidth={2} />; })()}<span>{label as string}</span>
                     </div>
                   ))}
                 </div>
                 <div className="flex-1 p-5">
-                  <div className="flex items-center gap-2 mb-4"><span>📋</span><h3 className="text-sm font-bold text-white">Diagnóstico de Procesos</h3></div>
+                  <div className="flex items-center gap-2 mb-4"><ClipboardList size={14} strokeWidth={1.5} color="#818CF8" /><h3 className="text-sm font-bold text-white">Diagnóstico de Procesos</h3></div>
                   <div className="rounded-lg px-4 py-3 mb-4 text-xs" style={{ background:"rgba(91,98,244,0.1)", border:"1px solid rgba(91,98,244,0.25)", color:"rgba(255,255,255,0.65)", lineHeight:1.6 }}>
                     <strong style={{ color:"white" }}>Resumen ejecutivo:</strong> 12 oportunidades detectadas. Ahorro estimado: 18h/semana y +34.000€/año de impacto directo.
                   </div>

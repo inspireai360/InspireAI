@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { ArrowRight, Check } from "lucide-react";
+import { ArrowRight, Check, Briefcase, Megaphone, Settings, ClipboardList, Search, Zap, BarChart3 } from "lucide-react";
 import { motion } from "framer-motion";
 import LandingNav from "@/components/LandingNav";
 
@@ -115,25 +115,25 @@ export default function AutomatizacionProcesos() {
           <motion.div initial="hidden" whileInView="visible" viewport={{once:true}} variants={stagger}
             className="grid md:grid-cols-2 gap-5">
             {[
-              {icon:"💼",area:"Ventas y captación",color:"#818CF8",items:[
+              {Icon:Briefcase,area:"Ventas y captación",color:"#818CF8",items:[
                 "Seguimiento automático de leads sin respuesta (N8N + email/WhatsApp)",
                 "Notificación al equipo cuando llega un lead web en menos de 2 min",
                 "Propuestas generadas automáticamente desde formulario (Claude API)",
                 "CRM actualizado tras cada interacción sin intervención manual",
               ]},
-              {icon:"⚙️",area:"Operaciones y pedidos",color:"#E8A24F",items:[
+              {Icon:Settings,area:"Operaciones y pedidos",color:"#E8A24F",items:[
                 "Pedidos de WhatsApp → sistema de gestión sin tocar teclado (N8N + OCR)",
                 "Albaranes y facturas generados automáticamente al confirmar entrega",
                 "Alertas proactivas al cliente con estado de su pedido",
                 "Inventario actualizado en tiempo real sin entrada manual",
               ]},
-              {icon:"📋",area:"Administración",color:"#3FB984",items:[
+              {Icon:ClipboardList,area:"Administración",color:"#3FB984",items:[
                 "Contratos generados desde plantilla al rellenar un formulario",
                 "Recordatorios de renovación con 30/15/7 días de antelación",
                 "Facturas de proveedores procesadas y categorizadas sin entrada manual",
                 "Informes semanales generados y enviados automáticamente",
               ]},
-              {icon:"📢",area:"Marketing y contenido",color:"#E86F6F",items:[
+              {Icon:Megaphone,area:"Marketing y contenido",color:"#E86F6F",items:[
                 "Publicación en múltiples portales desde una única fuente de datos",
                 "Respuestas automáticas fuera de horario con contexto real del negocio",
                 "Informes de rendimiento de campañas sin abrir dashboards manualmente",
@@ -142,7 +142,7 @@ export default function AutomatizacionProcesos() {
             ].map((c,i) => (
               <motion.div key={i} variants={fadeUp} className="rounded-2xl p-6" style={{background:"#0D0E1F",border:`1px solid ${c.color}20`}}>
                 <div className="flex items-center gap-3 mb-4">
-                  <span className="text-2xl">{c.icon}</span>
+                  <c.Icon size={20} strokeWidth={1.5} style={{color:c.color,flexShrink:0}} />
                   <h3 className="font-semibold text-white">{c.area}</h3>
                   <div className="ml-auto w-2 h-2 rounded-full" style={{background:c.color}} />
                 </div>
@@ -178,14 +178,14 @@ export default function AutomatizacionProcesos() {
           </motion.div>
           <motion.div initial="hidden" whileInView="visible" viewport={{once:true}} variants={stagger} className="flex flex-col gap-3">
             {[
-              {n:"01",icon:"🔍",title:"Diagnóstico de procesos",time:"4–6 semanas",desc:"Primero mapeamos qué se hace a mano, cuánto cuesta en tiempo real y dónde está el ROI. Sin diagnóstico, automatizar es disparar a ciegas."},
-              {n:"02",icon:"🗺️",title:"Diseño de flujos",time:"1–2 semanas",desc:"Mapeamos cada automatización como flujo de trabajo antes de construir nada. Incluye escenarios de error, dependencias y dónde necesita validación humana."},
-              {n:"03",icon:"⚡",title:"Implementación y pruebas",time:"2–4 semanas",desc:"Construcción en N8N o Make. Pruebas en paralelo con los procesos actuales. Formación básica al equipo que lo va a usar. Nada se sube a producción sin test."},
-              {n:"04",icon:"📊",title:"Monitorización y ajuste",time:"4 semanas",desc:"Las primeras semanas son críticas. Monitorizamos que los flujos funcionan en producción real y ajustamos lo necesario. Incluido en el precio de implementación."},
+              {n:"01",Icon:Search,title:"Diagnóstico de procesos",time:"4–6 semanas",desc:"Primero mapeamos qué se hace a mano, cuánto cuesta en tiempo real y dónde está el ROI. Sin diagnóstico, automatizar es disparar a ciegas."},
+              {n:"02",Icon:Map,title:"Diseño de flujos",time:"1–2 semanas",desc:"Mapeamos cada automatización como flujo de trabajo antes de construir nada. Incluye escenarios de error, dependencias y dónde necesita validación humana."},
+              {n:"03",Icon:Zap,title:"Implementación y pruebas",time:"2–4 semanas",desc:"Construcción en N8N o Make. Pruebas en paralelo con los procesos actuales. Formación básica al equipo que lo va a usar. Nada se sube a producción sin test."},
+              {n:"04",Icon:BarChart3,title:"Monitorización y ajuste",time:"4 semanas",desc:"Las primeras semanas son críticas. Monitorizamos que los flujos funcionan en producción real y ajustamos lo necesario. Incluido en el precio de implementación."},
             ].map((s,i) => (
               <motion.div key={i} variants={fadeUp} className="rounded-xl p-5 flex gap-5 items-start" style={{background:"#0D0E1F",border:"1px solid rgba(255,255,255,0.07)"}}>
                 <div className="w-11 h-11 rounded-xl grid place-items-center flex-shrink-0" style={{background:"rgba(232,162,79,0.1)",border:"1px solid rgba(232,162,79,0.25)"}}>
-                  <span className="text-lg">{s.icon}</span>
+                  <s.Icon size={18} strokeWidth={1.5} color="#E8A24F" />
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between gap-4 mb-1.5">

@@ -22,6 +22,11 @@ import {
   Shield,
   Map,
   PackageCheck,
+  ClipboardList,
+  Megaphone,
+  Settings,
+  BarChart3,
+  Bell,
 } from "lucide-react";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
@@ -848,15 +853,15 @@ export default function LandingPage() {
                     </div>
                   </div>
                   {[
-                    { icon: "📢", label: "01 · Auditorías", active: true },
-                    { icon: "⚡", label: "02 · Mapa IA", active: false },
-                    { icon: "🔒", label: "03 · Seguridad", active: false },
-                    { icon: "🗺️", label: "04 · Roadmap", active: false },
-                    { icon: "📋", label: "Resumen ejecutivo", active: false },
+                    { Icon: Search,       label: "01 · Auditorías",    active: true },
+                    { Icon: Zap,          label: "02 · Mapa IA",       active: false },
+                    { Icon: Shield,       label: "03 · Seguridad",     active: false },
+                    { Icon: Map,          label: "04 · Roadmap",       active: false },
+                    { Icon: ClipboardList,label: "Resumen ejecutivo",  active: false },
                   ].map((item) => (
                     <div key={item.label} className="flex items-center gap-2 mx-2 px-2 py-1.5 rounded text-xs"
                       style={{ background: item.active ? "rgba(91,98,244,0.15)" : "transparent", color: item.active ? "rgba(255,255,255,0.85)" : "rgba(255,255,255,0.4)" }}>
-                      <span>{item.icon}</span>
+                      <item.Icon size={11} strokeWidth={2} />
                       <span>{item.label}</span>
                     </div>
                   ))}
@@ -893,10 +898,10 @@ export default function LandingPage() {
                       <span className="text-right">URGENCIA</span>
                     </div>
                     {[
-                      ["📢 Marketing", "#3FB984", "Alto", "#E86F6F", "Alta"],
-                      ["💼 Ventas", "#3FB984", "Alto", "#E8A24F", "Media"],
-                      ["⚙️ Operaciones", "#E8A24F", "Medio", "#E86F6F", "Alta"],
-                      ["🚚 Fulfillment", "#E8A24F", "Medio", "#E8A24F", "Media"],
+                      ["Marketing", "#3FB984", "Alto", "#E86F6F", "Alta"],
+                      ["Ventas", "#3FB984", "Alto", "#E8A24F", "Media"],
+                      ["Operaciones", "#E8A24F", "Medio", "#E86F6F", "Alta"],
+                      ["Fulfillment", "#E8A24F", "Medio", "#E8A24F", "Media"],
                     ].map(([area, ic, impact, uc, urgency]) => (
                       <div key={area as string} className="grid grid-cols-3 px-3 py-2.5 items-center border-t" style={{ borderColor: "rgba(255,255,255,0.05)" }}>
                         <span className="text-xs" style={{ color: "rgba(255,255,255,0.7)" }}>{area}</span>
@@ -932,14 +937,16 @@ export default function LandingPage() {
             {/* 4 deliverables grid */}
             <div className="grid grid-cols-2 gap-4">
               {[
-                { icon: "📢", title: "Auditorías de Área", desc: "Marketing, Ventas, Operaciones y Delivery con hallazgos concretos.", color: "#E8A24F" },
-                { icon: "⚡", title: "Mapa de Automatización", desc: "Cada oportunidad con impacto €, dificultad y urgencia.", color: "#818CF8" },
-                { icon: "🔒", title: "Estudio de Seguridad", desc: "Riesgos identificados, probabilidad y plan de mitigación.", color: "#E86F6F" },
-                { icon: "🗺️", title: "Roadmap Técnico", desc: "Fases, herramientas y estimación de recursos. Ejecutable.", color: "#3FB984" },
+                { Icon: Megaphone,    title: "Auditorías de Área", desc: "Marketing, Ventas, Operaciones y Delivery con hallazgos concretos.", color: "#E8A24F" },
+                { Icon: Zap,         title: "Mapa de Automatización", desc: "Cada oportunidad con impacto €, dificultad y urgencia.", color: "#818CF8" },
+                { Icon: Shield,      title: "Estudio de Seguridad", desc: "Riesgos identificados, probabilidad y plan de mitigación.", color: "#E86F6F" },
+                { Icon: Map,         title: "Roadmap Técnico", desc: "Fases, herramientas y estimación de recursos. Ejecutable.", color: "#3FB984" },
               ].map((d, i) => (
                 <motion.div key={i} variants={fadeInUp} className="rounded-xl p-5"
                   style={{ background: "#0D0E1F", border: "1px solid rgba(255,255,255,0.07)" }}>
-                  <div className="text-2xl mb-3">{d.icon}</div>
+                  <div className="mb-3 w-8 h-8 rounded-lg grid place-items-center" style={{ background: `${d.color}15`, border: `1px solid ${d.color}30` }}>
+                    <d.Icon size={16} strokeWidth={1.5} style={{ color: d.color }} />
+                  </div>
                   <div className="font-semibold text-white text-sm mb-1.5">{d.title}</div>
                   <p className="text-xs" style={{ color: "rgba(255,255,255,0.4)", lineHeight: 1.6 }}>{d.desc}</p>
                 </motion.div>
@@ -1115,13 +1122,15 @@ export default function LandingPage() {
           {/* Features grid */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
             {[
-              { icon: "📊", title: "Dashboard en tiempo real", desc: "KPIs, pipeline y actividad actualizados al instante" },
-              { icon: "🗂️", title: "Pipeline Kanban", desc: "Arrastra deals entre etapas con drag & drop" },
-              { icon: "🔍", title: "Diagnósticos completos", desc: "4 áreas auditadas con respuestas y prioridad" },
-              { icon: "🔔", title: "Notificaciones automáticas", desc: "Email inmediato a todo el equipo cuando llega un lead" },
+              { Icon: BarChart3, title: "Dashboard en tiempo real", desc: "KPIs, pipeline y actividad actualizados al instante" },
+              { Icon: Map,      title: "Pipeline Kanban", desc: "Arrastra deals entre etapas con drag & drop" },
+              { Icon: Search,   title: "Diagnósticos completos", desc: "4 áreas auditadas con respuestas y prioridad" },
+              { Icon: Bell,     title: "Notificaciones automáticas", desc: "Email inmediato a todo el equipo cuando llega un lead" },
             ].map((f) => (
               <div key={f.title} className="p-4 rounded-xl" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.07)" }}>
-                <div className="text-2xl mb-3">{f.icon}</div>
+                <div className="mb-3 w-8 h-8 rounded-lg grid place-items-center" style={{ background: "rgba(91,98,244,0.12)", border: "1px solid rgba(91,98,244,0.2)" }}>
+                  <f.Icon size={15} strokeWidth={1.5} color="#818CF8" />
+                </div>
                 <div className="font-semibold text-white text-sm mb-1">{f.title}</div>
                 <div className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.45)" }}>{f.desc}</div>
               </div>

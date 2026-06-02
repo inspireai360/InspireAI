@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { ArrowRight, Check } from "lucide-react";
+import { ArrowRight, Check, BarChart3, Kanban, Search, Bell, Users, Link2 } from "lucide-react";
 import { motion } from "framer-motion";
 import LandingNav from "@/components/LandingNav";
 
@@ -106,15 +106,17 @@ export default function CRMPersonalizado() {
           </motion.div>
           <motion.div initial="hidden" whileInView="visible" viewport={{once:true}} variants={stagger} className="grid md:grid-cols-2 gap-5">
             {[
-              {icon:"📊",title:"Dashboard en tiempo real",desc:"KPIs de tu negocio actualizados al instante: revenue, deals activos, close rate, ticket medio. Las métricas que decides que importan, no las que vienen por defecto.",color:"#818CF8"},
-              {icon:"🗂️",title:"Pipeline Kanban personalizado",desc:"Las etapas de tu proceso de ventas, con tu terminología. Arrastra deals entre fases con drag & drop. Las columnas las defines tú.",color:"#4F6FE8"},
-              {icon:"🔍",title:"Diagnósticos de clientes",desc:"Si ofreces auditorías o servicios de diagnóstico, el CRM gestiona el estado de cada área, guarda cuestionarios y vincula el entregable.",color:"#3FA7A0"},
-              {icon:"🔔",title:"Notificaciones automáticas",desc:"Cuando llega un lead desde tu web o un cliente completa un cuestionario, os llega un email al momento a todo el equipo. Sin revisar el CRM manualmente.",color:"#E8A24F"},
-              {icon:"👥",title:"Multi-usuario para el equipo",desc:"Cada persona tiene su propio acceso. El sistema muestra quién es responsable de cada contacto y oportunidad.",color:"#818CF8"},
-              {icon:"🔗",title:"Conectado a tu web",desc:"El formulario de tu web crea automáticamente el lead en el CRM. Los cuestionarios guardan las respuestas directamente. Sin pasos manuales.",color:"#3FB984"},
+              {Icon:BarChart3,title:"Dashboard en tiempo real",desc:"KPIs de tu negocio actualizados al instante: revenue, deals activos, close rate, ticket medio. Las métricas que decides que importan, no las que vienen por defecto.",color:"#818CF8"},
+              {Icon:Kanban,title:"Pipeline Kanban personalizado",desc:"Las etapas de tu proceso de ventas, con tu terminología. Arrastra deals entre fases con drag & drop. Las columnas las defines tú.",color:"#4F6FE8"},
+              {Icon:Search,title:"Diagnósticos de clientes",desc:"Si ofreces auditorías o servicios de diagnóstico, el CRM gestiona el estado de cada área, guarda cuestionarios y vincula el entregable.",color:"#3FA7A0"},
+              {Icon:Bell,title:"Notificaciones automáticas",desc:"Cuando llega un lead desde tu web o un cliente completa un cuestionario, os llega un email al momento a todo el equipo. Sin revisar el CRM manualmente.",color:"#E8A24F"},
+              {Icon:Users,title:"Multi-usuario para el equipo",desc:"Cada persona tiene su propio acceso. El sistema muestra quién es responsable de cada contacto y oportunidad.",color:"#818CF8"},
+              {Icon:Link2,title:"Conectado a tu web",desc:"El formulario de tu web crea automáticamente el lead en el CRM. Los cuestionarios guardan las respuestas directamente. Sin pasos manuales.",color:"#3FB984"},
             ].map((c,i) => (
               <motion.div key={i} variants={fadeUp} className="rounded-2xl p-6 flex gap-4" style={{background:"#0D0E1F",border:`1px solid ${c.color}20`}}>
-                <div className="text-2xl flex-shrink-0">{c.icon}</div>
+                <div className="w-9 h-9 rounded-xl grid place-items-center flex-shrink-0" style={{background:`${c.color}15`,border:`1px solid ${c.color}30`}}>
+                  <c.Icon size={17} strokeWidth={1.5} style={{color:c.color}} />
+                </div>
                 <div>
                   <h3 className="font-semibold text-white mb-2 text-sm">{c.title}</h3>
                   <p className="text-sm leading-relaxed" style={{color:"rgba(255,255,255,0.5)"}}>{c.desc}</p>
