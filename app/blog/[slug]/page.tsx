@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { notFound } from "next/navigation";
 import { POSTS } from "@/lib/blog-posts";
@@ -34,6 +35,7 @@ export default function BlogPostPage({ params }: Props) {
     "@context": "https://schema.org", "@type": "Article",
     headline: post.title, description: post.metaDescription,
     datePublished: post.date, dateModified: post.date,
+    image: post.image,
     author: { "@type": "Organization", name: "InspireAI", url: "https://inspireai.es" },
     publisher: { "@type": "Organization", name: "InspireAI",
       logo: { "@type": "ImageObject", url: "https://inspireai.es/logo.png" } },
@@ -41,9 +43,22 @@ export default function BlogPostPage({ params }: Props) {
     keywords: post.keywords.join(", "),
   };
 
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "InspireAI", item: "https://inspireai.es" },
+      { "@type": "ListItem", position: 2, name: "Blog", item: "https://inspireai.es/blog" },
+      { "@type": "ListItem", position: 3, name: post.title },
+    ],
+  };
+
+  const relatedPosts = POSTS.filter(p => p.slug !== post.slug).slice(0, 2);
+
   return (
     <div className="min-h-screen bg-dark text-white">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       {/* Nav — píldora flotante */}
       <nav className="fixed top-0 left-0 right-0 z-50 px-4 pt-4">
         <div className="mx-auto max-w-4xl rounded-2xl px-5 py-3 flex items-center justify-between"
@@ -89,9 +104,9 @@ export default function BlogPostPage({ params }: Props) {
 
           {/* Imagen hero del artículo */}
           {post.image && (
-            <div className="rounded-2xl overflow-hidden mb-12" style={{ height:"360px" }}>
-              <img src={post.image} alt={post.imageAlt ?? post.title}
-                className="w-full h-full object-cover" />
+            <div className="rounded-2xl overflow-hidden mb-12 relative" style={{ height:"360px" }}>
+              <Image src={post.image} alt={post.imageAlt ?? post.title}
+                fill className="object-cover" sizes="(max-width: 768px) 100vw, 768px" priority />
             </div>
           )}
           <div className="prose-inspirai" dangerouslySetInnerHTML={{ __html: post.content || "" }} />
@@ -111,7 +126,38 @@ export default function BlogPostPage({ params }: Props) {
               </div>
             </div>
           )}
-          <div className="mt-12 pt-8 border-t flex items-center justify-between" style={{ borderColor:"rgba(255,255,255,0.07)" }}>
+          {/* Artículos relacionados */}
+          {relatedPosts.length > 0 && (
+            <div className="mt-14 pt-10 border-t" style={{ borderColor:"rgba(255,255,255,0.07)" }}>
+              <h3 className="text-sm font-semibold uppercase tracking-widest mb-6" style={{ color:"rgba(255,255,255,0.3)", letterSpacing:"0.1em" }}>
+                También te puede interesar
+              </h3>
+              <div className="grid sm:grid-cols-2 gap-4">
+                {relatedPosts.map(related => (
+                  <Link key={related.slug} href={`/blog/${related.slug}`}
+                    className="group rounded-xl overflow-hidden block"
+                    style={{ background:"#0D0E1F", border:"1px solid rgba(255,255,255,0.07)" }}>
+                    {related.image && (
+                      <div className="relative" style={{ height:"140px" }}>
+                        <Image src={related.image} alt={related.imageAlt ?? related.title}
+                          fill className="object-cover transition-transform duration-300 group-hover:scale-105"
+                          sizes="(max-width: 640px) 100vw, 360px" />
+                        <div className="absolute inset-0" style={{ background:"linear-gradient(to top, rgba(13,14,31,0.7) 0%, transparent 60%)" }} />
+                      </div>
+                    )}
+                    <div className="p-4">
+                      <span className="text-xs mb-2 block" style={{ color:"#818CF8" }}>{related.category}</span>
+                      <p className="text-sm font-semibold text-white group-hover:text-[#818CF8] transition-colors leading-snug">
+                        {related.title}
+                      </p>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
+
+          <div className="mt-10 pt-8 border-t flex items-center justify-between" style={{ borderColor:"rgba(255,255,255,0.07)" }}>
             <Link href="/blog" className="inline-flex items-center gap-2 text-sm hover:text-white transition-colors" style={{ color:"rgba(255,255,255,0.4)" }}>
               <ArrowLeft className="w-4 h-4" /> Todos los artículos
             </Link>

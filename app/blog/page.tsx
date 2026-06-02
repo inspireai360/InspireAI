@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight, ArrowLeft } from "lucide-react";
 import { POSTS } from "@/lib/blog-posts";
 
@@ -86,8 +87,9 @@ export default function BlogPage() {
                   style={{ background:"#0D0E1F", border:"1px solid rgba(255,255,255,0.07)" }}>
                   {featured.image && (
                     <div className="relative w-full overflow-hidden" style={{ height:"320px" }}>
-                      <img src={featured.image} alt={featured.imageAlt ?? featured.title}
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                      <Image src={featured.image} alt={featured.imageAlt ?? featured.title}
+                        fill className="object-cover transition-transform duration-500 group-hover:scale-105"
+                        sizes="(max-width: 768px) 100vw, 960px" priority />
                       <div className="absolute inset-0" style={{ background:"linear-gradient(to top, rgba(13,14,31,0.9) 0%, rgba(13,14,31,0.3) 50%, transparent 100%)" }} />
                       <div className="absolute bottom-5 left-6">
                         <span className="text-xs px-2.5 py-1 rounded-full" style={{ background:"rgba(91,98,244,0.9)", color:"#fff" }}>{featured.category}</span>
@@ -122,8 +124,9 @@ export default function BlogPage() {
                       style={{ background:"#0D0E1F", border:"1px solid rgba(255,255,255,0.07)" }}>
                       {post.image && (
                         <div className="relative w-full overflow-hidden" style={{ height:"200px" }}>
-                          <img src={post.image} alt={post.imageAlt ?? post.title}
-                            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                          <Image src={post.image} alt={post.imageAlt ?? post.title}
+                            fill className="object-cover transition-transform duration-500 group-hover:scale-105"
+                            sizes="(max-width: 768px) 100vw, 480px" />
                           <div className="absolute inset-0" style={{ background:"linear-gradient(to top, rgba(13,14,31,0.8) 0%, transparent 60%)" }} />
                           <div className="absolute bottom-4 left-5">
                             <span className="text-xs px-2.5 py-1 rounded-full" style={{ background:"rgba(91,98,244,0.9)", color:"#fff" }}>{post.category}</span>

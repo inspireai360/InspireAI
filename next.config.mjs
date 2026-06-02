@@ -2,6 +2,11 @@
 const isDev = process.env.NODE_ENV === "development";
 
 const nextConfig = {
+  images: {
+    remotePatterns: [
+      { protocol: "https", hostname: "images.unsplash.com" },
+    ],
+  },
   async headers() {
     return [
       {
