@@ -17,6 +17,11 @@ import {
   Check,
   Menu,
   X,
+  Search,
+  Zap,
+  Shield,
+  Map,
+  PackageCheck,
 } from "lucide-react";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
@@ -735,25 +740,24 @@ export default function LandingPage() {
             <div className="hidden md:block absolute top-[52px] left-[10%] right-[10%] h-px" style={{ background: "linear-gradient(90deg, transparent, rgba(91,98,244,0.4), rgba(91,98,244,0.4), rgba(91,98,244,0.4), transparent)" }} />
 
             {[
-              { n: "01", title: "Auditoría", desc: "4 ejes clave: operaciones, marketing, ventas y delivery.", icon: "🔍", get: "Mapa de procesos actual" },
-              { n: "02", title: "Análisis", desc: "Detección de ineficiencias y oportunidades de IA con impacto real.", icon: "⚡", get: "Top 10 quick wins" },
-              { n: "03", title: "Ciberseguridad", desc: "Vulnerabilidades en las automatizaciones propuestas.", icon: "🔒", get: "Plan de mitigación" },
-              { n: "04", title: "Arquitectura IA", desc: "Roadmap visual para escalar sin cuellos de botella.", icon: "🗺️", get: "Roadmap priorizado" },
-              { n: "05", title: "Entrega", desc: "Reunión 1:1 con el CTO + informe Notion operativo.", icon: "🎯", get: "Listo desde el día 1" },
+              { n: "01", title: "Auditoría", desc: "4 ejes clave: operaciones, marketing, ventas y delivery.", Icon: Search, get: "Mapa de procesos actual" },
+              { n: "02", title: "Análisis", desc: "Detección de ineficiencias y oportunidades de IA con impacto real.", Icon: Zap, get: "Top 10 quick wins" },
+              { n: "03", title: "Ciberseguridad", desc: "Vulnerabilidades en las automatizaciones propuestas.", Icon: Shield, get: "Plan de mitigación" },
+              { n: "04", title: "Arquitectura IA", desc: "Roadmap visual para escalar sin cuellos de botella.", Icon: Map, get: "Roadmap priorizado" },
+              { n: "05", title: "Entrega", desc: "Reunión 1:1 con el CTO + informe Notion operativo.", Icon: PackageCheck, get: "Listo desde el día 1" },
             ].map((step, i) => (
               <motion.div key={i} variants={fadeInUp} className="flex flex-col items-center text-center relative">
-                {/* Conector móvil */}
                 {i < 4 && (
                   <div className="md:hidden absolute top-[52px] left-1/2 translate-x-[20px] h-6 w-px" style={{ background: "rgba(91,98,244,0.3)" }} />
                 )}
-                {/* Número + icono */}
-                <div className="w-[52px] h-[52px] rounded-2xl grid place-items-center mb-4 relative z-10" style={{ background: "#111133", border: "1.5px solid rgba(91,98,244,0.4)", boxShadow: "0 0 20px rgba(91,98,244,0.15)" }}>
-                  <span style={{ fontSize: "1.3rem" }}>{step.icon}</span>
+                <div className="w-[52px] h-[52px] rounded-2xl grid place-items-center mb-4 relative z-10"
+                  style={{ background: "rgba(91,98,244,0.08)", border: "1px solid rgba(91,98,244,0.25)" }}>
+                  <step.Icon size={20} color="#818CF8" strokeWidth={1.5} />
                 </div>
                 <div className="text-xs font-bold mb-1.5" style={{ color: "#818CF8", letterSpacing: "0.1em" }}>{step.n}</div>
                 <div className="font-semibold text-white mb-2 text-sm">{step.title}</div>
                 <p className="text-xs mb-3" style={{ color: "rgba(255,255,255,0.4)", lineHeight: 1.65 }}>{step.desc}</p>
-                <span className="inline-block px-2.5 py-1 rounded-md text-xs" style={{ background: "rgba(91,98,244,0.1)", color: "#818CF8", border: "1px solid rgba(91,98,244,0.2)" }}>
+                <span className="inline-block px-2.5 py-1 rounded-md text-xs" style={{ background: "rgba(91,98,244,0.08)", color: "#818CF8", border: "1px solid rgba(91,98,244,0.18)" }}>
                   ✓ {step.get}
                 </span>
               </motion.div>
