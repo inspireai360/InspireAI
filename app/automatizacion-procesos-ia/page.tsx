@@ -3,7 +3,7 @@ export { default } from "./page-client";
 
 export const metadata: Metadata = {
   title: "Automatización de Procesos con IA para Empresas — InspireAI",
-  description: "Automatizamos tus procesos repetitivos con N8N, Make y Claude API sin cambiar tu software actual. Diagnóstico previo incluido.",
+  description: "Automatizamos los procesos repetitivos de tu empresa con N8N, Make y Claude API sin cambiar tu software actual. Diagnóstico previo incluido, sin permanencia.",
   alternates: { canonical: "https://inspireai.es/automatizacion-procesos-ia" },
   openGraph: {
     title: "Automatización de Procesos con IA | InspireAI",

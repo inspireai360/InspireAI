@@ -4,7 +4,7 @@ export { default } from "./page-client";
 
 export const metadata: Metadata = {
   title: "Consultoría IA para Empresas | Inspire Cyber 360 — InspireAI",
-  description: "Auditamos tus procesos e identificamos oportunidades reales de IA. Diagnóstico en 4 áreas, entregable en Notion y garantía de devolución.",
+  description: "Auditamos tus procesos e identificamos oportunidades reales de IA con impacto económico estimado. Diagnóstico en 4 áreas, entregable en Notion y garantía de devolución.",
   alternates: {
     canonical: "https://inspireai.es/consultoria-ia-empresas",
   },

@@ -47,17 +47,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     ...blogPosts,
-    {
-      url: "https://inspireai.es/politica-de-privacidad",
-      lastModified: new Date(),
-      changeFrequency: "yearly",
-      priority: 0.2,
-    },
-    {
-      url: "https://inspireai.es/aviso-legal",
-      lastModified: new Date(),
-      changeFrequency: "yearly",
-      priority: 0.2,
-    },
   ];
 }

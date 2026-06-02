@@ -30,7 +30,7 @@ const BASE_URL = "https://inspireai.es";
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
-  title: "InspireAI | Consultoría de IA y Automatización Empresarial en España",
+  title: "InspireAI | Consultoría de IA y Automatización para PYMEs",
   description: "Auditamos tus procesos con IA, detectamos ineficiencias reales y te entregamos un plan accionable en Notion. Primera consulta gratuita. Basados en España.",
   icons: {
     icon: "/favicon.ico",

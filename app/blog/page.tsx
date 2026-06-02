@@ -4,7 +4,7 @@ import { ArrowRight, ArrowLeft } from "lucide-react";
 import { POSTS } from "@/lib/blog-posts";
 
 export const metadata: Metadata = {
-  title: "Blog de IA para Empresas — Guías, casos de uso y recursos | InspireAI",
+  title: "Blog de IA para Empresas — Guías prácticas | InspireAI",
   description: "Artículos prácticos sobre IA aplicada a PYMEs españolas: automatización de procesos, consultoría IA, ciberseguridad y casos de uso reales. Sin hype, con datos.",
   alternates: { canonical: "https://inspireai.es/blog" },
   openGraph: {
