@@ -44,9 +44,12 @@ export default function BlogPostPage({ params }: Props) {
   return (
     <div className="min-h-screen bg-dark text-white">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
-      <nav className="py-4 border-b border-white/5 bg-[#08091A]/90 backdrop-blur-md sticky top-0 z-50">
-        <div className="mx-auto px-6 max-w-4xl flex items-center justify-between">
-          <Link href="/blog" className="inline-flex items-center gap-2 text-white/50 hover:text-white transition-colors text-sm">
+      {/* Nav — píldora flotante */}
+      <nav className="fixed top-0 left-0 right-0 z-50 px-4 pt-4">
+        <div className="mx-auto max-w-4xl rounded-2xl px-5 py-3 flex items-center justify-between"
+          style={{ background:"rgba(8,9,26,0.92)", backdropFilter:"blur(20px)", border:"1px solid rgba(255,255,255,0.08)", boxShadow:"0 2px 16px rgba(0,0,0,0.25)" }}>
+          <Link href="/blog" className="inline-flex items-center gap-2 text-sm font-medium transition-colors"
+            style={{ color:"rgba(255,255,255,0.85)" }}>
             <ArrowLeft className="w-4 h-4" /> Blog
           </Link>
           <Link href="/" className="flex items-center gap-2.5">
@@ -62,9 +65,10 @@ export default function BlogPostPage({ params }: Props) {
           </Link>
         </div>
       </nav>
-      <article className="py-16 md:py-24">
+
+      <article className="pt-28 pb-20">
         <div className="mx-auto px-6 max-w-3xl">
-          <header className="mb-12">
+          <header className="mb-10">
             <div className="flex items-center gap-3 mb-5">
               <span className="text-xs px-2.5 py-1 rounded-full" style={{ background:"rgba(91,98,244,0.12)", color:"#818CF8" }}>{post.category}</span>
               <span className="text-xs" style={{ color:"rgba(255,255,255,0.3)" }}>
@@ -82,6 +86,14 @@ export default function BlogPostPage({ params }: Props) {
               ))}
             </div>
           </header>
+
+          {/* Imagen hero del artículo */}
+          {post.image && (
+            <div className="rounded-2xl overflow-hidden mb-12" style={{ height:"360px" }}>
+              <img src={post.image} alt={post.imageAlt ?? post.title}
+                className="w-full h-full object-cover" />
+            </div>
+          )}
           <div className="prose-inspirai" dangerouslySetInnerHTML={{ __html: post.content || "" }} />
           {post.relatedService && (
             <div className="mt-14 rounded-2xl p-7" style={{ background:"linear-gradient(135deg,rgba(91,98,244,0.12),rgba(91,98,244,0.03))", border:"1px solid rgba(91,98,244,0.25)" }}>

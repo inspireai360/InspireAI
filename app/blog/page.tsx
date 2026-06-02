@@ -17,15 +17,17 @@ export const metadata: Metadata = {
   },
 };
 
-const CATEGORIES = ["Todos", "Automatización", "Consultoría IA", "Ciberseguridad", "Casos de uso"];
-
 export default function BlogPage() {
+  const [featured, ...rest] = POSTS;
+
   return (
     <div className="min-h-screen bg-dark text-white">
-      {/* Nav */}
-      <nav className="py-4 border-b border-white/5 bg-[#08091A]/90 backdrop-blur-md sticky top-0 z-50">
-        <div className="mx-auto px-6 max-w-6xl flex items-center justify-between">
-          <Link href="/" className="inline-flex items-center gap-2 text-white/50 hover:text-white transition-colors text-sm">
+      {/* Nav — píldora flotante */}
+      <nav className="fixed top-0 left-0 right-0 z-50 px-4 pt-4">
+        <div className="mx-auto max-w-5xl rounded-2xl px-5 py-3 flex items-center justify-between"
+          style={{ background:"rgba(8,9,26,0.92)", backdropFilter:"blur(20px)", border:"1px solid rgba(255,255,255,0.08)", boxShadow:"0 2px 16px rgba(0,0,0,0.25)" }}>
+          <Link href="/" className="inline-flex items-center gap-2 text-sm font-medium transition-colors"
+            style={{ color:"rgba(255,255,255,0.85)" }}>
             <ArrowLeft className="w-4 h-4" /> Inicio
           </Link>
           <Link href="/" className="flex items-center gap-2.5">
@@ -43,8 +45,8 @@ export default function BlogPage() {
       </nav>
 
       {/* Hero */}
-      <section className="pt-20 pb-14 md:pt-28 md:pb-20" style={{ background:"#08091A" }}>
-        <div className="mx-auto px-6 max-w-4xl">
+      <section className="pt-32 pb-12 md:pt-36 md:pb-16" style={{ background:"#08091A" }}>
+        <div className="mx-auto px-6 max-w-5xl">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-medium mb-6"
             style={{ background:"rgba(91,98,244,0.1)", color:"#818CF8", border:"1px solid rgba(91,98,244,0.25)", letterSpacing:"0.08em", textTransform:"uppercase" }}>
             Blog
@@ -54,18 +56,17 @@ export default function BlogPage() {
             IA para empresas,<br />
             <span style={{ color:"#818CF8" }}>sin promesas vacías</span>
           </h1>
-          <p style={{ color:"rgba(255,255,255,0.5)", maxWidth:"500px", lineHeight:1.7, fontSize:"1.1rem" }}>
-            Guías prácticas sobre automatización de procesos, consultoría de IA y ciberseguridad para PYMEs españolas.
+          <p style={{ color:"rgba(255,255,255,0.5)", maxWidth:"480px", lineHeight:1.7, fontSize:"1.05rem" }}>
+            Guías prácticas sobre automatización, consultoría de IA y ciberseguridad para PYMEs españolas.
           </p>
         </div>
       </section>
 
       {/* Artículos */}
-      <section className="py-14 md:py-20">
-        <div className="mx-auto px-6 max-w-4xl">
+      <section className="pb-20">
+        <div className="mx-auto px-6 max-w-5xl">
           {POSTS.length === 0 ? (
             <div className="text-center py-20">
-              <div className="text-5xl mb-6">✍️</div>
               <h2 className="font-heading font-bold text-white text-2xl mb-3">Próximamente</h2>
               <p style={{ color:"rgba(255,255,255,0.45)", maxWidth:"400px", margin:"0 auto", lineHeight:1.7 }}>
                 Los primeros artículos están en camino. Síguenos en LinkedIn para ser el primero en leerlos.
@@ -74,34 +75,88 @@ export default function BlogPage() {
                 <Link href="/#contacto" className="btn-primary inline-flex items-center gap-2">
                   Reservar llamada gratuita <ArrowRight className="w-4 h-4" />
                 </Link>
-                <Link href="/" className="btn-secondary">Ver nuestros servicios</Link>
               </div>
             </div>
           ) : (
-            <div className="grid gap-6">
-              {POSTS.map((post) => (
-                <Link key={post.slug} href={`/blog/${post.slug}`}
-                  className="group rounded-2xl p-7 flex flex-col md:flex-row gap-5 blog-card-hover">
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-3 mb-3">
-                      <span className="text-xs px-2.5 py-1 rounded-full" style={{ background:"rgba(91,98,244,0.12)", color:"#818CF8" }}>{post.category}</span>
-                      <span className="text-xs" style={{ color:"rgba(255,255,255,0.3)" }}>{post.date} · {post.readTime} min</span>
+            <div className="flex flex-col gap-6">
+              {/* Artículo destacado */}
+              {featured && (
+                <Link href={`/blog/${featured.slug}`}
+                  className="group rounded-2xl overflow-hidden block"
+                  style={{ background:"#0D0E1F", border:"1px solid rgba(255,255,255,0.07)" }}>
+                  {featured.image && (
+                    <div className="relative w-full overflow-hidden" style={{ height:"320px" }}>
+                      <img src={featured.image} alt={featured.imageAlt ?? featured.title}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                      <div className="absolute inset-0" style={{ background:"linear-gradient(to top, rgba(13,14,31,0.9) 0%, rgba(13,14,31,0.3) 50%, transparent 100%)" }} />
+                      <div className="absolute bottom-5 left-6">
+                        <span className="text-xs px-2.5 py-1 rounded-full" style={{ background:"rgba(91,98,244,0.9)", color:"#fff" }}>{featured.category}</span>
+                      </div>
                     </div>
-                    <h2 className="font-heading font-bold text-white mb-2 group-hover:text-[#818CF8] transition-colors"
-                      style={{ fontSize:"1.2rem", letterSpacing:"-0.01em" }}>{post.title}</h2>
-                    <p className="text-sm leading-relaxed" style={{ color:"rgba(255,255,255,0.5)" }}>{post.excerpt}</p>
-                  </div>
-                  <div className="flex items-center flex-shrink-0 self-center">
-                    <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" style={{ color:"rgba(255,255,255,0.3)" }} />
+                  )}
+                  <div className="p-7">
+                    <div className="flex items-center gap-3 mb-3">
+                      {!featured.image && <span className="text-xs px-2.5 py-1 rounded-full" style={{ background:"rgba(91,98,244,0.12)", color:"#818CF8" }}>{featured.category}</span>}
+                      <span className="text-xs" style={{ color:"rgba(255,255,255,0.3)" }}>
+                        {new Date(featured.date).toLocaleDateString("es-ES", { day:"numeric", month:"long", year:"numeric" })} · {featured.readTime} min
+                      </span>
+                    </div>
+                    <h2 className="font-heading font-bold text-white mb-3 group-hover:text-[#818CF8] transition-colors"
+                      style={{ fontSize:"clamp(1.2rem,2.5vw,1.6rem)", letterSpacing:"-0.02em", lineHeight:1.2 }}>
+                      {featured.title}
+                    </h2>
+                    <p className="text-sm leading-relaxed mb-4" style={{ color:"rgba(255,255,255,0.5)", maxWidth:"640px" }}>{featured.excerpt}</p>
+                    <span className="inline-flex items-center gap-2 text-sm font-medium" style={{ color:"#818CF8" }}>
+                      Leer artículo <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                    </span>
                   </div>
                 </Link>
-              ))}
+              )}
+
+              {/* Resto de artículos */}
+              {rest.length > 0 && (
+                <div className="grid md:grid-cols-2 gap-6">
+                  {rest.map((post) => (
+                    <Link key={post.slug} href={`/blog/${post.slug}`}
+                      className="group rounded-2xl overflow-hidden block"
+                      style={{ background:"#0D0E1F", border:"1px solid rgba(255,255,255,0.07)" }}>
+                      {post.image && (
+                        <div className="relative w-full overflow-hidden" style={{ height:"200px" }}>
+                          <img src={post.image} alt={post.imageAlt ?? post.title}
+                            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                          <div className="absolute inset-0" style={{ background:"linear-gradient(to top, rgba(13,14,31,0.8) 0%, transparent 60%)" }} />
+                          <div className="absolute bottom-4 left-5">
+                            <span className="text-xs px-2.5 py-1 rounded-full" style={{ background:"rgba(91,98,244,0.9)", color:"#fff" }}>{post.category}</span>
+                          </div>
+                        </div>
+                      )}
+                      <div className="p-6">
+                        <div className="flex items-center gap-3 mb-3">
+                          {!post.image && <span className="text-xs px-2.5 py-1 rounded-full" style={{ background:"rgba(91,98,244,0.12)", color:"#818CF8" }}>{post.category}</span>}
+                          <span className="text-xs" style={{ color:"rgba(255,255,255,0.3)" }}>
+                            {new Date(post.date).toLocaleDateString("es-ES", { day:"numeric", month:"long", year:"numeric" })} · {post.readTime} min
+                          </span>
+                        </div>
+                        <h2 className="font-heading font-bold text-white mb-2 group-hover:text-[#818CF8] transition-colors"
+                          style={{ fontSize:"1.05rem", letterSpacing:"-0.01em", lineHeight:1.3 }}>
+                          {post.title}
+                        </h2>
+                        <p className="text-sm leading-relaxed mb-4" style={{ color:"rgba(255,255,255,0.45)" }}>
+                          {post.excerpt.slice(0, 140)}…
+                        </p>
+                        <span className="inline-flex items-center gap-1.5 text-sm font-medium" style={{ color:"#818CF8" }}>
+                          Leer <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
+                        </span>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              )}
             </div>
           )}
         </div>
       </section>
 
-      {/* Footer simple */}
       <div className="py-10 border-t text-center text-xs" style={{ borderColor:"rgba(255,255,255,0.06)", color:"rgba(255,255,255,0.25)" }}>
         <Link href="/" style={{ color:"rgba(255,255,255,0.35)" }}>← Volver a inspireai.es</Link>
       </div>

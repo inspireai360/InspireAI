@@ -11,4 +11,6 @@ export interface BlogPost {
   keywords: string[]
   relatedService?: string
   relatedServiceUrl?: string
+  image?: string
+  imageAlt?: string
 }
