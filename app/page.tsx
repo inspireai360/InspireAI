@@ -644,99 +644,69 @@ export default function LandingPage() {
         <div className="mx-auto px-6 max-w-6xl">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={fadeInUp} className="mb-12 md:mb-16">
             <h2 className="font-heading font-bold text-white mb-4" style={{ fontSize: "clamp(1.75rem, 5vw, 3rem)", letterSpacing: "-0.02em", lineHeight: 1.15, maxWidth: "700px" }}>
-              ¿Reconoces alguno de estos problemas?
+              Lo que pasa en tu empresa<br />cada semana.
             </h2>
-            <p style={{ color: "rgba(255,255,255,0.5)", maxWidth: "520px", lineHeight: 1.7 }}>
-              Las ineficiencias invisibles que frenan tu rentabilidad cada día.
+            <p style={{ color: "rgba(255,255,255,0.45)", maxWidth: "480px", lineHeight: 1.7 }}>
+              No son problemas de estrategia. Son fricciones del día a día que acaban costando dinero real.
             </p>
           </motion.div>
 
-          {/* Bento grid — fila 1 */}
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.1 }} variants={stagger}
-            className="grid gap-4" style={{ gridTemplateColumns: "repeat(12,1fr)" }}>
+            className="grid grid-cols-1 md:grid-cols-3 gap-5">
 
-            {/* GRANDE — Escenario tiempo (col 8) */}
-            <motion.div variants={fadeInUp} className="col-span-12 md:col-span-8 rounded-2xl p-7"
-              style={{ background: "#0D0E1F", border: "1px solid rgba(232,162,79,0.22)" }}>
-              <div className="flex items-center justify-between mb-5">
-                <div className="flex items-center gap-2.5">
-                  <div className="w-9 h-9 rounded-xl grid place-items-center" style={{ background: "rgba(232,162,79,0.12)", border: "1px solid rgba(232,162,79,0.3)" }}>
-                    <Clock style={{ width: "17px", height: "17px", color: "#E8A24F" }} />
-                  </div>
-                  <span className="text-xs font-semibold uppercase tracking-widest" style={{ color: "rgba(232,162,79,0.8)", letterSpacing: "0.1em" }}>Tiempo perdido</span>
-                </div>
-                <span className="text-4xl font-bold" style={{ color: "#E8A24F", letterSpacing: "-0.04em" }}>−3.2h</span>
-              </div>
-              <p className="text-base leading-relaxed mb-5" style={{ color: "rgba(255,255,255,0.65)", maxWidth: "520px" }}>
-                Son las 9 de la mañana del lunes. Tu equipo lleva 40 minutos revisando WhatsApps del fin de semana, pasando pedidos a Excel y respondiendo consultas que ya respondió el viernes.{" "}
-                <span style={{ color: "white", fontWeight: 600 }}>La semana no ha empezado y ya van tarde.</span>
-              </p>
-              {/* Mini visual — herramientas desconectadas */}
-              <div className="flex flex-wrap gap-2">
-                {["WhatsApp", "Excel", "Email", "ERP", "Drive"].map((tool, i) => (
-                  <span key={tool} className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium"
-                    style={{ background: "rgba(232,162,79,0.08)", border: "1px solid rgba(232,162,79,0.18)", color: "rgba(255,255,255,0.5)" }}>
-                    <span style={{ width: 6, height: 6, borderRadius: "50%", background: i < 2 ? "#E8A24F" : "rgba(255,255,255,0.2)", display: "inline-block" }} />
-                    {tool}
-                  </span>
-                ))}
-                <span className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium"
-                  style={{ background: "rgba(232,162,79,0.04)", border: "1px dashed rgba(232,162,79,0.2)", color: "rgba(255,255,255,0.25)" }}>
-                  Sin conectar entre sí
-                </span>
-              </div>
-            </motion.div>
-
-            {/* PEQUEÑO — Stat 73% (col 4) */}
-            <motion.div variants={fadeInUp} className="col-span-12 md:col-span-4 rounded-2xl p-7 flex flex-col justify-between"
-              style={{ background: "linear-gradient(135deg, #0D0E24 0%, #0F1030 100%)", border: "1px solid rgba(91,98,244,0.25)" }}>
+            {/* Card 1 */}
+            <motion.div variants={fadeInUp} className="rounded-2xl p-8 flex flex-col justify-between"
+              style={{ background: "#0D0E1F", border: "1px solid rgba(255,255,255,0.07)", minHeight: 320 }}>
               <div>
-                <div className="text-7xl font-bold leading-none mb-3" style={{ color: "#818CF8", letterSpacing: "-0.05em" }}>73%</div>
-                <p className="text-sm font-medium text-white mb-2">de los directivos</p>
-                <p className="text-sm" style={{ color: "rgba(255,255,255,0.45)", lineHeight: 1.65 }}>
-                  admite que su equipo pierde más de 3h al día en tareas que ya podrían hacerse solas.
+                <div className="text-xs font-semibold tracking-widest uppercase mb-6" style={{ color: "rgba(255,255,255,0.25)" }}>
+                  Lunes · 9:02am
+                </div>
+                <p className="text-[1.05rem] leading-relaxed mb-6" style={{ color: "rgba(255,255,255,0.7)", lineHeight: 1.75 }}>
+                  Tu equipo lleva 40 minutos respondiendo mensajes del fin de semana y copiando datos de un sitio a otro.{" "}
+                  <span style={{ color: "white", fontWeight: 600 }}>La semana no ha empezado y ya van tarde.</span>
                 </p>
               </div>
-              <p className="text-xs mt-4" style={{ color: "rgba(255,255,255,0.22)" }}>McKinsey Global Institute, 2024</p>
+              <div className="pt-5" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+                <div className="text-2xl font-bold mb-1" style={{ color: "#E8A24F", letterSpacing: "-0.03em" }}>−3.5h / semana</div>
+                <div className="text-xs" style={{ color: "rgba(255,255,255,0.3)" }}>por persona, solo para ponerse al día</div>
+              </div>
             </motion.div>
 
-            {/* MEDIO — Error humano (col 6) */}
-            <motion.div variants={fadeInUp} className="col-span-12 md:col-span-6 rounded-2xl p-7"
-              style={{ background: "#0D0E1F", border: "1px solid rgba(232,111,111,0.22)" }}>
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center gap-2.5">
-                  <div className="w-9 h-9 rounded-xl grid place-items-center" style={{ background: "rgba(232,111,111,0.12)", border: "1px solid rgba(232,111,111,0.3)" }}>
-                    <ShieldAlert style={{ width: "17px", height: "17px", color: "#E86F6F" }} />
-                  </div>
-                  <span className="text-xs font-semibold uppercase tracking-widest" style={{ color: "rgba(232,111,111,0.8)", letterSpacing: "0.1em" }}>Error humano</span>
+            {/* Card 2 */}
+            <motion.div variants={fadeInUp} className="rounded-2xl p-8 flex flex-col justify-between"
+              style={{ background: "#0D0E1F", border: "1px solid rgba(255,255,255,0.07)", minHeight: 320 }}>
+              <div>
+                <div className="text-xs font-semibold tracking-widest uppercase mb-6" style={{ color: "rgba(255,255,255,0.25)" }}>
+                  Miércoles · 4:15pm
                 </div>
-                <span className="text-3xl font-bold" style={{ color: "#E86F6F", letterSpacing: "-0.04em" }}>1 de 3</span>
+                <p className="text-[1.05rem] leading-relaxed mb-6" style={{ color: "rgba(255,255,255,0.7)", lineHeight: 1.75 }}>
+                  Un cliente escribe. Nadie lo ve a tiempo. Al día siguiente intentas retomar —{" "}
+                  <span style={{ color: "white", fontWeight: 600 }}>pero ya ha encontrado otra opción.</span>{" "}
+                  No perdiste la venta hoy. La perdiste ayer a las 4:15.
+                </p>
               </div>
-              <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.6)", lineHeight: 1.75 }}>
-                El cliente llama furioso. Tu equipo revisa WhatsApp, luego el Excel, luego el email.{" "}
-                <span style={{ color: "white", fontWeight: 600 }}>Nadie sabe quién copió mal el dato.</span>{" "}
-                El cliente ya no llama para pedir — llama para quejarse.
-              </p>
-              <p className="text-xs mt-4" style={{ color: "rgba(232,111,111,0.5)" }}>1 de cada 3 errores en procesos manuales es evitable.</p>
+              <div className="pt-5" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+                <div className="text-2xl font-bold mb-1" style={{ color: "#E86F6F", letterSpacing: "-0.03em" }}>Sin respuesta en &lt;1h</div>
+                <div className="text-xs" style={{ color: "rgba(255,255,255,0.3)" }}>la probabilidad de cerrar cae un 80%</div>
+              </div>
             </motion.div>
 
-            {/* MEDIO — Riesgo digital (col 6) */}
-            <motion.div variants={fadeInUp} className="col-span-12 md:col-span-6 rounded-2xl p-7"
-              style={{ background: "#0D0E1F", border: "1px solid rgba(129,140,248,0.22)" }}>
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center gap-2.5">
-                  <div className="w-9 h-9 rounded-xl grid place-items-center" style={{ background: "rgba(129,140,248,0.12)", border: "1px solid rgba(129,140,248,0.3)" }}>
-                    <AlertTriangle style={{ width: "17px", height: "17px", color: "#818CF8" }} />
-                  </div>
-                  <span className="text-xs font-semibold uppercase tracking-widest" style={{ color: "rgba(129,140,248,0.8)", letterSpacing: "0.1em" }}>Riesgo digital</span>
+            {/* Card 3 */}
+            <motion.div variants={fadeInUp} className="rounded-2xl p-8 flex flex-col justify-between"
+              style={{ background: "#0D0E1F", border: "1px solid rgba(255,255,255,0.07)", minHeight: 320 }}>
+              <div>
+                <div className="text-xs font-semibold tracking-widest uppercase mb-6" style={{ color: "rgba(255,255,255,0.25)" }}>
+                  Cualquier día
                 </div>
-                <span className="text-3xl font-bold" style={{ color: "#818CF8", letterSpacing: "-0.04em" }}>60%</span>
+                <p className="text-[1.05rem] leading-relaxed mb-6" style={{ color: "rgba(255,255,255,0.7)", lineHeight: 1.75 }}>
+                  Conectáis herramientas, añadís integraciones, automatizáis cosas. Pero nadie ha revisado qué datos tocan ni qué permisos tienen.{" "}
+                  <span style={{ color: "white", fontWeight: 600 }}>La brecha no se anuncia. Aparece.</span>
+                </p>
               </div>
-              <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.6)", lineHeight: 1.75 }}>
-                Conectáis herramientas sin revisar permisos. Los datos de vuestros clientes pasan por APIs que nadie ha auditado.{" "}
-                <span style={{ color: "white", fontWeight: 600 }}>No sabéis qué acceso tiene cada integración — hasta que alguien lo descubre por vosotros.</span>
-              </p>
-              <p className="text-xs mt-4" style={{ color: "rgba(129,140,248,0.5)" }}>El 60% de las brechas en pymes vienen de integraciones mal configuradas.</p>
+              <div className="pt-5" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+                <div className="text-2xl font-bold mb-1" style={{ color: "#818CF8", letterSpacing: "-0.03em" }}>60% de las brechas</div>
+                <div className="text-xs" style={{ color: "rgba(255,255,255,0.3)" }}>en PYMEs vienen de integraciones mal configuradas</div>
+              </div>
             </motion.div>
 
           </motion.div>
